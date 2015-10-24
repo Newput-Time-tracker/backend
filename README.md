@@ -14,5 +14,9 @@ $ git clone https://github.com/heroku/java-getting-started.git
 2. Create Apache server to run the app.
 3. Run it locally.
 
-## Deployed:
+## Development:
+1. Create a branch which relates to the issue.
+2. Always create a Pull Request(PR) against develop branch.
+
+## Dev server:
 http://time-tracker-backend-app.herokuapp.com/
