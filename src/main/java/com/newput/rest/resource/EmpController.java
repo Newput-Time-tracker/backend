@@ -90,7 +90,6 @@ public class EmpController {
 			jsonResService.errorResponse(new TrackerException("Email id already registered").getMessage());
 		}
 		return jsonResService.responseSender();
-
 	}
 
 	@Path("/verify")
@@ -200,8 +199,12 @@ public class EmpController {
 				if (util.validCheck(monthName, year)) {
 					file = excelTimeSheet.createExcelSheet(Integer.parseInt(emp_id), monthName, year);
 					String[] parts = file.getPath().split("tempfile");
-					String part1 = parts[0]; 
+					String part1 = parts[0];
 					File newFile = new File(part1+"time_sheet.xls");
+					if(newFile.exists()){
+						newFile.delete();
+						newFile = new File(part1+"time_sheet.xls");
+					}
 					file.renameTo(newFile);
 					response = Response.ok((Object) newFile);
 					response.header("Content-Disposition", "attachment; filename=time-sheet.xls");
@@ -209,7 +212,7 @@ public class EmpController {
 						file.delete();
 					}
 				}
-			} 
+			}
 		}
 		return response.build();
 	}
@@ -317,7 +320,6 @@ public class EmpController {
 			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
 		}
 		return jsonResService.responseSender();
-
 	}
 
 	@Path("/signOut")

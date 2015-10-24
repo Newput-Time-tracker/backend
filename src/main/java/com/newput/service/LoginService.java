@@ -86,10 +86,10 @@ public class LoginService {
 		return true;
 	}
 
-	public boolean loginSessionFilter(String token) {
+	public boolean loginSessionFilter(String token, int emp_id) {
 		int i = 0;
 		SessionExample sessionExample = new SessionExample();
-		sessionExample.createCriteria().andTokenEqualTo(token);
+		sessionExample.createCriteria().andTokenEqualTo(token).andEmpIdEqualTo(emp_id);
 		List<Session> sessionList = sessionMapper.selectByExample(sessionExample);
 		if (sessionList.isEmpty()) {
 			jsonResService.errorResponse("token not found");
