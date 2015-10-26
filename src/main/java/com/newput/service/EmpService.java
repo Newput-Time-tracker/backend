@@ -40,6 +40,10 @@ public class EmpService {
 	private Employee emp;
 	ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 
+	/**
+	 * Description : Use to add new user object into the database.
+	 * @param employee
+	 */
 	@ExceptionHandler({ TrackerException.class })
 	public void addUser(Employee employee) {
 		objArray.clear();
@@ -87,6 +91,10 @@ public class EmpService {
 		}
 	}
 
+	/**
+	 * Description : Use to verify the mail id of new registered user.
+	 * @param employee
+	 */
 	public void mailVerify(Employee employee) {
 		objArray.clear();
 		EmployeeExample example = new EmployeeExample();
@@ -107,6 +115,12 @@ public class EmpService {
 		}
 	}
 
+	/**
+	 * Description : Use to set the flag and expire time to reset the password of user.
+	 * @param email
+	 * @param Token
+	 * @param flag
+	 */
 	public void resetPassword(String email, String Token, String flag) {
 		objArray.clear();
 		int i = 0;
@@ -146,6 +160,10 @@ public class EmpService {
 		}
 	}
 
+	/**
+	 * Description : Use to reset the existing password of the registered user.
+	 * @param employee
+	 */
 	public void pwdVerify(Employee employee) {
 		objArray.clear();
 		EmployeeExample example = new EmployeeExample();

@@ -20,6 +20,12 @@ import com.newput.mapper.TimeSheetMapper;
 import com.newput.utility.JsonResService;
 import com.newput.utility.ReqParseService;
 
+/**
+ * Description : To create and update time sheet values in database.
+ * 
+ * @author Newput
+ *
+ */
 @Service
 public class TSchedualService {
 
@@ -43,6 +49,18 @@ public class TSchedualService {
 
 	HashMap<String, String> map = new HashMap<>();
 
+	/**
+	 * Description : Set the value of time sheet in setter to update in db.
+	 * 
+	 * @param lunchIn
+	 * @param in
+	 * @param out
+	 * @param workDate
+	 * @param lunchOut
+	 * @param nightIn
+	 * @param nightOut
+	 * @param emp_id
+	 */
 	public void timeSheetValue(String lunchIn, String in, String out, String workDate, String lunchOut, String nightIn,
 			String nightOut, int emp_id) {
 		map.put("workDate", workDate);
@@ -68,6 +86,11 @@ public class TSchedualService {
 		}
 	}
 
+	/**
+	 * Description : Update and insert the time sheet value in database.
+	 * 
+	 * @param timeSheet
+	 */
 	public void saveTimeSheet(TimeSheet timeSheet) {
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 		boolean status = false;
@@ -98,17 +121,21 @@ public class TSchedualService {
 		}
 		if (status) {
 			// return json object;
-			//System.out.println("fail to insert or update");
+			// System.out.println("fail to insert or update");
 			jsonResService.errorResponse("fail to insert or update");
 		} else {
-			//System.out.println("successfully insert or update");
-			//jsonResService.setData(jsonResService.createTimeSheetJson(map));
+			// System.out.println("successfully insert or update");
+			// jsonResService.setData(jsonResService.createTimeSheetJson(map));
 			objArray.add(jsonResService.createTimeSheetJson(map));
 			jsonResService.setData(objArray);
 			jsonResService.successResponse();
 		}
 	}
 
+	
+	/**
+	 * Description : Update and insert the work description of user day task.
+	 */
 	public void dateSheetValue() {
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 		map.put("workDesc", dateSheet.getWorkDesc());
@@ -152,5 +179,5 @@ public class TSchedualService {
 
 	public void clearMap() {
 		map.clear();
-	}	
+	}
 }
