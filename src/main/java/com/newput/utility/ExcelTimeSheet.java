@@ -32,6 +32,11 @@ import com.newput.mapper.DateSheetMapper;
 import com.newput.mapper.EmployeeMapper;
 import com.newput.mapper.TimeSheetMapper;
 
+/**
+ * Description : To generate the time sheet and json response.
+ * @author Newput
+ *
+ */
 @Service
 public class ExcelTimeSheet {
 
@@ -53,6 +58,15 @@ public class ExcelTimeSheet {
 	@Autowired
 	Employee employee;
 
+	/**
+	 * Description :Create the structure of the time sheet.
+	 * @param emp_id
+	 * @param monthName
+	 * @param year
+	 * {@link createSheetStructure}
+	 * {@link getTimeSheetData}
+	 * @return
+	 */
 	public File createExcelSheet(int emp_id, String monthName, String year) {
 
 		File temp = null;
@@ -86,6 +100,14 @@ public class ExcelTimeSheet {
 		return temp;
 	}
 
+	/**
+	 * Description : To create the number of rows in time sheet.
+	 * @param dateSheet
+	 * @param sheet
+	 * @param map
+	 * @param totalHours
+	 * @param workbook
+	 */
 	public void insertRow(DateSheet dateSheet, HSSFSheet sheet, HashMap<String, Long> map, String totalHours,
 			Workbook workbook) {
 		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 4;
@@ -128,6 +150,15 @@ public class ExcelTimeSheet {
 		aRow.createCell(8).setCellValue(dateSheet.getWorkDesc());
 	}
 
+	/**
+	 * Description : To insert the time sheet value in the excel.
+	 * @param sheet
+	 * @param emp_id
+	 * @param minDate
+	 * @param maxDate
+	 * @param module
+	 * @param workbook
+	 */
 	public void getTimeSheetData(HSSFSheet sheet, int emp_id, Long minDate, Long maxDate, String module,
 			Workbook workbook) {
 		HashMap<String, Long> map = new HashMap<String, Long>();
@@ -188,6 +219,12 @@ public class ExcelTimeSheet {
 		}
 	}
 
+	/**
+	 * Description : To add Style format in the excel sheet.
+	 * @param sheet
+	 * @param workbook
+	 * @param empMap
+	 */
 	public void createSheetStructure(HSSFSheet sheet, HSSFWorkbook workbook, HashMap<String, String> empMap) {
 
 		// create style for header cells
@@ -258,6 +295,12 @@ public class ExcelTimeSheet {
 		}
 	}
 
+	
+	/**
+	 * Description : To calculate the to working hours of the user.
+	 * @param map
+	 * @return
+	 */
 	public String calculateTotalHours(HashMap<String, Long> map) {
 		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 		TimeZone timezone = TimeZone.getTimeZone("UTC");

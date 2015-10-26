@@ -15,12 +15,23 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.openjpa.lib.util.Base16Encoder;
 import org.springframework.stereotype.Service;
 
+
+/**
+ *  * @author Newput
+ *
+ */
 @Service
 public class TTUtil {
 
 	private static final String CHAR_LIST = "1234567890";
 	private static final int RANDOM_STRING_LENGTH = 4;
 
+	/**
+	 * Description : To create session token for the user.
+	 * @param id
+	 * @param email
+	 * @return
+	 */
 	public String createSessionKey(Long id, String email) {
 		try {
 			return Base16Encoder.encode(MessageDigest.getInstance("MD5")
@@ -33,6 +44,11 @@ public class TTUtil {
 
 	}
 
+	/**
+	 * Description : Use to encrypt password of a user.
+	 * @param str
+	 * @return
+	 */
 	public String md5(String str) {
 		if (str != null && !str.equalsIgnoreCase("")) {
 			MessageDigest messageDigest = null;
@@ -57,6 +73,11 @@ public class TTUtil {
 		}
 	}
 
+	/**
+	 * Description : To check the mail format.
+	 * @param email
+	 * @return
+	 */
 	public boolean mailFormat(String email) {
 		Boolean valid = false;
 		String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -64,6 +85,11 @@ public class TTUtil {
 		return valid;
 	}
 
+	/**
+	 * Description : To check the valid contact number.
+	 * @param contact
+	 * @return
+	 */
 	public String getIntNum(String contact) {
 		if (contact.startsWith("+"))
 			contact = contact.substring(1);
@@ -80,6 +106,11 @@ public class TTUtil {
 		}
 	}
 
+	/**
+	 * Description : Pasrse epoch time to HH:MM format.
+	 * @param timeValue
+	 * @return e.g. "09:30"
+	 */
 	public String timeHrs(Long timeValue) {
 		try {
 			Calendar calendar = Calendar.getInstance();
@@ -133,6 +164,12 @@ public class TTUtil {
 		}
 	}
 
+	/**
+	 * Description : To get the min and max date of the requested month.
+	 * @param monthName
+	 * @param year
+	 * @return
+	 */
 	public HashMap<String, Long> getMonthlyDate(String monthName, String year) {
 		HashMap<String, Long> map = new HashMap<String, Long>();
 		int reqYear = 0;
@@ -168,6 +205,13 @@ public class TTUtil {
 		return map;
 	}
 
+	/**
+	 * Description : Use to convert the HH:MM format into time epoch.
+	 * @param workDate
+	 * @param time
+	 * @return
+	 * @throws ParseException
+	 */
 	public Long timeMiliSec(String workDate, String time) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = sdf.parse(workDate);
@@ -182,6 +226,11 @@ public class TTUtil {
 		return calender.getTimeInMillis();
 	}
 
+	/**
+	 * Description : To parse date according to the excel sheet format.
+	 * @param workDate
+	 * @return
+	 */
 	public int getExcelSheetDate(Long workDate) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		String dateString = formatter.format(workDate);
@@ -200,6 +249,12 @@ public class TTUtil {
 	// validCheck("nov", "2015");
 	// }
 
+	/**
+	 * Description : Validate the date of dob and doj.
+	 * @param date
+	 * @param flag
+	 * @return
+	 */
 	public boolean dateValidation(Date date, String flag) {
 		try {
 			Long minDate = 0L;
@@ -228,6 +283,12 @@ public class TTUtil {
 		}
 	}
 
+	/**
+	 * Description : Validation on the date insertion for the time sheet.
+	 * @param month
+	 * @param year
+	 * @return
+	 */
 	public boolean validCheck(String month, String year) {
 		// Long startDate = 1446316199000L;
 		Long startDate = 1443637800000L; // 01-10-2015

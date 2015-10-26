@@ -19,6 +19,12 @@ import com.newput.mapper.SessionMapper;
 import com.newput.utility.JsonResService;
 import com.newput.utility.TTUtil;
 
+/**
+ * Description : Methods regarding managing session of a user.
+ * 
+ * @author Newput
+ *
+ */
 @Service
 public class LoginService {
 
@@ -41,6 +47,12 @@ public class LoginService {
 		return System.currentTimeMillis() / 1000;
 	}
 
+	/**
+	 * Description : To create and update the session for new and existing user.
+	 * 
+	 * @param employee
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public boolean createSession(Employee employee) {
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
@@ -103,6 +115,13 @@ public class LoginService {
 		return true;
 	}
 
+	/**
+	 * Description : Use to verify the token of the user.
+	 * 
+	 * @param token
+	 * @param emp_id
+	 * @return
+	 */
 	public boolean loginSessionFilter(String token, int emp_id) {
 		int i = 0;
 		SessionExample sessionExample = new SessionExample();
@@ -135,6 +154,11 @@ public class LoginService {
 		}
 	}
 
+	/**
+	 * Description : To expire the session token of user on sign out.
+	 * 
+	 * @param emp_id
+	 */
 	public void signOut(int emp_id) {
 		int i = 0;
 		SessionExample sessionExample = new SessionExample();

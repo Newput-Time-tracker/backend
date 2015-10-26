@@ -12,6 +12,13 @@ import com.newput.domain.Employee;
 import com.newput.domain.Session;
 import com.newput.domain.TimeSheet;
 
+/**
+ * 
+ * @author Newput
+ * Description:
+ * Class is use to set values of object in setter beans with respective methods.
+ *
+ */
 @Service
 public class ReqParseService {
 
