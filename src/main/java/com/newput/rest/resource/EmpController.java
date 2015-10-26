@@ -68,9 +68,32 @@ public class EmpController {
 	private ExcelTimeSheet excelTimeSheet;
 
 	/**
+	 * Required url to redirect :
+	 * http://time-tracker-backend-app.herokuapp.com/Tracker/rest/employee/
+	 * register
+	 * 
 	 * @throws TrackerException
 	 * @POST Description : Use to add new user into the system and send the
 	 *       validation email to the registered mail id {@link EMailSender}
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param dob
+	 * @param doj
+	 * @param address
+	 * @param contact
+	 * @param gender
+	 * @param password
+	 * @return JSONObject Success Response : { response: { data: [1] 0: {
+	 *         firstName: "abc" lastName: "xyz" address: "indore" gender: "m"
+	 *         dob: 580780800000 contact: "0123456789" id: 1 email:
+	 *         "abc.xyz@gmail.com" doj: 1442188800000 }- - success: true rcode:
+	 *         null error: null }- }
+	 * 
+	 *         Fail Response :{ response: { data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "Email id already registered"
+	 *         }- }
+	 * 
 	 */
 	@Path("/register")
 	@POST
@@ -91,6 +114,31 @@ public class EmpController {
 		}
 		return jsonResService.responseSender();
 	}
+
+	/**
+	 * Required url to redirect :
+	 * http://time-tracker-backend-app.herokuapp.com/Tracker/rest/employee/
+	 * verify
+	 * 
+	 * @POST
+	 * 		<p>
+	 *       Description : Use to verify the register email of user with respect
+	 *       to the generated token provided into the jsp link at the mail id of
+	 *       user.
+	 * @param emailId
+	 * @param token
+	 * @return
+	 * 		<p>
+	 *         success response: { response: { data: [1] 0: { firstName: "abc"
+	 *         lastName: "xyz" address: "indore" gender: "m" dob: 612124200000
+	 *         contact: "0123456789" id: 2 email: "abc@newput.com" doj:
+	 *         1432492200000 }- - success: true rcode: null error: null }- }
+	 * 
+	 *         <p>
+	 *         Fail Response :{ response: { data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "Email id already registered"
+	 *         }- }
+	 */
 
 	@Path("/verify")
 	@POST
@@ -113,6 +161,33 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @ Required url to redirect :
+	 * http://time-tracker-backend-app.herokuapp.com/Tracker/rest/employee/
+	 * verify
+	 * 
+	 * @POST
+	 * 		<p>
+	 *       Description : Use to login and creating the session for existing
+	 *       user
+	 * @param email
+	 * @param password
+	 * 
+	 * @return Success Response : { response: { data: [2] 0: { firstName: "abc"
+	 *         lastName: "xyz" address: "indore" gender: "f" dob: 59266531800000
+	 *         contact: "8871786146" id: 1 email: "xyz@newput.com" doj:
+	 *         1439317800000 }- 1: { token: "ACBDE3A9C9956DD10BD3A5BC6C4DF017"
+	 *         }- - success: true rcode: null error: null }- }
+	 *         <p>
+	 *         here token is the session token.
+	 * 
+	 *         Fail Response :{ response: { data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "invalid user" }- }
+	 * 
+	 *         <p>
+	 *         it get failed when either user is not registered or either email
+	 *         id or password is wrong.
+	 */
 	@Path("/login")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -134,6 +209,38 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @ Required url to redirect :
+	 * http://time-tracker-backend-app.herokuapp.com/Tracker/rest/employee
+	 * /timeEntry
+	 * 
+	 * @POST
+	 * 		<p>
+	 *       Description : To enter or update the time value in time sheet.
+	 * @param lunchIn
+	 * @param in
+	 * @param out
+	 * @param workdate
+	 * @param lunchOut
+	 * @param nightIn
+	 * @param nightOut
+	 * @param workDesc
+	 * @param emp_id
+	 * @return
+	 * 		<p>
+	 *         Success Response : { response: { data: [1] 0: { workDate:
+	 *         "10-10-2015" lunchOut: null nightOut: "23:00" in: "9:00" lunchIn:
+	 *         null nightIn: "21:00" workDesc: "my new entry" out: "19:00" }- -
+	 *         success: true rcode: null error: null }- }
+	 *         <p>
+	 *         When user enter or update time sheet value successfully.
+	 * 
+	 *         <p>
+	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
+	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         <p>
+	 *         In case of invalid use or empId
+	 */
 	@Path("/timeEntry")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -167,6 +274,32 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee /forgotPwd
+	 * @POST
+	 * 		<p>
+	 *       Description : To reset password for existing user. We send email to
+	 *       registered mail id to set the new password.
+	 * @param email
+	 * @return
+	 * 		<p>
+	 *         Success Response : { response: { data: [1] 0: { firstName: "abc"
+	 *         lastName: "xyz" address: "indore" gender: "m" dob: 580780800000
+	 *         contact: "0123456789" id: 2 email: "abc@newput.com" doj:
+	 *         1442188800000 }- - success: true rcode: null error: null }- }
+	 *         <p>
+	 *         When user enter the registered mail id it send the mail to the
+	 *         specified email id.
+	 * 
+	 *         <p>
+	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
+	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         <p>
+	 *         In case of invalid use or mail id.
+	 * 
+	 */
 	@Path("/forgotPwd")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -187,6 +320,22 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/excelExport
+	 * @POST
+	 * 		<p>
+	 *       Description : To download the monthly excel sheet from UI.
+	 * @param emp_id
+	 * @param monthName
+	 * @param year
+	 * @return
+	 * 		<p>
+	 *         Success Response : Pop generated to download the excel sheet.
+	 *         <p>
+	 *         Fail Response : No Response
+	 */
 	@Path("/excelExport")
 	@POST
 	@Produces("application/vnd.ms-excel")
@@ -200,10 +349,10 @@ public class EmpController {
 					file = excelTimeSheet.createExcelSheet(Integer.parseInt(emp_id), monthName, year);
 					String[] parts = file.getPath().split("tempfile");
 					String part1 = parts[0];
-					File newFile = new File(part1+"time_sheet.xls");
-					if(newFile.exists()){
+					File newFile = new File(part1 + "time_sheet.xls");
+					if (newFile.exists()) {
 						newFile.delete();
-						newFile = new File(part1+"time_sheet.xls");
+						newFile = new File(part1 + "time_sheet.xls");
 					}
 					file.renameTo(newFile);
 					response = Response.ok((Object) newFile);
@@ -217,6 +366,33 @@ public class EmpController {
 		return response.build();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/pwdVerify
+	 * @POST
+	 * 		<p>
+	 *       Description : To set the new password through redirecting the url
+	 *       send to the email.
+	 * @param empId
+	 * @param pToken
+	 * @param newPwd
+	 * @return
+	 * 		<p>
+	 *         Success Response : { response: { data: [1] 0: { firstName: "abc"
+	 *         lastName: "xyz" address: "indore" gender: "m" dob: 580780800000
+	 *         contact: "0123456789" id: 2 email: "abc@newput.com" doj:
+	 *         1442188800000 }- - success: true rcode: null error: null }- }
+	 *         <p>
+	 *         When user enter the registered mail id it send the mail to the
+	 *         specified email id.
+	 * 
+	 *         <p>
+	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
+	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         <p>
+	 *         In case of invalid use or mail id or token.
+	 */
 	@Path("/pwdVerify")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -244,6 +420,41 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/monthlyExcel
+	 * @POST
+	 * 		<p>
+	 *       Description : To provide Json object of time sheet to UI respose.
+	 * @param monthName
+	 * @param emp_id
+	 * @param year
+	 * @return
+	 * 		<p>
+	 *         Success Response : { response: { data: [3] 0: { workDate:
+	 *         "01-10-2015" lunchOut: "07:00" nightOut: "16:10" in: "03:30"
+	 *         totalHour: "10:15" lunchIn: "06:25" nightIn: "15:15" workDesc:
+	 *         "this is my 2 day" out: "13:25" }- 1: { workDate: "03-10-2015"
+	 *         lunchOut: "06:30" nightOut: "16:15" in: "03:30" totalHour:
+	 *         "10:00" lunchIn: "06:00" nightIn: "15:15" workDesc:
+	 *         "this is my 4 day" out: "13:00" }- 2: { workDate: "05-10-2015"
+	 *         lunchOut: "07:00" nightOut: "16:10" in: "03:30" totalHour:
+	 *         "10:15" lunchIn: "06:25" nightIn: "15:15" workDesc:
+	 *         "this is my 6 day" out: "13:25" }- 3: { workDate: "07-10-2015"
+	 *         lunchOut: "06:15" nightOut: "16:10" in: "03:30" totalHour:
+	 *         "10:20" lunchIn: "05:50" nightIn: "15:10" workDesc:
+	 *         "this is my 8 day" out: "13:15" }- }- }
+	 *         <p>
+	 *         When user enter the registered mail id it send the mail to the
+	 *         specified email id.
+	 * 
+	 *         <p>
+	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
+	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         <p>
+	 *         In case of invalid use or mail id or token.
+	 */
 	@Path("/monthlyExcel")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -269,6 +480,28 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/mailExcelSheet
+	 * @POST
+	 * 		<p>
+	 *       Description : To mail excel sheet on the registered mail id.
+	 * @param emp_id
+	 * @param monthName
+	 * @param year
+	 * @return
+	 * 		<p>
+	 *         Success Response :{ response: { data: [1] 0: { msg:
+	 *         "Your time sheet succefully send to your registered mail id." }-
+	 *         - success: true rcode: null error: null }- }
+	 * 
+	 *         <p>
+	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
+	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         <p>
+	 *         In case of invalid use or mail id or token.
+	 */
 	@Path("/mailExcelSheet")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -298,6 +531,25 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/resend
+	 * @POST
+	 * 		<p>
+	 *       Description : To resent the verification mail on the registered
+	 *       mail id of user for registration and password.
+	 * @param email
+	 * @param flag
+	 * @return
+	 * 		<p>
+	 *         Success Response :{ response: { data: [1] 0: { msg:
+	 *         "Your time sheet succefully send to your registered mail id." }-
+	 *         - success: true rcode: null error: null }- }
+	 * 
+	 *         Fail Response ; { response: { data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "Internal Server Error " }- }
+	 */
 	@Path("/resend")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -322,6 +574,16 @@ public class EmpController {
 		return jsonResService.responseSender();
 	}
 
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/signOut
+	 * @POST
+	 * 		<p>
+	 *       Description : To logout from the API.
+	 * @param emp_id
+	 * @return
+	 */
 	@Path("/signOut")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)

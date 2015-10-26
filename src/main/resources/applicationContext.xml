@@ -17,12 +17,13 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_3e9cfc2d3e6f620" />
+		<property name="url"
+			value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_3e9cfc2d3e6f620" />
 		<property name="username" value="bdd04b20a167e4" />
 		<property name="password" value="9a3df0ad" />
-		<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" />
-		<property name="username" value="root" />
-		<property name="password" value="root" /> -->
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" 
+			/> <property name="username" value="root" /> <property name="password" value="root" 
+			/> -->
 	</bean>
 
 	<bean id="transactionManager"
@@ -45,7 +46,7 @@
 		<property name="username" value="deepti@newput.com" />
 		<property name="password" value="712august2015" />
 
-	<property name="javaMailProperties">
+		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
