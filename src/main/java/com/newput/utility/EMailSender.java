@@ -34,6 +34,10 @@ public class EMailSender {
 	@Autowired
 	private JsonResService jsonResService;
 
+	/**
+	 * Description : Use to send the verification mail to the user for registration and password reset.
+	 * @param module
+	 */
 	public void sendMail(String module) {
 
 		SimpleMailMessage email = new SimpleMailMessage();
@@ -49,6 +53,12 @@ public class EMailSender {
 		mailSender.send(email);
 	}
 
+	
+	/**
+	 * Description : Use to send the time sheet on the registered mail id.
+	 * @param email
+	 * @param file
+	 */
 	public void sendExcelSheet(String email, File file) {
 		MimeMessage message = mailSender.createMimeMessage();
 		if (email != null && !email.equalsIgnoreCase("")) {
@@ -69,6 +79,10 @@ public class EMailSender {
 		}
 	}
 
+	/**
+	 * Description : Use to send the reminder notification to user to fill the time sheet.
+	 * @param emp
+	 */
 	public void notificationMail(Employee emp) {
 
 		SimpleMailMessage email = new SimpleMailMessage();

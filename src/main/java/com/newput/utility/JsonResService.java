@@ -68,7 +68,7 @@ public class JsonResService {
 	// }
 
 	/**
-	 * Description : Create a Json to send into the response of UI
+	 * Description : Create a Json object of user to send as a response to UI.
 	 * 
 	 * @return JSONObject
 	 */
@@ -87,6 +87,11 @@ public class JsonResService {
 		return obj;
 	}
 
+	/**
+	 *  Description : Create a Json object of time sheet to send as a response to UI.
+	 * @param map
+	 * @return JSONObject
+	 */ 
 	@SuppressWarnings("unchecked")
 	public JSONObject createTimeSheetJson(HashMap<String, String> map) {
 		JSONObject obj = new JSONObject();
@@ -101,6 +106,14 @@ public class JsonResService {
 		return obj;
 	}
 
+/**
+ *  Description : Create a Json object of time sheet to send as a response to UI.
+ * @param map
+ * @param totalHour
+ * @param workDesc
+ * @param workDate
+ * @return JSONObject
+ */
 	@SuppressWarnings("unchecked")
 	public JSONObject getTimeSheetJson(HashMap<String, Long> map, String totalHour, String workDesc, Long workDate) {
 		JSONObject obj = new JSONObject();

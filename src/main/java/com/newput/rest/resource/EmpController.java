@@ -139,7 +139,6 @@ public class EmpController {
 	 *         success: false rcode: "505" error: "Email id already registered"
 	 *         }- }
 	 */
-
 	@Path("/verify")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
