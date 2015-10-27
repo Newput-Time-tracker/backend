@@ -15,6 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+/**
+ * To manage session request of user.
+ * @author Newput
+ *
+ */
 @Service
 public class SessionFilter implements Filter {
 	

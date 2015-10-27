@@ -15,6 +15,11 @@ import com.newput.utility.EMailSender;
 import com.newput.utility.ExcelTimeSheet;
 import com.newput.utility.JsonResService;
 
+/**
+ * Description : Use to schedule the Cron jobs.
+ * @author Newput
+ *
+ */
 public class CronService {
 
 	@Autowired
@@ -35,6 +40,9 @@ public class CronService {
 	@Autowired
 	private EMailSender emailSend;
 
+	/**
+	 * Description : Schedule the Cron jobs for daily notification.
+	 */
 	public void dailyNotification() {
 
 		List<Employee> list = new ArrayList<Employee>();
@@ -50,6 +58,9 @@ public class CronService {
 		}
 	}
 
+	/**
+	 * Description : Schedule the Cron jobs for mail sending.
+	 */
 	public void emailSendJob() {
 
 		Calendar cal = Calendar.getInstance();

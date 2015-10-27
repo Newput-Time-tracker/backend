@@ -116,10 +116,10 @@ public class LoginService {
 	}
 
 	/**
-	 * Description : Use to verify the token of the user.
+	 * Description : Use to verify the login or session token of the user.
 	 * 
-	 * @param token
-	 * @param emp_id
+	 * @param token - DBCE502E6669710A1E73CE7352DCC599
+	 * @param emp_id - 1
 	 * @return
 	 */
 	public boolean loginSessionFilter(String token, int emp_id) {
@@ -157,7 +157,7 @@ public class LoginService {
 	/**
 	 * Description : To expire the session token of user on sign out.
 	 * 
-	 * @param emp_id
+	 * @param emp_id - 1
 	 */
 	public void signOut(int emp_id) {
 		int i = 0;
