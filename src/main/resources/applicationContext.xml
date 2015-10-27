@@ -24,9 +24,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_a540dae71714038" />
-		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] 
-			}" />
+			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() + @dbUrl.getPath() }" />		
+		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
 			}" />
 		<!-- <property name="username" value="bdd04b20a167e4" /> <property name="password" 
