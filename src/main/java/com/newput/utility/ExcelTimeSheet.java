@@ -233,6 +233,8 @@ public class ExcelTimeSheet {
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		style.setFont(font);
+		CreationHelper createHelper = workbook.getCreationHelper();
+		style.setDataFormat(createHelper.createDataFormat().getFormat("[h]:mm"));
 
 		HSSFRow aRow1 = sheet.createRow(0);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
@@ -253,8 +255,7 @@ public class ExcelTimeSheet {
 		HSSFRow aRow4 = sheet.createRow(37);
 		sheet.addMergedRegion(new CellRangeAddress(37, 37, 1, 6));
 		aRow4.createCell(1).setCellValue("TOTAL HOURS");
-		aRow4.getCell(1).setCellStyle(style);
-		aRow4.createCell(7).setCellFormula("SUM(H6:H36)*24");
+		aRow4.createCell(7).setCellFormula("SUM(H6:H36)");
 		aRow4.getCell(7).setCellStyle(style);
 
 		// create header row
