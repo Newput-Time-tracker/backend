@@ -52,14 +52,14 @@ public class TSchedualService {
 	/**
 	 * Description : Set the value of time sheet in setter to update in db.
 	 * 
-	 * @param lunchIn
-	 * @param in
-	 * @param out
-	 * @param workDate
-	 * @param lunchOut
-	 * @param nightIn
-	 * @param nightOut
-	 * @param emp_id
+	 * @param lunchIn - 12:00
+	 * @param in - 09:00
+	 * @param out - 19:00
+	 * @param workDate - 20-10-2015
+	 * @param lunchOut - 12:30
+	 * @param nightIn - 22:00
+	 * @param nightOut - 23:00
+	 * @param emp_id -1
 	 */
 	public void timeSheetValue(String lunchIn, String in, String out, String workDate, String lunchOut, String nightIn,
 			String nightOut, int emp_id) {
@@ -89,7 +89,7 @@ public class TSchedualService {
 	/**
 	 * Description : Update and insert the time sheet value in database.
 	 * 
-	 * @param timeSheet
+	 * @param timeSheet - An object
 	 */
 	public void saveTimeSheet(TimeSheet timeSheet) {
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();

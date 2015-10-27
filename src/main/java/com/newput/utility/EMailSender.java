@@ -36,7 +36,7 @@ public class EMailSender {
 
 	/**
 	 * Description : Use to send the verification mail to the user for registration and password reset.
-	 * @param module
+	 * @param module - password or registration
 	 */
 	public void sendMail(String module) {
 
@@ -56,8 +56,8 @@ public class EMailSender {
 	
 	/**
 	 * Description : Use to send the time sheet on the registered mail id.
-	 * @param email
-	 * @param file
+	 * @param email - abc.xyz@newput.com
+	 * @param file - excelFile
 	 */
 	public void sendExcelSheet(String email, File file) {
 		MimeMessage message = mailSender.createMimeMessage();
@@ -81,7 +81,7 @@ public class EMailSender {
 
 	/**
 	 * Description : Use to send the reminder notification to user to fill the time sheet.
-	 * @param emp
+	 * @param emp - An Object
 	 */
 	public void notificationMail(Employee emp) {
 

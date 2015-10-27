@@ -60,9 +60,9 @@ public class ExcelTimeSheet {
 
 	/**
 	 * Description :Create the structure of the time sheet.
-	 * @param emp_id
-	 * @param monthName
-	 * @param year
+	 * @param emp_id -1 
+	 * @param monthName - October or oct
+	 * @param year - 2015
 	 * {@link createSheetStructure}
 	 * {@link getTimeSheetData}
 	 * @return
@@ -152,12 +152,12 @@ public class ExcelTimeSheet {
 
 	/**
 	 * Description : To insert the time sheet value in the excel.
-	 * @param sheet
-	 * @param emp_id
-	 * @param minDate
-	 * @param maxDate
-	 * @param module
-	 * @param workbook
+	 * @param sheet - Object
+	 * @param emp_id - 1
+	 * @param minDate - 1444933800000
+	 * @param maxDate -1444933800000
+	 * @param module - excelExport
+	 * @param workbook - Object
 	 */
 	public void getTimeSheetData(HSSFSheet sheet, int emp_id, Long minDate, Long maxDate, String module,
 			Workbook workbook) {

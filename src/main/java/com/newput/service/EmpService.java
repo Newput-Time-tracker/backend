@@ -42,7 +42,7 @@ public class EmpService {
 
 	/**
 	 * Description : Use to add new user object into the database.
-	 * @param employee
+	 * @param employee - An object of employee
 	 */
 	@ExceptionHandler({ TrackerException.class })
 	public void addUser(Employee employee) {
@@ -117,9 +117,9 @@ public class EmpService {
 
 	/**
 	 * Description : Use to set the flag and expire time to reset the password of user.
-	 * @param email
-	 * @param Token
-	 * @param flag
+	 * @param email - abc.xyz@newput.com
+	 * @param Token - 5845
+	 * @param flag - password or registration
 	 */
 	public void resetPassword(String email, String Token, String flag) {
 		objArray.clear();
@@ -162,7 +162,7 @@ public class EmpService {
 
 	/**
 	 * Description : Use to reset the existing password of the registered user.
-	 * @param employee
+	 * @param employee - an object
 	 */
 	public void pwdVerify(Employee employee) {
 		objArray.clear();

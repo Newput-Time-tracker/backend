@@ -29,7 +29,7 @@ import com.newput.utility.EMailSender;
 
 /**
  * Description : Use as a controller class to pass control on the services
- * 
+ * {@docRoot}
  * @author Newput
  * 
  */
@@ -75,15 +75,15 @@ public class EmpController {
 	 * @throws TrackerException
 	 * @POST Description : Use to add new user into the system and send the
 	 *       validation email to the registered mail id {@link EMailSender}
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param dob
-	 * @param doj
-	 * @param address
-	 * @param contact
-	 * @param gender
-	 * @param password
+	 * @param firstName -abc
+	 * @param lastName -xyz
+	 * @param email - abc.xyz@newput.com
+	 * @param dob - 01-01-1990
+	 * @param doj - 01-01-2008
+	 * @param address - Indore
+	 * @param contact - 1234567890
+	 * @param gender - m
+	 * @param password - anything
 	 * @return JSONObject Success Response : { response: { data: [1] 0: {
 	 *         firstName: "abc" lastName: "xyz" address: "indore" gender: "m"
 	 *         dob: 580780800000 contact: "0123456789" id: 1 email:
@@ -110,8 +110,7 @@ public class EmpController {
 				emailSend.sendMail("registration");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Email id already registered").getMessage());
-			jsonResService.errorResponse("Email id already registered : "+ex);
+			jsonResService.errorResponse(new TrackerException("Email id already registered").getMessage());
 		}
 		return jsonResService.responseSender();
 	}
@@ -126,8 +125,8 @@ public class EmpController {
 	 *       Description : Use to verify the register email of user with respect
 	 *       to the generated token provided into the jsp link at the mail id of
 	 *       user.
-	 * @param emailId
-	 * @param token
+	 * @param email - abc.xyz@newput.com
+	 * @param token - 8564
 	 * @return
 	 * 		<p>
 	 *         success response: { response: { data: [1] 0: { firstName: "abc"
@@ -156,8 +155,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
-			jsonResService.errorResponse("Internal Server Error : "+ex);
+			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
+//			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -171,8 +170,8 @@ public class EmpController {
 	 * 		<p>
 	 *       Description : Use to login and creating the session for existing
 	 *       user
-	 * @param email
-	 * @param password
+	 * @param email - abc.xyz@newput.com
+	 * @param password - anything
 	 * 
 	 * @return Success Response : { response: { data: [2] 0: { firstName: "abc"
 	 *         lastName: "xyz" address: "indore" gender: "f" dob: 59266531800000
@@ -206,8 +205,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null and in proper format");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
-			jsonResService.errorResponse("Internal Server Error : "+ex);
+			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
+//			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -220,15 +219,15 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To enter or update the time value in time sheet.
-	 * @param lunchIn
-	 * @param in
-	 * @param out
-	 * @param workdate
-	 * @param lunchOut
-	 * @param nightIn
-	 * @param nightOut
-	 * @param workDesc
-	 * @param emp_id
+	 * @param lunchIn - 12:00
+	 * @param in - 09:00
+	 * @param out - 19:00
+	 * @param workdate - 22-10-2015
+	 * @param lunchOut - 12:30
+	 * @param nightIn - 22:00
+	 * @param nightOut - 23:00
+	 * @param workDesc - My work status
+	 * @param emp_id - 1
 	 * @return
 	 * 		<p>
 	 *         Success Response : { response: { data: [1] 0: { workDate:
@@ -272,8 +271,8 @@ public class EmpController {
 				jsonResService.errorResponse("Date can not be null");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
-			jsonResService.errorResponse("Internal user Error : "+ex);
+			jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
+//			jsonResService.errorResponse("Internal user Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -286,7 +285,7 @@ public class EmpController {
 	 * 		<p>
 	 *       Description : To reset password for existing user. We send email to
 	 *       registered mail id to set the new password.
-	 * @param email
+	 * @param email - abc.xyz@newput.com
 	 * @return
 	 * 		<p>
 	 *         Success Response : { response: { data: [1] 0: { firstName: "abc"
@@ -319,8 +318,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null and in proper format");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
-			jsonResService.errorResponse("Internal Server Error : "+ex);
+			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
+//			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -332,9 +331,9 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To download the monthly excel sheet from UI.
-	 * @param emp_id
-	 * @param monthName
-	 * @param year
+	 * @param emp_id - 1
+	 * @param monthName - October or Oct
+	 * @param year - 2015
 	 * @return
 	 * 		<p>
 	 *         Success Response : Pop generated to download the excel sheet.
@@ -379,9 +378,9 @@ public class EmpController {
 	 * 		<p>
 	 *       Description : To set the new password through redirecting the url
 	 *       send to the email.
-	 * @param empId
-	 * @param pToken
-	 * @param newPwd
+	 * @param empId - 1
+	 * @param pToken - 6958
+	 * @param newPwd - changedPassword
 	 * @return
 	 * 		<p>
 	 *         Success Response : { response: { data: [1] 0: { firstName: "abc"
@@ -420,8 +419,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			jsonResService.errorResponse("Invalid user : "+ex);
+			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+//			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -433,9 +432,9 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To provide Json object of time sheet to UI respose.
-	 * @param monthName
-	 * @param emp_id
-	 * @param year
+	 * @param monthName - October or oct
+	 * @param emp_id - 1
+	 * @param year - 2015
 	 * @return
 	 * 		<p>
 	 *         Success Response : { response: { data: [3] 0: { workDate:
@@ -481,8 +480,8 @@ public class EmpController {
 				jsonResService.errorResponse("Please provide employee id to select data");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			jsonResService.errorResponse("Invalid user : "+ex);
+			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+//			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -494,9 +493,9 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To mail excel sheet on the registered mail id.
-	 * @param emp_id
-	 * @param monthName
-	 * @param year
+	 * @param emp_id - abc.xyz@newput.com
+	 * @param monthName - October or oct
+	 * @param year - 2015
 	 * @return
 	 * 		<p>
 	 *         Success Response :{ response: { data: [1] 0: { msg:
@@ -533,8 +532,8 @@ public class EmpController {
 				jsonResService.errorResponse("Please provide employee id to select data");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			jsonResService.errorResponse("Invalid user : "+ex);
+			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+//			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -547,8 +546,8 @@ public class EmpController {
 	 * 		<p>
 	 *       Description : To resent the verification mail on the registered
 	 *       mail id of user for registration and password.
-	 * @param email
-	 * @param flag
+	 * @param email - abc.xyz@newput.com
+	 * @param flag - registration or password
 	 * @return
 	 * 		<p>
 	 *         Success Response :{ response: { data: [1] 0: { msg:
@@ -577,8 +576,8 @@ public class EmpController {
 				jsonResService.errorResponse("Email id not valid");
 			}
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
-			jsonResService.errorResponse("Internal Server Error : "+ex);
+			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
+//			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -590,7 +589,7 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To logout from the API.
-	 * @param emp_id
+	 * @param emp_id - 1
 	 * @return
 	 */
 	@Path("/signOut")
@@ -600,8 +599,8 @@ public class EmpController {
 		try {
 			loginService.signOut(Integer.parseInt(emp_id));
 		} catch (Exception ex) {
-			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			jsonResService.errorResponse("Invalid user : "+ex);
+			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+//			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}

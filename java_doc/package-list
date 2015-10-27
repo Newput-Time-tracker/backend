@@ -1,1 +1,6 @@
+com.newput.domain
+com.newput.mapper
 com.newput.rest.resource
+com.newput.service
+com.newput.testCase
+com.newput.utility
