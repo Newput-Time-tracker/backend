@@ -71,7 +71,7 @@
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processDailyNotify" />
-		<property name="cronExpression" value="0 0 19 ? * MON-FRI" />
+		<property name="cronExpression" value="0 0 13 ? * MON-FRI" />
 	</bean>
 	<bean id="processDailyNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -82,7 +82,7 @@
 	<bean id="weeklyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processExcelNotify" />
-		<property name="cronExpression" value="0 0 19 ? * FRI" />
+		<property name="cronExpression" value="0 0 14 ? * FRI" />
 	</bean>
 	<bean id="processExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

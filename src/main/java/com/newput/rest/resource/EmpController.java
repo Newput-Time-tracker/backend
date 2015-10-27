@@ -110,7 +110,8 @@ public class EmpController {
 				emailSend.sendMail("registration");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Email id already registered").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Email id already registered").getMessage());
+			jsonResService.errorResponse("Email id already registered : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -155,7 +156,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
+			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -204,7 +206,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null and in proper format");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
+			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -269,7 +272,8 @@ public class EmpController {
 				jsonResService.errorResponse("Date can not be null");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
+			jsonResService.errorResponse("Internal user Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -315,7 +319,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null and in proper format");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
+			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -415,7 +420,8 @@ public class EmpController {
 				jsonResService.errorResponse("Mail id can not be null");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -475,7 +481,8 @@ public class EmpController {
 				jsonResService.errorResponse("Please provide employee id to select data");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -526,7 +533,8 @@ public class EmpController {
 				jsonResService.errorResponse("Please provide employee id to select data");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -569,7 +577,8 @@ public class EmpController {
 				jsonResService.errorResponse("Email id not valid");
 			}
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
+			jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -591,7 +600,8 @@ public class EmpController {
 		try {
 			loginService.signOut(Integer.parseInt(emp_id));
 		} catch (Exception ex) {
-			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			//jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+			jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
