@@ -88,10 +88,12 @@ public class JsonResService {
 	}
 
 	/**
-	 *  Description : Create a Json object of time sheet to send as a response to UI.
+	 * Description : Create a Json object of time sheet to send as a response to
+	 * UI.
+	 * 
 	 * @param map
 	 * @return JSONObject
-	 */ 
+	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject createTimeSheetJson(HashMap<String, String> map) {
 		JSONObject obj = new JSONObject();
@@ -106,14 +108,16 @@ public class JsonResService {
 		return obj;
 	}
 
-/**
- *  Description : Create a Json object of time sheet to send as a response to UI.
- * @param map
- * @param totalHour
- * @param workDesc
- * @param workDate
- * @return JSONObject
- */
+	/**
+	 * Description : Create a Json object of time sheet to send as a response to
+	 * UI.
+	 * 
+	 * @param map
+	 * @param totalHour
+	 * @param workDesc
+	 * @param workDate
+	 * @return JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject getTimeSheetJson(HashMap<String, Long> map, String totalHour, String workDesc, Long workDate) {
 		JSONObject obj = new JSONObject();
@@ -131,12 +135,12 @@ public class JsonResService {
 		return obj;
 	}
 
-	@SuppressWarnings("unchecked")
-	public JSONObject responseSender() {
-		JSONObject obj = new JSONObject();
-		obj.put("response", getMap());
-		return obj;
-	}
+	// @SuppressWarnings("unchecked")
+	// public JSONObject responseSender() {
+	// JSONObject obj = new JSONObject();
+	// obj.put("response", getMap());
+	// return obj;
+	// }
 
 	@SuppressWarnings("unchecked")
 	public void setDataValue(String str, String token) {
@@ -148,16 +152,25 @@ public class JsonResService {
 		}
 		objArray.add(obj);
 		setData(objArray);
-		// return obj;
 	}
 
-	public HashMap<String, Object> getMap() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("success", isSuccess());
-		map.put("data", getData());
-		map.put("rcode", getRcode());
-		map.put("error", getError());
-		return map;
+	// public HashMap<String, Object> getMap() {
+	// HashMap<String, Object> map = new HashMap<>();
+	// map.put("success", isSuccess());
+	// map.put("data", getData());
+	// map.put("rcode", getRcode());
+	// map.put("error", getError());
+	// return map;
+	// }
+
+	@SuppressWarnings("unchecked")
+	public JSONObject responseSender() {
+		JSONObject obj = new JSONObject();
+		obj.put("success", isSuccess());
+		obj.put("data", getData());
+		obj.put("rcode", getRcode());
+		obj.put("error", getError());
+		return obj;
 	}
 
 	public void errorResponse(String response) {
