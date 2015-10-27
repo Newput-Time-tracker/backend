@@ -7,7 +7,7 @@ A JAVA app to provide API’s for Time Tracker variants.
 Make sure you have Eclipse, Java(1.8) and Maven installed. Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
 
 ```sh
-$ git clone https://github.com/heroku/java-getting-started.git
+$ git clone https://github.com/Newput-Time-tracker/backend.git
 ```
 
 1. Create maven project in Eclipse from repo folder.
