@@ -4,7 +4,7 @@
     <p><a href="rest/employee/register">Add Employee</a>
     <p><a href="rest/employee/login">Login Employee</a>    
     <form action="rest/employee/excelExport" method="post">
-		<h1 align="center">Export Excel Sheet</h1>
+		<h1 align="center">Export excel sheet</h1>
 		<table border="1" align="center">
 			<tr>
 				<td>Employee Id</td>
