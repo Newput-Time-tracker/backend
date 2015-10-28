@@ -23,6 +23,7 @@ import com.newput.domain.Employee;
  *         is @Autowired with bean defined in the applicationContext.xml
  */
 @Service
+// @PropertySource("classpath:Tracker.properties")
 public class EMailSender {
 
 	@Autowired
@@ -34,30 +35,42 @@ public class EMailSender {
 	@Autowired
 	private JsonResService jsonResService;
 
-	/**
-	 * Description : Use to send the verification mail to the user for registration and password reset.
-	 * @param module - password or registration
-	 */
-	public void sendMail(String module) {
+	// @Value("${Tracker.ip}")
+	// private String defaultIp;
 
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setTo(emp.getEmail());
-		email.setSubject("Confirmation Mail");
-		if (module.equalsIgnoreCase("registration")) {
-			email.setText("Welcome, You are successfully register Please click here http://tracker/login?ET="
-					+ emp.getvToken());
-		} else if (module.equalsIgnoreCase("password")) {
-			email.setText("Welcome, Please confirm your mail id. click here http://tracker/login?PT=" + emp.getpToken()
-					+ "&id=" + emp.getId());
+	/**
+	 * Description : Use to send the verification mail to the user for
+	 * registration and password reset.
+	 * 
+	 * @param module
+	 *            - password or registration
+	 */
+	public String sendMail(String module) {
+		try {
+			SimpleMailMessage email = new SimpleMailMessage();
+			email.setTo(emp.getEmail());
+			email.setSubject("Confirmation Mail");
+			if (module.equalsIgnoreCase("registration")) {
+				email.setText("Welcome, You are successfully register Please click here" + System.getenv("WEBAPP_URL")
+						+ "/tracker/login?EM="+emp.getEmail()+"&ET=" + emp.getvToken());
+			} else if (module.equalsIgnoreCase("password")) {
+				email.setText("Welcome, Please confirm your mail id. click here" + System.getenv("WEBAPP_URL")
+						+ "/tracker/login?PT=" + emp.getpToken() + "&id=" + emp.getId());
+			}
+			mailSender.send(email);
+			return null;
+		} catch (Exception ex) {
+			return "Email id is not valid to send email.";
 		}
-		mailSender.send(email);
 	}
 
-	
 	/**
 	 * Description : Use to send the time sheet on the registered mail id.
-	 * @param email - abc.xyz@newput.com
-	 * @param file - excelFile
+	 * 
+	 * @param email
+	 *            - abc.xyz@newput.com
+	 * @param file
+	 *            - excelFile
 	 */
 	public void sendExcelSheet(String email, File file) {
 		MimeMessage message = mailSender.createMimeMessage();
@@ -80,8 +93,11 @@ public class EMailSender {
 	}
 
 	/**
-	 * Description : Use to send the reminder notification to user to fill the time sheet.
-	 * @param emp - An Object
+	 * Description : Use to send the reminder notification to user to fill the
+	 * time sheet.
+	 * 
+	 * @param emp
+	 *            - An Object
 	 */
 	public void notificationMail(Employee emp) {
 

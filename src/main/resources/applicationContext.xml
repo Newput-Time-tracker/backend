@@ -24,10 +24,13 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() + @dbUrl.getPath() }" />		
-		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
+			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() + 
+			@dbUrl.getPath() }" />
+		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] 
+			}" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
 			}" />
+
 		<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" 
 			/> <property name="username" value="root" /> <property name="password" value="root" 
 			/> -->
@@ -52,7 +55,6 @@
 		<!-- SMTP settings -->
 		<property name="username" value="deepti@newput.com" />
 		<property name="password" value="712august2015" />
-
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>
@@ -108,6 +110,4 @@
 		<property name="targetMethod" value="emailSendJob" />
 		<property name="concurrent" value="false" />
 	</bean>
-
-
 </beans>
