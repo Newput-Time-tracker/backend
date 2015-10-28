@@ -55,7 +55,6 @@
 		<!-- SMTP settings -->
 		<property name="username" value="deepti@newput.com" />
 		<property name="password" value="712august2015" />
-
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>

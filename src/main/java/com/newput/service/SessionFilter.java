@@ -17,12 +17,13 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * To manage session request of user.
+ * 
  * @author Newput
  *
  */
 @Service
 public class SessionFilter implements Filter {
-	
+
 	@Autowired
 	private LoginService loginService;
 
@@ -31,37 +32,39 @@ public class SessionFilter implements Filter {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		
-		String path = request.getRequestURI().substring(23);  
-				
-        if(path.equals("register") || path.equals("login") || path.equals("verify") || path.equals("excelExport")) {          	
-        	chain.doFilter(req, res);
-        }else{
-        	String token = request.getHeader("token");
-        	String emp_id = request.getHeader("empId");
-    		if(token == null || token.equals("") || emp_id == null || emp_id.equals("")){
-    			response.setHeader("response status", ""+false);
-    			response.setHeader("response error", ""+HttpServletResponse.SC_BAD_REQUEST);    			
-    		}else{
-    			if(loginService.loginSessionFilter(token, Integer.parseInt(emp_id))){
-    				response.setHeader("response status", ""+loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
-    				chain.doFilter(req, res);
-    			}else{
-    				response.setHeader("response status", ""+loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
-    				response.setHeader("response error", ""+HttpServletResponse.SC_UNAUTHORIZED);    				
-    			}    			
-    		}    		
-        }		
+
+		String path = request.getRequestURI().substring(23);
+
+		if (path.equals("register") || path.equals("login") || path.equals("verify") || path.equals("excelExport")) {
+			chain.doFilter(req, res);
+		} else {
+			String token = request.getHeader("token");
+			String emp_id = request.getHeader("empId");
+			if (token == null || token.equals("") || emp_id == null || emp_id.equals("")) {
+				response.setHeader("response status", "" + false);
+				response.setHeader("response error", "" + HttpServletResponse.SC_BAD_REQUEST);
+			} else {
+				if (loginService.loginSessionFilter(token, Integer.parseInt(emp_id))) {
+					response.setHeader("response status",
+							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
+					chain.doFilter(req, res);
+				} else {
+					response.setHeader("response status",
+							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
+					response.setHeader("response error", "" + HttpServletResponse.SC_UNAUTHORIZED);
+				}
+			}
+		}
 	}
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());		
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
 	}
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

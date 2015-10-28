@@ -94,15 +94,13 @@ public class EmpController {
 	 *            - m
 	 * @param password
 	 *            - anything
-	 * @return JSONObject Success Response : { response: { data: [1] 0: {
-	 *         firstName: "abc" lastName: "xyz" address: "indore" gender: "m"
-	 *         dob: 580780800000 contact: "0123456789" id: 1 email:
-	 *         "abc.xyz@gmail.com" doj: 1442188800000 }- - success: true rcode:
-	 *         null error: null }- }
+	 * @return JSONObject Success Response : { data: [1] 0: { firstName: "abc"
+	 *         lastName: "xyz" address: "indore" gender: "m" dob: 580780800000
+	 *         contact: "0123456789" id: 1 email: "abc.xyz@gmail.com" doj:
+	 *         1442188800000 }- - success: true rcode: null error: null }
 	 * 
-	 *         Fail Response :{ response: { data: [1] 0: { msg: null }- -
-	 *         success: false rcode: "505" error: "Email id already registered"
-	 *         }- }
+	 *         Fail Response : { data: [1] 0: { msg: null }- - success: false
+	 *         rcode: "505" error: "Email id already registered" }
 	 * 
 	 */
 	@Path("/register")
@@ -145,15 +143,14 @@ public class EmpController {
 	 *            - 8564
 	 * @return
 	 * 		<p>
-	 *         success response: { response: { data: [1] 0: { firstName: "abc"
-	 *         lastName: "xyz" address: "indore" gender: "m" dob: 612124200000
-	 *         contact: "0123456789" id: 2 email: "abc@newput.com" doj:
-	 *         1432492200000 }- - success: true rcode: null error: null }- }
+	 *         success response: { data: [1] 0: { firstName: "abc" lastName:
+	 *         "xyz" address: "indore" gender: "m" dob: 612124200000 contact:
+	 *         "0123456789" id: 2 email: "abc@newput.com" doj: 1432492200000 }-
+	 *         - success: true rcode: null error: null }
 	 * 
 	 *         <p>
-	 *         Fail Response :{ response: { data: [1] 0: { msg: null }- -
-	 *         success: false rcode: "505" error: "Email id already registered"
-	 *         }- }
+	 *         Fail Response :{ data: [1] 0: { msg: null }- - success: false
+	 *         rcode: "505" error: "Email id already registered" }
 	 */
 	@Path("/verify")
 	@POST
@@ -172,8 +169,7 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
-			// jsonResService.errorResponse("Internal Server Error : "+ex);
-		}
+				}
 		return jsonResService.responseSender();
 	}
 
@@ -191,16 +187,16 @@ public class EmpController {
 	 * @param password
 	 *            - anything
 	 * 
-	 * @return Success Response : { response: { data: [2] 0: { firstName: "abc"
-	 *         lastName: "xyz" address: "indore" gender: "f" dob: 59266531800000
-	 *         contact: "8871786146" id: 1 email: "xyz@newput.com" doj:
-	 *         1439317800000 }- 1: { token: "ACBDE3A9C9956DD10BD3A5BC6C4DF017"
-	 *         }- - success: true rcode: null error: null }- }
+	 * @return Success Response : { data: [2] 0: { firstName: "abc" lastName:
+	 *         "xyz" address: "indore" gender: "f" dob: 59266531800000 contact:
+	 *         "8871786146" id: 1 email: "xyz@newput.com" doj: 1439317800000 }-
+	 *         1: { token: "ACBDE3A9C9956DD10BD3A5BC6C4DF017" }- - success: true
+	 *         rcode: null error: null }
 	 *         <p>
 	 *         here token is the session token.
 	 * 
-	 *         Fail Response :{ response: { data: [1] 0: { msg: null }- -
-	 *         success: false rcode: "505" error: "invalid user" }- }
+	 *         Fail Response :{ data: [1] 0: { msg: null }- - success: false
+	 *         rcode: "505" error: "invalid user"}
 	 * 
 	 *         <p>
 	 *         it get failed when either user is not registered or either email
@@ -224,7 +220,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
-			// jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -243,7 +238,7 @@ public class EmpController {
 	 *            - 09:00
 	 * @param out
 	 *            - 19:00
-	 * @param workdate
+	 * @param workDate
 	 *            - 22-10-2015
 	 * @param lunchOut
 	 *            - 12:30
@@ -253,20 +248,20 @@ public class EmpController {
 	 *            - 23:00
 	 * @param workDesc
 	 *            - My work status
-	 * @param emp_id
+	 * @param empId
 	 *            - 1
 	 * @return
 	 * 		<p>
-	 *         Success Response : { response: { data: [1] 0: { workDate:
-	 *         "10-10-2015" lunchOut: null nightOut: "23:00" in: "9:00" lunchIn:
-	 *         null nightIn: "21:00" workDesc: "my new entry" out: "19:00" }- -
-	 *         success: true rcode: null error: null }- }
+	 *         Success Response : {data: [1] 0: { workDate: "10-10-2015"
+	 *         lunchOut: null nightOut: "23:00" in: "9:00" lunchIn: null
+	 *         nightIn: "21:00" workDesc: "my new entry" out: "19:00" }- -
+	 *         success: true rcode: null error: null }
 	 *         <p>
 	 *         When user enter or update time sheet value successfully.
 	 * 
 	 *         <p>
-	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
-	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         Fail Response : Fail Response :{ data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "invalid user" }
 	 *         <p>
 	 *         In case of invalid use or empId
 	 */
@@ -299,7 +294,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
-			// jsonResService.errorResponse("Internal user Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -316,17 +310,17 @@ public class EmpController {
 	 *            - abc.xyz@newput.com
 	 * @return
 	 * 		<p>
-	 *         Success Response : { response: { data: [1] 0: { firstName: "abc"
-	 *         lastName: "xyz" address: "indore" gender: "m" dob: 580780800000
-	 *         contact: "0123456789" id: 2 email: "abc@newput.com" doj:
-	 *         1442188800000 }- - success: true rcode: null error: null }- }
+	 *         Success Response : { data: [1] 0: { firstName: "abc" lastName:
+	 *         "xyz" address: "indore" gender: "m" dob: 580780800000 contact:
+	 *         "0123456789" id: 2 email: "abc@newput.com" doj: 1442188800000 }-
+	 *         - success: true rcode: null error: null }
 	 *         <p>
 	 *         When user enter the registered mail id it send the mail to the
 	 *         specified email id.
 	 * 
 	 *         <p>
-	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
-	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         Fail Response : Fail Response :{data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "invalid user" }
 	 *         <p>
 	 *         In case of invalid use or mail id.
 	 * 
@@ -350,7 +344,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
-			// jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -362,9 +355,9 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To download the monthly excel sheet from UI.
-	 * @param emp_id
+	 * @param empId
 	 *            - 1
-	 * @param monthName
+	 * @param month
 	 *            - October or Oct
 	 * @param year
 	 *            - 2015
@@ -377,14 +370,14 @@ public class EmpController {
 	@Path("/excelExport")
 	@POST
 	@Produces("application/vnd.ms-excel")
-	public Response excelExport(@FormParam("empId") String emp_id, @FormParam("month") String monthName,
+	public Response excelExport(@FormParam("empId") String empId, @FormParam("month") String month,
 			@FormParam("year") String year) {
 		ResponseBuilder response = null;
 		File file = null;
-		if (emp_id != null && !emp_id.equalsIgnoreCase("")) {
-			if (monthName != null && !monthName.equalsIgnoreCase("")) {
-				if (util.validCheck(monthName, year)) {
-					file = excelTimeSheet.createExcelSheet(Integer.parseInt(emp_id), monthName, year);
+		if (empId != null && !empId.equalsIgnoreCase("")) {
+			if (month != null && !month.equalsIgnoreCase("")) {
+				if (util.validCheck(month, year)) {
+					file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 					String[] parts = file.getPath().split("tempfile");
 					String part1 = parts[0];
 					File newFile = new File(part1 + "time_sheet.xls");
@@ -416,21 +409,21 @@ public class EmpController {
 	 *            - 1
 	 * @param pToken
 	 *            - 6958
-	 * @param newPwd
+	 * @param newPassword
 	 *            - changedPassword
 	 * @return
 	 * 		<p>
-	 *         Success Response : { response: { data: [1] 0: { firstName: "abc"
-	 *         lastName: "xyz" address: "indore" gender: "m" dob: 580780800000
-	 *         contact: "0123456789" id: 2 email: "abc@newput.com" doj:
-	 *         1442188800000 }- - success: true rcode: null error: null }- }
+	 *         Success Response : { data: [1] 0: { firstName: "abc" lastName:
+	 *         "xyz" address: "indore" gender: "m" dob: 580780800000 contact:
+	 *         "0123456789" id: 2 email: "abc@newput.com" doj: 1442188800000 }-
+	 *         - success: true rcode: null error: null }
 	 *         <p>
 	 *         When user enter the registered mail id it send the mail to the
 	 *         specified email id.
 	 * 
 	 *         <p>
-	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
-	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         Fail Response : Fail Response :{ data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "invalid user" }
 	 *         <p>
 	 *         In case of invalid use or mail id or token.
 	 */
@@ -438,13 +431,13 @@ public class EmpController {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public JSONObject passwordVerification(@FormParam("empId") int empId, @FormParam("pToken") String pToken,
-			@FormParam("newPassword") String newPwd) {
+			@FormParam("newPassword") String newPassword) {
 		try {
 			if (empId > 0) {
 				if (pToken != null && !pToken.equalsIgnoreCase("")) {
-					if (newPwd != null && !newPwd.equalsIgnoreCase("")) {
-						newPwd = util.md5(newPwd);
-						reqParser.setPValidationValue(empId, pToken, newPwd);
+					if (newPassword != null && !newPassword.equalsIgnoreCase("")) {
+						newPassword = util.md5(newPassword);
+						reqParser.setPValidationValue(empId, pToken, newPassword);
 						empService.pwdVerify(emp);
 					} else {
 						jsonResService.errorResponse("Password can not be blank");
@@ -457,7 +450,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			// jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -469,17 +461,17 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To provide Json object of time sheet to UI respose.
-	 * @param monthName
+	 * @param month
 	 *            - October or oct
-	 * @param emp_id
+	 * @param empId
 	 *            - 1
 	 * @param year
 	 *            - 2015
 	 * @return
 	 * 		<p>
-	 *         Success Response : { response: { data: [3] 0: { workDate:
-	 *         "01-10-2015" lunchOut: "07:00" nightOut: "16:10" in: "03:30"
-	 *         totalHour: "10:15" lunchIn: "06:25" nightIn: "15:15" workDesc:
+	 *         Success Response : { data: [3] 0: { workDate: "01-10-2015"
+	 *         lunchOut: "07:00" nightOut: "16:10" in: "03:30" totalHour:
+	 *         "10:15" lunchIn: "06:25" nightIn: "15:15" workDesc:
 	 *         "this is my 2 day" out: "13:25" }- 1: { workDate: "03-10-2015"
 	 *         lunchOut: "06:30" nightOut: "16:15" in: "03:30" totalHour:
 	 *         "10:00" lunchIn: "06:00" nightIn: "15:15" workDesc:
@@ -489,28 +481,28 @@ public class EmpController {
 	 *         "this is my 6 day" out: "13:25" }- 3: { workDate: "07-10-2015"
 	 *         lunchOut: "06:15" nightOut: "16:10" in: "03:30" totalHour:
 	 *         "10:20" lunchIn: "05:50" nightIn: "15:10" workDesc:
-	 *         "this is my 8 day" out: "13:15" }- }- }
+	 *         "this is my 8 day" out: "13:15" }- }
 	 *         <p>
 	 *         When user enter the registered mail id it send the mail to the
 	 *         specified email id.
 	 * 
 	 *         <p>
-	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
-	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         Fail Response : Fail Response :{ data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "invalid user" }
 	 *         <p>
 	 *         In case of invalid use or mail id or token.
 	 */
 	@Path("/monthlyExcel")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject monthlyExcel(@FormParam("month") String monthName, @FormParam("empId") String emp_id,
+	public JSONObject monthlyExcel(@FormParam("month") String month, @FormParam("empId") String empId,
 			@FormParam("year") String year) {
 		try {
-			if (emp_id != null && !emp_id.equalsIgnoreCase("")) {
-				if (monthName != null && !monthName.equalsIgnoreCase("")) {
-					if (util.validCheck(monthName, year)) {
-						excel.monthSheet(monthName, Integer.parseInt(emp_id), year);
-					} else {
+			if (empId != null && !empId.equalsIgnoreCase("")) {
+				if (month != null && !month.equalsIgnoreCase("")) {
+					if (util.validCheck(month, year)) {
+						excel.monthSheet(month, Integer.parseInt(empId), year);
+				} else {
 						jsonResService.errorResponse("Record is not avail.");
 					}
 				} else {
@@ -521,7 +513,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			// jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -533,36 +524,36 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To mail excel sheet on the registered mail id.
-	 * @param emp_id
+	 * @param empId
 	 *            - abc.xyz@newput.com
-	 * @param monthName
+	 * @param month
 	 *            - October or oct
 	 * @param year
 	 *            - 2015
 	 * @return
 	 * 		<p>
-	 *         Success Response :{ response: { data: [1] 0: { msg:
+	 *         Success Response :{ data: [1] 0: { msg:
 	 *         "Your time sheet succefully send to your registered mail id." }-
-	 *         - success: true rcode: null error: null }- }
+	 *         - success: true rcode: null error: null }
 	 * 
 	 *         <p>
-	 *         Fail Response : Fail Response :{ response: { data: [1] 0: { msg:
-	 *         null }- - success: false rcode: "505" error: "invalid user" }- }
+	 *         Fail Response : Fail Response :{data: [1] 0: { msg: null }- -
+	 *         success: false rcode: "505" error: "invalid user" }
 	 *         <p>
 	 *         In case of invalid use or mail id or token.
 	 */
 	@Path("/mailExcelSheet")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject mailExcelSheet(@FormParam("empId") String emp_id, @FormParam("month") String monthName,
+	public JSONObject mailExcelSheet(@FormParam("empId") String empId, @FormParam("month") String month,
 			@FormParam("year") String year) {
 		try {
-			if (emp_id != null && !emp_id.equalsIgnoreCase("")) {
-				if (monthName != null && !monthName.equalsIgnoreCase("")) {
-					if (util.validCheck(monthName, year)) {
-						File file = excelTimeSheet.createExcelSheet(Integer.parseInt(emp_id), monthName, year);
+			if (empId != null && !empId.equalsIgnoreCase("")) {
+				if (month != null && !month.equalsIgnoreCase("")) {
+					if (util.validCheck(month, year)) {
+						File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 						if (jsonResService.isSuccess()) {
-							emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(emp_id)), file);
+							emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file);
 							file.delete();
 						}
 					} else {
@@ -576,7 +567,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			// jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -595,12 +585,12 @@ public class EmpController {
 	 *            - registration or password
 	 * @return
 	 * 		<p>
-	 *         Success Response :{ response: { data: [1] 0: { msg:
+	 *         Success Response :{ data: [1] 0: { msg:
 	 *         "Your time sheet succefully send to your registered mail id." }-
-	 *         - success: true rcode: null error: null }- }
+	 *         - success: true rcode: null error: null }
 	 * 
-	 *         Fail Response ; { response: { data: [1] 0: { msg: null }- -
-	 *         success: false rcode: "505" error: "Internal Server Error " }- }
+	 *         Fail Response ; {data: [1] 0: { msg: null }- - success: false
+	 *         rcode: "505" error: "Internal Server Error " }
 	 */
 	@Path("/resend")
 	@POST
@@ -625,7 +615,6 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Internal Server Error ").getMessage());
-			// jsonResService.errorResponse("Internal Server Error : "+ex);
 		}
 		return jsonResService.responseSender();
 	}
@@ -637,19 +626,18 @@ public class EmpController {
 	 * @POST
 	 * 		<p>
 	 *       Description : To logout from the API.
-	 * @param emp_id
+	 * @param empId
 	 *            - 1
 	 * @return
 	 */
 	@Path("/signOut")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject signOut(@FormParam("empId") String emp_id) {
+	public JSONObject signOut(@FormParam("empId") String empId) {
 		try {
-			loginService.signOut(Integer.parseInt(emp_id));
+			loginService.signOut(Integer.parseInt(empId));
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
-			// jsonResService.errorResponse("Invalid user : "+ex);
 		}
 		return jsonResService.responseSender();
 	}

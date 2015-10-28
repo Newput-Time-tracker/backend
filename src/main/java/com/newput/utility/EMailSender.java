@@ -6,8 +6,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
@@ -25,7 +23,7 @@ import com.newput.domain.Employee;
  *         is @Autowired with bean defined in the applicationContext.xml
  */
 @Service
-//@PropertySource("classpath:Tracker.properties")
+// @PropertySource("classpath:Tracker.properties")
 public class EMailSender {
 
 	@Autowired
@@ -37,8 +35,8 @@ public class EMailSender {
 	@Autowired
 	private JsonResService jsonResService;
 
-//	@Value("${Tracker.ip}")
-//	private String defaultIp;
+	// @Value("${Tracker.ip}")
+	// private String defaultIp;
 
 	/**
 	 * Description : Use to send the verification mail to the user for
@@ -48,22 +46,22 @@ public class EMailSender {
 	 *            - password or registration
 	 */
 	public String sendMail(String module) {
-   try{
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setTo(emp.getEmail());
-		email.setSubject("Confirmation Mail");
-		if (module.equalsIgnoreCase("registration")) {
-			email.setText("Welcome, You are successfully register Please click here http://" + System.getenv("App_Ip")
-					+ "/tracker/login?ET=" + emp.getvToken());
-		} else if (module.equalsIgnoreCase("password")) {
-			email.setText("Welcome, Please confirm your mail id. click here http://tracker/login?PT=" + emp.getpToken()
-					+ "&id=" + emp.getId());
+		try {
+			SimpleMailMessage email = new SimpleMailMessage();
+			email.setTo(emp.getEmail());
+			email.setSubject("Confirmation Mail");
+			if (module.equalsIgnoreCase("registration")) {
+				email.setText("Welcome, You are successfully register Please click here" + System.getenv("WEBAPP_URL")
+						+ "/tracker/login?EM="+emp.getEmail()+"&ET=" + emp.getvToken());
+			} else if (module.equalsIgnoreCase("password")) {
+				email.setText("Welcome, Please confirm your mail id. click here" + System.getenv("WEBAPP_URL")
+						+ "/tracker/login?PT=" + emp.getpToken() + "&id=" + emp.getId());
+			}
+			mailSender.send(email);
+			return null;
+		} catch (Exception ex) {
+			return "Email id is not valid to send email.";
 		}
-		mailSender.send(email);
-		return null;
-   }catch(Exception ex){
-	   return "Email id is not valid to send email.";
-   }
 	}
 
 	/**
