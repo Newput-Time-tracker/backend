@@ -70,9 +70,8 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="dailyNotifyTrigger" />
-				<ref bean="weeklyExcelTrigger" />
-				<ref bean="monthlyExcelTrigger" />
+				<!-- <ref bean="dailyNotifyTrigger" /> <ref bean="weeklyExcelTrigger" 
+					/> <ref bean="monthlyExcelTrigger" /> -->
 			</list>
 		</property>
 	</bean>
