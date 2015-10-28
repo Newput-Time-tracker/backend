@@ -84,7 +84,6 @@ public class ExcelTimeSheet {
 		empMap.put("year", year);
 		empMap.put("name", getEmpName(emp_id));
 
-		sheet.setColumnWidth(8, 20000);
 		createSheetStructure(sheet, workbook, empMap);
 		getTimeSheetData(sheet, emp_id, util.getMonthlyDate(monthName, year).get("minDate"),
 				util.getMonthlyDate(monthName, year).get("maxDate"), "excelExport", workbook);
@@ -110,7 +109,7 @@ public class ExcelTimeSheet {
 	 */
 	public void insertRow(DateSheet dateSheet, HSSFSheet sheet, HashMap<String, Long> map, String totalHours,
 			Workbook workbook) {
-		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 4;
+		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 5;
 		HSSFRow aRow = sheet.getRow(rowCount);
 		rowCount = rowCount + 1;
 		String formulaString = "C" + rowCount + "-B" + rowCount + "+E" + rowCount + "-D" + rowCount + "+G" + rowCount
@@ -227,75 +226,94 @@ public class ExcelTimeSheet {
 	 */
 	public void createSheetStructure(HSSFSheet sheet, HSSFWorkbook workbook, HashMap<String, String> empMap) {
 
+		sheet.setColumnWidth(0, 1400);
+		sheet.setColumnWidth(1, 1500);
+		sheet.setColumnWidth(2, 1500);
+		sheet.setColumnWidth(3, 1500);
+		sheet.setColumnWidth(4, 1500);
+		sheet.setColumnWidth(5, 1500);
+		sheet.setColumnWidth(6, 1500);
+		sheet.setColumnWidth(7, 1500);
+		sheet.setColumnWidth(8, 20000);
+
 		// create style for header cells
 		CellStyle style = workbook.createCellStyle();
 		Font font = workbook.createFont();
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		style.setFont(font);
+
+		// create style for row date
+		CellStyle centerStyle = workbook.createCellStyle();
+		centerStyle.setAlignment(CellStyle.ALIGN_CENTER);
+
+		// create style for row hours
+		CellStyle hourStyle = workbook.createCellStyle();
+		hourStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+
+		// create style for cell total hours
+		CellStyle totalhourStyle = workbook.createCellStyle();
+		totalhourStyle.setAlignment(CellStyle.ALIGN_RIGHT);
 		CreationHelper createHelper = workbook.getCreationHelper();
-		style.setDataFormat(createHelper.createDataFormat().getFormat("[h]:mm"));
+		totalhourStyle.setDataFormat(createHelper.createDataFormat().getFormat("[h]:mm"));
 
 		HSSFRow aRow1 = sheet.createRow(0);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
 		aRow1.createCell(1).setCellValue("Name");
-		sheet.addMergedRegion(new CellRangeAddress(0, 0, 3, 6));
+		sheet.addMergedRegion(new CellRangeAddress(0, 0, 3, 7));
 		aRow1.createCell(3).setCellValue(empMap.get("name"));
 		HSSFRow aRow2 = sheet.createRow(1);
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 1, 2));
 		aRow2.createCell(1).setCellValue("Month");
-		sheet.addMergedRegion(new CellRangeAddress(1, 1, 3, 6));
+		sheet.addMergedRegion(new CellRangeAddress(1, 1, 3, 7));
 		aRow2.createCell(3).setCellValue(empMap.get("month"));
 		HSSFRow aRow3 = sheet.createRow(2);
 		sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 2));
 		aRow3.createCell(1).setCellValue("Year");
-		sheet.addMergedRegion(new CellRangeAddress(2, 2, 3, 6));
+		sheet.addMergedRegion(new CellRangeAddress(2, 2, 3, 7));
 		aRow3.createCell(3).setCellValue(empMap.get("year"));
 
-		HSSFRow aRow4 = sheet.createRow(37);
-		sheet.addMergedRegion(new CellRangeAddress(37, 37, 1, 6));
-		aRow4.createCell(1).setCellValue("TOTAL HOURS");
-		aRow4.createCell(7).setCellFormula("SUM(H6:H36)");
-		aRow4.getCell(7).setCellStyle(style);
+		HSSFRow timeHeader = sheet.createRow(4);
+		sheet.addMergedRegion(new CellRangeAddress(4, 4, 1, 7));
+		timeHeader.createCell(1).setCellValue("TIME");
+		timeHeader.getCell(1).setCellStyle(style);
 
 		// create header row
-		HSSFRow header = sheet.createRow(4);
+		HSSFRow header = sheet.createRow(5);
 		header.createCell(0).setCellValue("Date");
 		header.getCell(0).setCellStyle(style);
 		header.createCell(1).setCellValue("IN");
-		header.getCell(1).setCellStyle(style);
+		header.getCell(1).setCellStyle(centerStyle);
 		header.createCell(2).setCellValue("OUT");
-		header.getCell(2).setCellStyle(style);
+		header.getCell(2).setCellStyle(centerStyle);
 		header.createCell(3).setCellValue("IN");
-		header.getCell(3).setCellStyle(style);
+		header.getCell(3).setCellStyle(centerStyle);
 		header.createCell(4).setCellValue("OUT");
-		header.getCell(4).setCellStyle(style);
+		header.getCell(4).setCellStyle(centerStyle);
 		header.createCell(5).setCellValue("IN");
-		header.getCell(5).setCellStyle(style);
+		header.getCell(5).setCellStyle(centerStyle);
 		header.createCell(6).setCellValue("OUT");
-		header.getCell(6).setCellStyle(style);
+		header.getCell(6).setCellStyle(centerStyle);
 		header.createCell(7).setCellValue("HRS.");
-		header.getCell(7).setCellStyle(style);
+		header.getCell(7).setCellStyle(centerStyle);
 		header.createCell(8).setCellValue("PROJECT");
 		header.getCell(8).setCellStyle(style);
 
-		// create style for row date
-		CellStyle dateStyle = workbook.createCellStyle();
-		dateStyle.setAlignment(CellStyle.ALIGN_CENTER);
-
-		// create style for row date
-		CellStyle hourStyle = workbook.createCellStyle();
-		hourStyle.setAlignment(CellStyle.ALIGN_RIGHT);
-
-		for (int i = 5; i < 36; i++) {
+		for (int i = 6; i < 37; i++) {
 			HSSFRow row = sheet.createRow(i);
-			row.createCell(0).setCellValue(i - 4);
-			row.getCell(0).setCellStyle(dateStyle);
+			row.createCell(0).setCellValue(i - 5);
+			row.getCell(0).setCellStyle(centerStyle);
 			row.createCell(7).setCellValue("0:00");
 			row.getCell(7).setCellStyle(hourStyle);
 		}
+		
+		HSSFRow aRow4 = sheet.createRow(38);
+		sheet.addMergedRegion(new CellRangeAddress(38, 38, 1, 5));
+		aRow4.createCell(1).setCellValue("TOTAL HOURS");
+		sheet.addMergedRegion(new CellRangeAddress(38, 38, 6, 7));
+		aRow4.createCell(6).setCellFormula("SUM(H6:H36)");
+		aRow4.getCell(6).setCellStyle(totalhourStyle);
 	}
-
 	
 	/**
 	 * Description : To calculate the to working hours of the user.
