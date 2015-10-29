@@ -20,6 +20,8 @@
 	<bean class="java.net.URI" id="dbUrl">
 		<constructor-arg value="${CLEARDB_DATABASE_URL}" />
 	</bean>
+	
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
