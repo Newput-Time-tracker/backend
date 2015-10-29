@@ -24,7 +24,6 @@ public class JsonResService {
 	private boolean success;
 	private String rcode;
 	private String error;
-	// private JSONObject data;
 	private ArrayList<JSONObject> data;
 
 	public ArrayList<JSONObject> getData() {
@@ -58,14 +57,6 @@ public class JsonResService {
 	public void setError(String error) {
 		this.error = error;
 	}
-
-	// public JSONObject getData() {
-	// return data;
-	// }
-
-	// public void setData(JSONObject data) {
-	// this.data = data;
-	// }
 
 	/**
 	 * Description : Create a Json object of user to send as a response to UI.
@@ -124,23 +115,16 @@ public class JsonResService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		String date = sdf.format(workDate);
 		obj.put("workDate", date);
-		obj.put("in", util.timeHrs(map.get("in")));
-		obj.put("out", util.timeHrs(map.get("out")));
-		obj.put("lunchIn", util.timeHrs(map.get("lunchIn")));
-		obj.put("lunchOut", util.timeHrs(map.get("lunchOut")));
-		obj.put("nightIn", util.timeHrs(map.get("nightIn")));
-		obj.put("nightOut", util.timeHrs(map.get("nightOut")));
+		obj.put("in", util.timeHrs(map.get("in"), map.get("workDate")));
+		obj.put("out", util.timeHrs(map.get("out"), map.get("workDate")));
+		obj.put("lunchIn", util.timeHrs(map.get("lunchIn"), map.get("workDate")));
+		obj.put("lunchOut", util.timeHrs(map.get("lunchOut"), map.get("workDate")));
+		obj.put("nightIn", util.timeHrs(map.get("nightIn"), map.get("workDate")));
+		obj.put("nightOut", util.timeHrs(map.get("nightOut"), map.get("workDate")));
 		obj.put("totalHour", totalHour);
 		obj.put("workDesc", workDesc);
 		return obj;
 	}
-
-	// @SuppressWarnings("unchecked")
-	// public JSONObject responseSender() {
-	// JSONObject obj = new JSONObject();
-	// obj.put("response", getMap());
-	// return obj;
-	// }
 
 	@SuppressWarnings("unchecked")
 	public void setDataValue(String str, String token) {
@@ -153,15 +137,6 @@ public class JsonResService {
 		objArray.add(obj);
 		setData(objArray);
 	}
-
-	// public HashMap<String, Object> getMap() {
-	// HashMap<String, Object> map = new HashMap<>();
-	// map.put("success", isSuccess());
-	// map.put("data", getData());
-	// map.put("rcode", getRcode());
-	// map.put("error", getError());
-	// return map;
-	// }
 
 	@SuppressWarnings("unchecked")
 	public JSONObject responseSender() {

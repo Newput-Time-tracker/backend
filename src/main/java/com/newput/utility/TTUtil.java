@@ -15,9 +15,8 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.openjpa.lib.util.Base16Encoder;
 import org.springframework.stereotype.Service;
 
-
 /**
- *  * @author Newput
+ * * @author Newput
  *
  */
 @Service
@@ -28,6 +27,7 @@ public class TTUtil {
 
 	/**
 	 * Description : To create session token for the user.
+	 * 
 	 * @param id
 	 * @param email
 	 * @return
@@ -46,6 +46,7 @@ public class TTUtil {
 
 	/**
 	 * Description : Use to encrypt password of a user.
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -75,6 +76,7 @@ public class TTUtil {
 
 	/**
 	 * Description : To check the mail format.
+	 * 
 	 * @param email
 	 * @return
 	 */
@@ -87,6 +89,7 @@ public class TTUtil {
 
 	/**
 	 * Description : To check the valid contact number.
+	 * 
 	 * @param contact
 	 * @return
 	 */
@@ -108,11 +111,13 @@ public class TTUtil {
 
 	/**
 	 * Description : Pasrse epoch time to HH:MM format.
+	 * 
 	 * @param timeValue
 	 * @return e.g. "09:30"
 	 */
-	public String timeHrs(Long timeValue) {
+	public String timeHrs(Long timeValue, Long workDate) {
 		try {
+			Long nextDate = workDate + 86400000;
 			Calendar calendar = Calendar.getInstance();
 			Date today = new Date(timeValue);
 			calendar.setTime(today);
@@ -124,8 +129,13 @@ public class TTUtil {
 			if (minute.length() == 1) {
 				minute = minute + "0";
 			}
-			String timeSlot = hours + ":" + minute;
-			return timeSlot;
+			String timeSlot = hours + ":" + minute;			
+			if (!(timeValue.equals(nextDate)) && (timeSlot.equals("0:0") || timeSlot.equals("0:00")
+					|| timeSlot.equals("00:0") || timeSlot.equals("00:00"))) {				
+				return "";
+			} else {
+				return timeSlot;
+			}
 		} catch (Exception e) {
 			return "";
 		}
@@ -166,6 +176,7 @@ public class TTUtil {
 
 	/**
 	 * Description : To get the min and max date of the requested month.
+	 * 
 	 * @param monthName
 	 * @param year
 	 * @return
@@ -207,6 +218,7 @@ public class TTUtil {
 
 	/**
 	 * Description : Use to convert the HH:MM format into time epoch.
+	 * 
 	 * @param workDate
 	 * @param time
 	 * @return
@@ -228,6 +240,7 @@ public class TTUtil {
 
 	/**
 	 * Description : To parse date according to the excel sheet format.
+	 * 
 	 * @param workDate
 	 * @return
 	 */
@@ -245,12 +258,9 @@ public class TTUtil {
 		}
 	}
 
-	// public static void main(String args[]) throws ParseException {
-	// validCheck("nov", "2015");
-	// }
-
 	/**
 	 * Description : Validate the date of dob and doj.
+	 * 
 	 * @param date
 	 * @param flag
 	 * @return
@@ -272,7 +282,7 @@ public class TTUtil {
 			now.set(year, mnth, currDate);
 			long currValue = now.getTimeInMillis();
 
-			if (userDate > minDate && userDate <= currValue) {
+			if (userDate >= minDate && userDate <= currValue) {
 				return true;
 			} else {
 				return false;
@@ -285,6 +295,7 @@ public class TTUtil {
 
 	/**
 	 * Description : Validation on the date insertion for the time sheet.
+	 * 
 	 * @param month
 	 * @param year
 	 * @return

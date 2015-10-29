@@ -37,7 +37,6 @@ public class SelectiveExcel {
 				HashMap<String, Long> mapValue = util.getMonthlyDate(monthName, year);
 				excelSheet.getTimeSheetData(null, emp_id, mapValue.get("minDate"), mapValue.get("maxDate"),
 						"monthSheet", null);
-				jsonRes.successResponse();
 			} else {
 				jsonRes.errorResponse("Please specified month name");
 			}

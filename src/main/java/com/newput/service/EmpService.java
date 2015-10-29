@@ -133,7 +133,7 @@ public class EmpService {
 			emply = empl.get(0);
 			if (flag.equalsIgnoreCase("password")) {
 				emply.setpToken(Token);
-				emply.setpExpireAt(reqres.getCurrentTime() + 30);
+				emply.setpExpireAt(reqres.getCurrentTime() + 900);
 				emply.setUpdated(reqres.getCurrentTime());
 				i = empMapper.updateByExampleSelective(emply, example);
 				emp.setId(emply.getId());
@@ -181,13 +181,15 @@ public class EmpService {
 					jsonResService.setData(objArray);
 					jsonResService.successResponse();
 				} else {
+					System.out.println("Please try again");
 					jsonResService.errorResponse("Please try again");
 				}
-
 			} else {
+				System.out.println("your password is expire please reset your password again.");
 				jsonResService.errorResponse("your password is expire please reset your password again.");
 			}
 		} else {
+			System.out.println("your id or token is not correct");
 			jsonResService.errorResponse("your id or token is not correct");
 		}
 	}

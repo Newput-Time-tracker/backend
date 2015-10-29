@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This web.xml file is not required when using Servlet 3.0 container, 
-	see implementation details http://jersey.java.net/nonav/documentation/latest/jax-rs.html -->
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
@@ -20,11 +18,6 @@
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>com.newput.rest.resource</param-value>
 		</init-param>
-		<!-- Register resources and providers -->
-        <!-- <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.newput.utility</param-value>
-        </init-param> -->
         <init-param>
             <param-name>jersey.config.server.provider.classnames</param-name>
             <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
