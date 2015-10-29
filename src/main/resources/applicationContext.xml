@@ -24,8 +24,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() + 
-			@dbUrl.getPath() }" />
+			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() 
+			+ @dbUrl.getPath() }" />
 		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] 
 			}" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
@@ -70,8 +70,8 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<!-- <ref bean="dailyNotifyTrigger" /> <ref bean="weeklyExcelTrigger" 
-					/> <ref bean="monthlyExcelTrigger" /> -->
+	<!-- <ref bean="dailyNotifyTrigger" /> <ref bean="weeklyExcelTrigger" /> 
+		<ref bean="monthlyExcelTrigger" /> -->
 			</list>
 		</property>
 	</bean>

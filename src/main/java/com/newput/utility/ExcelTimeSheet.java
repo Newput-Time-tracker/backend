@@ -97,7 +97,7 @@ public class ExcelTimeSheet {
 			outStream.close();
 			jsonResService.successResponse();
 		} catch (Exception e) {
-			e.printStackTrace();
+			jsonResService.errorResponse("File can not created please try again");
 		}
 		return temp;
 	}
@@ -131,22 +131,23 @@ public class ExcelTimeSheet {
 
 		aRow.createCell(0).setCellValue(util.getExcelSheetDate(dateSheet.getWorkDate()));
 		aRow.getCell(0).setCellStyle(dateStyle);
-		aRow.createCell(1).setCellValue(util.timeHrs(map.get("in")));
+		aRow.createCell(1).setCellValue(util.timeHrs(map.get("in"), map.get("workDate")));
 		aRow.getCell(1).setCellStyle(style);
-		if (util.timeHrs(map.get("lunchIn")).equals("") && util.timeHrs(map.get("lunchOut")).equals("")) {
-			aRow.createCell(2).setCellValue(util.timeHrs(map.get("out")));
+		if (util.timeHrs(map.get("lunchIn"), map.get("workDate")).equals("")
+				&& util.timeHrs(map.get("lunchOut"), map.get("workDate")).equals("")) {
+			aRow.createCell(2).setCellValue(util.timeHrs(map.get("out"), map.get("workDate")));
 			aRow.getCell(2).setCellStyle(style);
 		} else {
-			aRow.createCell(2).setCellValue(util.timeHrs(map.get("lunchIn")));
+			aRow.createCell(2).setCellValue(util.timeHrs(map.get("lunchIn"), map.get("workDate")));
 			aRow.getCell(2).setCellStyle(style);
-			aRow.createCell(3).setCellValue(util.timeHrs(map.get("lunchOut")));
+			aRow.createCell(3).setCellValue(util.timeHrs(map.get("lunchOut"), map.get("workDate")));
 			aRow.getCell(3).setCellStyle(style);
-			aRow.createCell(4).setCellValue(util.timeHrs(map.get("out")));
+			aRow.createCell(4).setCellValue(util.timeHrs(map.get("out"), map.get("workDate")));
 			aRow.getCell(4).setCellStyle(style);
 		}
-		aRow.createCell(5).setCellValue(util.timeHrs(map.get("nightIn")));
+		aRow.createCell(5).setCellValue(util.timeHrs(map.get("nightIn"), map.get("workDate")));
 		aRow.getCell(5).setCellStyle(style);
-		aRow.createCell(6).setCellValue(util.timeHrs(map.get("nightOut")));
+		aRow.createCell(6).setCellValue(util.timeHrs(map.get("nightOut"), map.get("workDate")));
 		aRow.getCell(6).setCellStyle(style);
 		aRow.createCell(7).setCellFormula(formulaString);
 		aRow.getCell(7).setCellStyle(style);
@@ -181,6 +182,7 @@ public class ExcelTimeSheet {
 		map.put("nightIn", 0L);
 		map.put("nightOut", 0L);
 		map.put("totalHours", 0L);
+		map.put("workDate", 0L);
 
 		DateSheetExample exampleDate = new DateSheetExample();
 		exampleDate.setOrderByClause("work_date");
@@ -196,6 +198,7 @@ public class ExcelTimeSheet {
 				List<TimeSheet> timeList = timeSheetMapper.selectByExample(exampleTime);
 				if (timeList.size() > 0) {
 					TimeSheet timeSheetLocal = new TimeSheet();
+					map.put("workDate", dateSheetLocal.getWorkDate());
 					for (int j = 0; j < timeList.size(); j++) {
 						timeSheetLocal = timeList.get(j);
 						if (timeSheetLocal.getChunkId() == 1) {
@@ -224,8 +227,9 @@ public class ExcelTimeSheet {
 				}
 			}
 			jsonResService.setData(jsonArray);
+			jsonResService.successResponse();
 		} else {
-			jsonResService.errorResponse("date not found in date sheet table for emp id");
+			jsonResService.errorResponse("data not found in date sheet table for emp id");
 		}
 	}
 
@@ -318,7 +322,7 @@ public class ExcelTimeSheet {
 			row.createCell(7).setCellValue("0:00");
 			row.getCell(7).setCellStyle(hourStyle);
 		}
-		
+
 		HSSFRow aRow4 = sheet.createRow(38);
 		sheet.addMergedRegion(new CellRangeAddress(38, 38, 1, 5));
 		aRow4.createCell(1).setCellValue("TOTAL HOURS");

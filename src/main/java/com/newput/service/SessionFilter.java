@@ -38,10 +38,10 @@ public class SessionFilter implements Filter {
 		if (path.equals("register") || path.equals("login") || path.equals("verify") || path.equals("excelExport")) {
 			chain.doFilter(req, res);
 		} else {
-//			String token = request.getHeader("token");
-//			String emp_id = request.getHeader("empId");
-			String token = request.getParameter("token");
-			String emp_id = request.getParameter("empId");
+			String token = request.getHeader("token");
+			String emp_id = request.getHeader("empId");
+//			String token = request.getParameter("token");
+//			String emp_id = request.getParameter("empId");
 			if (token == null || token.equals("") || emp_id == null || emp_id.equals("")) {
 				response.setHeader("response status", "" + false);
 				response.setHeader("response error", "" + HttpServletResponse.SC_BAD_REQUEST);

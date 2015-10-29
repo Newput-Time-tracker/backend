@@ -7,7 +7,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,7 +22,6 @@ import com.newput.domain.Employee;
  *         is @Autowired with bean defined in the applicationContext.xml
  */
 @Service
-// @PropertySource("classpath:Tracker.properties")
 public class EMailSender {
 
 	@Autowired
@@ -34,9 +32,6 @@ public class EMailSender {
 
 	@Autowired
 	private JsonResService jsonResService;
-
-	// @Value("${Tracker.ip}")
-	// private String defaultIp;
 
 	/**
 	 * Description : Use to send the verification mail to the user for
@@ -72,23 +67,25 @@ public class EMailSender {
 	 * @param file
 	 *            - excelFile
 	 */
-	public void sendExcelSheet(String email, File file) {
-		MimeMessage message = mailSender.createMimeMessage();
+	public String sendExcelSheet(String email, File file) {		
 		if (email != null && !email.equalsIgnoreCase("")) {
 			try {
+				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper helper = new MimeMessageHelper(message, true);
 				helper.setTo(email);
 				helper.setSubject("Your Time Sheet");
 				helper.setText("This is your time sheet please check it.");
 				FileSystemResource fileNew = new FileSystemResource(file.getPath());
 				helper.addAttachment("Time_Sheet.xls", fileNew);
+				mailSender.send(message);
+				jsonResService.setDataValue("Your time sheet succefully send to your registered mail id.", "");
+				return null;
 			} catch (MessagingException e) {
-				throw new MailParseException(e);
-			}
-			mailSender.send(message);
-			jsonResService.setDataValue("Your time sheet succefully send to your registered mail id.", "");
+				return "Your mail is not send please retry";
+			}			
 		} else {
 			jsonResService.errorResponse("Your mail id is not valid.");
+			return "Your mail id is not valid.";
 		}
 	}
 

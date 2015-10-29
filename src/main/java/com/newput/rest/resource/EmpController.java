@@ -553,7 +553,10 @@ public class EmpController {
 					if (util.validCheck(month, year)) {
 						File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 						if (jsonResService.isSuccess()) {
-							emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file);
+							String sendMail = emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file);
+							if (sendMail != null && !sendMail.equalsIgnoreCase("")) {
+								jsonResService.errorResponse(new TrackerException(sendMail).getMessage());
+							}							
 							file.delete();
 						}
 					} else {

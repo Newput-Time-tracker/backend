@@ -77,10 +77,7 @@ public class LoginService {
 					session.setCreated(getCurrentTime());
 					session.setExpiresWhen(getCurrentTime() + 3600);
 					i = sessionMapper.insertSelective(session);
-					if (i > 0) {
-						// jsonResService.setDataValue("Welcome User created : "
-						// + emp.getFirstName(), session.getToken());
-						// jsonResService.successResponse();
+					if (i > 0) {						
 						obj.put("token", session.getToken());
 						objArray.add(jsonResService.createEmployeeJson(emp));
 						objArray.add(obj);
