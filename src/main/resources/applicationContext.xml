@@ -17,8 +17,9 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<bean id="dataConfigPropertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
-	<!--<bean class="java.net.URI" id="dbUrl"> <constructor-arg value="${CLEARDB_DATABASE_URL}" 
-		/> </bean> -->
+	<bean class="java.net.URI" id="dbUrl">
+		<constructor-arg value="${CLEARDB_DATABASE_URL}" />
+	</bean>
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -67,13 +68,13 @@
 	</bean>
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<ref bean="dailyNotifyTrigger" />
-				<ref bean="weeklyExcelTrigger" />
-				<ref bean="monthlyExcelTrigger" />
-			</list>
-		</property>
+	<property name="triggers">
+		<list>
+			<ref bean="dailyNotifyTrigger" />
+			<ref bean="weeklyExcelTrigger" />
+			<ref bean="monthlyExcelTrigger" />
+		</list>
+	</property>
 	</bean>
 	<bean id="scheduledCronService" class="com.newput.service.CronService" />
 	<bean id="dailyNotifyTrigger"
