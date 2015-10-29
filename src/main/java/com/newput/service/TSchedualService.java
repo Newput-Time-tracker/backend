@@ -91,7 +91,7 @@ public class TSchedualService {
 	 * 
 	 * @param timeSheet - An object
 	 */
-	public void saveTimeSheet(TimeSheet timeSheet) {
+	public boolean saveTimeSheet(TimeSheet timeSheet) {
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 		boolean status = false;
 		TimeSheetExample example = new TimeSheetExample();
@@ -123,12 +123,14 @@ public class TSchedualService {
 			// return json object;
 			// System.out.println("fail to insert or update");
 			jsonResService.errorResponse("fail to insert or update");
+			return false;
 		} else {
 			// System.out.println("successfully insert or update");
 			// jsonResService.setData(jsonResService.createTimeSheetJson(map));
 			objArray.add(jsonResService.createTimeSheetJson(map));
 			jsonResService.setData(objArray);
 			jsonResService.successResponse();
+			return true;
 		}
 	}
 
