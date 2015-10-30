@@ -181,15 +181,12 @@ public class EmpService {
 					jsonResService.setData(objArray);
 					jsonResService.successResponse();
 				} else {
-					System.out.println("Please try again");
 					jsonResService.errorResponse("Please try again");
 				}
 			} else {
-				System.out.println("your password is expire please reset your password again.");
 				jsonResService.errorResponse("your password is expire please reset your password again.");
 			}
 		} else {
-			System.out.println("your id or token is not correct");
 			jsonResService.errorResponse("your id or token is not correct");
 		}
 	}

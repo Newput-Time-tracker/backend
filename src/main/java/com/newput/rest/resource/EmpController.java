@@ -430,10 +430,11 @@ public class EmpController {
 	@Path("/pwdVerify")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject passwordVerification(@FormParam("empId") int empId, @FormParam("pToken") String pToken,
+	public JSONObject passwordVerification(@FormParam("empId") String id, @FormParam("pToken") String pToken,
 			@FormParam("newPassword") String newPassword) {
-		try {
-			if (empId > 0) {
+		try {			
+			if (id != null && !id.equalsIgnoreCase("")) {
+				int empId = Integer.parseInt(id);
 				if (pToken != null && !pToken.equalsIgnoreCase("")) {
 					if (newPassword != null && !newPassword.equalsIgnoreCase("")) {
 						newPassword = util.md5(newPassword);

@@ -97,7 +97,7 @@ public class UnitTestCase {
 	//String password = "abcd"; 
 	String email = "rahul@newput.com";
 	String password = "abcd";
-	String empId = "12";
+	String empId = "1";
 	String firstName = "deepti";
 	String lastName = "gmail";
 	String dob = "28-05-1990";
@@ -161,7 +161,7 @@ public class UnitTestCase {
 	}	
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void testTimeEntry() throws ParseException {
 		timeSchedual.timeSheetValue("12:00", "9:00", "19:30", "06-10-2015", "12:30", "21:00", "23:00", Integer.parseInt(empId));
 		reqParser.setDateSheetValue("this is my 6 date", "06-10-2015", Integer.parseInt(empId));
