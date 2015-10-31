@@ -41,7 +41,7 @@ public class EMailSender {
 	 *            - password or registration
 	 */
 	public String sendMail(String module) {
-		try {
+		try {			
 			SimpleMailMessage email = new SimpleMailMessage();
 			email.setTo(emp.getEmail());
 			email.setSubject("Confirmation Mail");

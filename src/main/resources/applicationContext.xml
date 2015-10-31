@@ -13,29 +13,30 @@
 	<context:component-scan base-package="com.newput.utility" />
 	<context:annotation-config />
 
-
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="applicationProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">		
+	</bean>
+	<bean id="systemConfig" class="com.newput.utility.SystemConfig" />
+	
 	<bean id="dataConfigPropertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
-	<bean class="java.net.URI" id="dbUrl">
-		<constructor-arg value="${CLEARDB_DATABASE_URL}" />
-	</bean>
-	
-	
+	<!-- <bean class="java.net.URI" id="dbUrl"> <constructor-arg value="${CLEARDB_DATABASE_URL}" 
+		/> </bean> -->
+	<!-- <bean class="java.net.URI" id="dbCre"> <constructor-arg value="${DB_URL}" 
+		/> </bean> -->
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() 
-			+ @dbUrl.getPath() }" />
-		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] 
-			}" />
-		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
-			}" />
+		<!-- <property name="url" value="#{ 'jdbc:mysql://' + @dbUrl.getHost() 
+			+ @dbUrl.getPath() }" /> <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] 
+			}" /> <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
+			}" /> -->
 
-		<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" 
-			/> <property name="username" value="root" /> <property name="password" value="root" 
-			/> -->
+		<property name="url" value="jdbc:mysql://localhost:3306/time_tracker" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -55,8 +56,10 @@
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<!-- SMTP settings -->
-		<property name="username" value="deepti@newput.com" />
-		<property name="password" value="712august2015" />
+		<!-- <property name="username" value="${db.UserId}" />
+		<property name="password" value="${db.Password}" /> -->
+		<property name="username" value="#{systemConfig.get('MAIL_USERID')}" />
+		<property name="password" value="#{systemConfig.get('MAIL_PASSWORD')}" />
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>
@@ -69,15 +72,10 @@
 		</property>
 	</bean>
 
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-	<property name="triggers">
-		<list>
-			<ref bean="dailyNotifyTrigger" />
-			<ref bean="weeklyExcelTrigger" />
-			<ref bean="monthlyExcelTrigger" />
-		</list>
-	</property>
-	</bean>
+	<!-- <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
+		<property name="triggers"> <list> <ref bean="dailyNotifyTrigger" /> <ref 
+		bean="weeklyExcelTrigger" /> <ref bean="monthlyExcelTrigger" /> </list> </property> 
+		</bean> -->
 	<bean id="scheduledCronService" class="com.newput.service.CronService" />
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">

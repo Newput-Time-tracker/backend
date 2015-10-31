@@ -1,6 +1,5 @@
 package com.newput.testCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class UnitTestCase {
 
 	@Autowired
 	private Employee emp;
-	//
+
 	@Autowired
 	private EmpService empService;
 	
@@ -66,7 +65,7 @@ public class UnitTestCase {
 
 	@Autowired
 	private JsonResService jsonResService;
-	//
+
 	@Autowired
 	private LoginService loginService;
 	
@@ -97,7 +96,7 @@ public class UnitTestCase {
 	//String password = "abcd"; 
 	String email = "rahul@newput.com";
 	String password = "abcd";
-	String empId = "1";
+	String empId = "12";
 	String firstName = "deepti";
 	String lastName = "gmail";
 	String dob = "28-05-1990";
@@ -110,7 +109,7 @@ public class UnitTestCase {
 	
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testRegisterUser(){
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -143,7 +142,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testMailVerification(){
 		emp.setvToken("3686");
 		emp.setEmail(email);
@@ -161,7 +160,7 @@ public class UnitTestCase {
 	}	
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void testTimeEntry() throws ParseException {
 		timeSchedual.timeSheetValue("12:00", "9:00", "19:30", "06-10-2015", "12:30", "21:00", "23:00", Integer.parseInt(empId));
 		reqParser.setDateSheetValue("this is my 6 date", "06-10-2015", Integer.parseInt(empId));
@@ -170,7 +169,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testForgotPwd(){
 		emp.setEmail(email);
 		String ptoken = util.generateRandomString();
@@ -183,7 +182,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testExcelExport(){
 		assertEquals(true, util.validCheck(month, year));
 		File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
@@ -192,7 +191,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testPasswordVerification(){
 		emp.setId(Integer.parseInt(empId));
 		emp.setpToken("4669");
@@ -204,7 +203,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testMonthlyExcel(){
 		assertEquals(true, util.validCheck(month, year));
 		excel.monthSheet(month, Integer.parseInt(empId), year);
@@ -219,7 +218,7 @@ public class UnitTestCase {
 	
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testAddUser() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date userDob = (Date) sdf.parse("10-10-1990");
@@ -240,7 +239,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testMailVerify() {
 		emp.setEmail("abc@newput.com");
 		EmployeeExample example = new EmployeeExample();
@@ -253,7 +252,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testCreateSession() {
 		emp.setId(34);
 		emp.setFirstName("abc");
@@ -269,7 +268,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testSignOut() {
 		SessionExample sessionExample = new SessionExample();
 		sessionExample.createCriteria().andEmpIdEqualTo(34);
@@ -281,7 +280,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testTimeSheetValue() {
 		timeSheet = reqParser.setTimeSheetValue("25-10-2015", "9:00", "19:00", "1", 34);
 		boolean status = timeSchedual.saveTimeSheet(timeSheet);
@@ -289,7 +288,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testDateSheetValue() {
 		dateSheet.setCreated(getCurrentTime());
 		dateSheet.setEmpId(34);
@@ -301,7 +300,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testResetPassword() {
 		emp.setEmail("abc@newput.com");
 		EmployeeExample example = new EmployeeExample();
@@ -316,7 +315,7 @@ public class UnitTestCase {
 	}
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void testPwdVerify() {
 		emp.setId(34);
 		emp.setpToken("5869");
@@ -344,7 +343,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testMailExcelSheet(){
 		assertEquals(true, util.validCheck(month, year));
 		File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
@@ -354,7 +353,7 @@ public class UnitTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testResendMail(){
 		String registrationToken = util.generateRandomString();
 		empService.resetPassword(email, registrationToken, "registration");
