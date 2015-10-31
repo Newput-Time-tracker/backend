@@ -46,11 +46,11 @@ public class EMailSender {
 			email.setTo(emp.getEmail());
 			email.setSubject("Confirmation Mail");
 			if (module.equalsIgnoreCase("registration")) {
-				email.setText("Welcome, You are successfully register Please click here" + System.getenv("WEBAPP_URL")
+				email.setText("Welcome, You are successfully register Please click here : " + SystemConfig.get("WEBAPP_URL")
 						+ "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" + emp.getvToken());
 			} else if (module.equalsIgnoreCase("password")) {
-				email.setText("Welcome, Please confirm your mail id. click here" + System.getenv("WEBAPP_URL")
-						+ "/app/confirmpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
+				email.setText("Welcome, Please confirm your mail id. click here : " + SystemConfig.get("WEBAPP_URL")
+						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
 			}
 			mailSender.send(email);
 			return null;
@@ -67,7 +67,7 @@ public class EMailSender {
 	 * @param file
 	 *            - excelFile
 	 */
-	public String sendExcelSheet(String email, File file) {		
+	public String sendExcelSheet(String email, File file, String sheetName) {		
 		if (email != null && !email.equalsIgnoreCase("")) {
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
@@ -76,7 +76,7 @@ public class EMailSender {
 				helper.setSubject("Your Time Sheet");
 				helper.setText("This is your time sheet please check it.");
 				FileSystemResource fileNew = new FileSystemResource(file.getPath());
-				helper.addAttachment("Time_Sheet.xls", fileNew);
+				helper.addAttachment(sheetName, fileNew);
 				mailSender.send(message);
 				jsonResService.setDataValue("Your time sheet succefully send to your registered mail id.", "");
 				return null;
@@ -101,7 +101,7 @@ public class EMailSender {
 		SimpleMailMessage email = new SimpleMailMessage();
 		email.setTo(emp.getEmail());
 		email.setSubject("Notification Mail");
-		email.setText("Welcome, Please fill your daily status for today.Please ignore if already filled.");
+		email.setText("Welcome, Please fill your daily status for today. Please ignore if already filled.");
 		mailSender.send(email);
 	}
 }

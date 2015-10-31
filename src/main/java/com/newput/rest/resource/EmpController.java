@@ -380,14 +380,14 @@ public class EmpController {
 					file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 					String[] parts = file.getPath().split("tempfile");
 					String part1 = parts[0];
-					File newFile = new File(part1 + "time_sheet.xls");
+					File newFile = new File(part1 + "time-sheet.xls");
 					if (newFile.exists()) {
 						newFile.delete();
-						newFile = new File(part1 + "time_sheet.xls");
+						newFile = new File(part1 + "time-sheet.xls");
 					}
 					file.renameTo(newFile);
 					response = Response.ok((Object) newFile);
-					response.header("Content-Disposition", "attachment; filename=time-sheet.xls");
+					response.header("Content-Disposition", "attachment; filename="+excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year));
 					if (file.exists()) {
 						file.delete();
 					}
@@ -554,7 +554,8 @@ public class EmpController {
 					if (util.validCheck(month, year)) {
 						File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 						if (jsonResService.isSuccess()) {
-							String sendMail = emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file);
+							String sendMail = emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), 
+									file, excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year));
 							if (sendMail != null && !sendMail.equalsIgnoreCase("")) {
 								jsonResService.errorResponse(new TrackerException(sendMail).getMessage());
 							}							

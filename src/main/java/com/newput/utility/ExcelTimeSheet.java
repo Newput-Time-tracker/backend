@@ -70,7 +70,7 @@ public class ExcelTimeSheet {
 	 *            - 2015 {@link createSheetStructure} {@link getTimeSheetData}
 	 * @return
 	 */
-	public File createExcelSheet(int emp_id, String monthName, String year) {
+	public File createExcelSheet(int emp_id, String month, String year) {
 
 		File temp = null;
 		try {
@@ -83,13 +83,13 @@ public class ExcelTimeSheet {
 		HSSFSheet sheet = workbook.createSheet("Time_Sheet");
 
 		HashMap<String, String> empMap = new HashMap<>();
-		empMap.put("month", monthName);
+		empMap.put("month", month);
 		empMap.put("year", year);
 		empMap.put("name", getEmpName(emp_id));
 
 		createSheetStructure(sheet, workbook, empMap);
-		getTimeSheetData(sheet, emp_id, util.getMonthlyDate(monthName, year).get("minDate"),
-				util.getMonthlyDate(monthName, year).get("maxDate"), "excelExport", workbook);
+		getTimeSheetData(sheet, emp_id, util.getMonthlyDate(month, year).get("minDate"),
+				util.getMonthlyDate(month, year).get("maxDate"), "excelExport", workbook);
 
 		try {
 			FileOutputStream outStream = new FileOutputStream(temp);
@@ -369,5 +369,13 @@ public class ExcelTimeSheet {
 	public String getEmpEmail(int empId) {
 		employee = employeeMapper.selectByPrimaryKey(empId);
 		return employee.getEmail();
+	}
+	
+	public String getTimeSheetName(int empId, String month, String year) {
+		employee = employeeMapper.selectByPrimaryKey(empId);
+		String fName = Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1);
+		String lName = Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1);
+		String mName = Character.toUpperCase(month.charAt(0)) + month.substring(1);
+		return fName + "_" + lName + "_" + mName + "_" + year + ".xls";
 	}
 }
