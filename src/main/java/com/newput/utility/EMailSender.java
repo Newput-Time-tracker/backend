@@ -46,11 +46,11 @@ public class EMailSender {
 			email.setTo(emp.getEmail());
 			email.setSubject("Confirmation Mail");
 			if (module.equalsIgnoreCase("registration")) {
-				email.setText("Welcome, You are successfully register Please click here" + System.getenv("WEBAPP_URL")
+				email.setText("Welcome, You are successfully register Please click here : " + System.getenv("WEBAPP_URL")
 						+ "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" + emp.getvToken());
 			} else if (module.equalsIgnoreCase("password")) {
-				email.setText("Welcome, Please confirm your mail id. click here" + System.getenv("WEBAPP_URL")
-						+ "/app/confirmpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
+				email.setText("Welcome, Please confirm your mail id. click here : " + System.getenv("WEBAPP_URL")
+						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
 			}
 			mailSender.send(email);
 			return null;
@@ -101,7 +101,7 @@ public class EMailSender {
 		SimpleMailMessage email = new SimpleMailMessage();
 		email.setTo(emp.getEmail());
 		email.setSubject("Notification Mail");
-		email.setText("Welcome, Please fill your daily status for today.Please ignore if already filled.");
+		email.setText("Welcome, Please fill your daily status for today. Please ignore if already filled.");
 		mailSender.send(email);
 	}
 }
