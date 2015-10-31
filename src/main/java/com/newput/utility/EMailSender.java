@@ -46,10 +46,10 @@ public class EMailSender {
 			email.setTo(emp.getEmail());
 			email.setSubject("Confirmation Mail");
 			if (module.equalsIgnoreCase("registration")) {
-				email.setText("Welcome, You are successfully register Please click here : " + SystemConfig.get("WEBAPP_URL")
+				email.setText("Welcome, You are successfully register Please click here : " + System.getenv("WEBAPP_URL")
 						+ "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" + emp.getvToken());
 			} else if (module.equalsIgnoreCase("password")) {
-				email.setText("Welcome, Please confirm your mail id. click here : " + SystemConfig.get("WEBAPP_URL")
+				email.setText("Welcome, Please confirm your mail id. click here : " + System.getenv("WEBAPP_URL")
 						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
 			}
 			mailSender.send(email);
