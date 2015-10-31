@@ -34,9 +34,9 @@
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
 			}" />
 
-		<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" 
+		<property name="url" value="jdbc:mysql://localhost:3306/time_tracker" 
 			/> <property name="username" value="root" /> <property name="password" value="root" 
-			/> -->
+			/>
 	</bean>
 
 	<bean id="transactionManager"
@@ -63,11 +63,11 @@
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>
-				<prop key="mail.transport.protocol">#{ systemConfig.get('MAIL_PROTOCOL') }</prop>
-				<prop key="mail.smtp.auth">#{ systemConfig.get('MAIL_AUTH') }</prop>
-				<prop key="mail.smtp.starttls.enable">"#{ systemConfig.get('MAIL_ENABLE') }</prop>
-				<prop key="mail.smtp.host">#{ systemConfig.get('MAIL_HOST') }</prop>
-				<prop key="mail.smtp.port">#{ systemConfig.get('MAIL_PORT') }</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.host">smtp.gmail.com</prop>
+				<prop key="mail.smtp.port">587</prop>
 			</props>
 		</property>
 	</bean>
