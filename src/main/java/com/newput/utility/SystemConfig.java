@@ -8,7 +8,7 @@ public class SystemConfig {
 
 	public SystemConfig() {
 		props = new Properties();
-		//props.setProperty("WEBAPP_URL", System.getenv("WEBAPP_URL"));
+		props.setProperty("WEBAPP_URL", System.getenv("WEBAPP_URL"));
 		props.setProperty("MAIL_USERID", System.getenv("MAIL_USERID"));
 		props.setProperty("MAIL_PASSWORD", System.getenv("MAIL_PASSWORD"));
 	}
