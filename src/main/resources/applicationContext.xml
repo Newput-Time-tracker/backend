@@ -56,10 +56,10 @@
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<!-- SMTP settings -->
-		<!-- <property name="username" value="deepti@newput.com" />
-		<property name="password" value="712august2015" /> -->
-		<property name="username" value="#{ systemConfig.get('MAIL_USERID') }" />
-		<property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') }" />
+		<property name="username" value="deepti@newput.com" />
+		<property name="password" value="712august2015" />
+		<!-- <property name="username" value="#{ systemConfig.get('MAIL_USERID') }" />
+		<property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') }" /> -->
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>
