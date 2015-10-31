@@ -349,7 +349,8 @@ public class UnitTestCase {
 		assertEquals(true, util.validCheck(month, year));
 		File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 		assertEquals(true, jsonResService.isSuccess());
-		assertEquals(null, emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file));
+		assertEquals(null, emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file, 
+				excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year)));
 		file.delete();		
 	}
 	

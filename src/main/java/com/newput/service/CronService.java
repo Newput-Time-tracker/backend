@@ -70,7 +70,7 @@ public class CronService {
 			Long currntStamp = cal.getTimeInMillis();
 
 			String year = new SimpleDateFormat("YYYY").format(currntStamp);
-			String mnth = new SimpleDateFormat("MMMM").format(currntStamp);
+			String month = new SimpleDateFormat("MMMM").format(currntStamp);
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
 			empExample.createCriteria().andStatusEqualTo(true);
@@ -79,9 +79,10 @@ public class CronService {
 			if (list.size() > 0) {
 				for (int i = 0; i < list.size(); i++) {
 					emp = list.get(i);
-					File file = excelTimeSheet.createExcelSheet(emp.getId(), mnth, year);
+					File file = excelTimeSheet.createExcelSheet(emp.getId(), month, year);
 					if (jsonResService.isSuccess()) {
-						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file);
+						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file, 
+								excelTimeSheet.getTimeSheetName(emp.getId(), month, year));
 						file.delete();
 					}
 				}

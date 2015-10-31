@@ -67,7 +67,7 @@ public class EMailSender {
 	 * @param file
 	 *            - excelFile
 	 */
-	public String sendExcelSheet(String email, File file) {		
+	public String sendExcelSheet(String email, File file, String sheetName) {		
 		if (email != null && !email.equalsIgnoreCase("")) {
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
@@ -76,7 +76,7 @@ public class EMailSender {
 				helper.setSubject("Your Time Sheet");
 				helper.setText("This is your time sheet please check it.");
 				FileSystemResource fileNew = new FileSystemResource(file.getPath());
-				helper.addAttachment("Time_Sheet.xls", fileNew);
+				helper.addAttachment(sheetName, fileNew);
 				mailSender.send(message);
 				jsonResService.setDataValue("Your time sheet succefully send to your registered mail id.", "");
 				return null;
