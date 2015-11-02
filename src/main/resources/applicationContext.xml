@@ -16,24 +16,10 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 		
 	<bean id="systemConfig" class="com.newput.utility.SystemConfig" />
-	
-	<!-- <bean id="dataConfigPropertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
-	<bean class="java.net.URI" id="dbUrl">
-		<constructor-arg value="${CLEARDB_DATABASE_URL}" />
-	</bean> -->
 		
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<!-- <property name="url"
-			value="#{ 'jdbc:mysql://' + @dbUrl.getHost() 
-			+ @dbUrl.getPath() }" />
-		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] 
-			}" />
-		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] 
-			}" /> -->
-		
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />		
 		<property name="url" value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') + systemConfig.get('DB_NAME') }" />
 		<property name="username" value="#{ systemConfig.get('DB_USER') }" />
 		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') }" />

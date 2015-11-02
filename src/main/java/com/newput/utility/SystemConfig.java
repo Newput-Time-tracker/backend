@@ -28,22 +28,11 @@ public class SystemConfig {
 	}
 	
 	public void setDataBaseInfo(String dbUrl){
-		//String dbUrl = "mysql://b556cf1796327c:6c851d00@us-cdbr-iron-east-03.cleardb.net/heroku_a540dae71714038?reconnect=true";
-
 		String s[] = dbUrl.split(":");
-		String user = s[1].substring(2);
-		props.setProperty("DB_USER", user);
 		
-		int i1 = s[2].indexOf("@");
-		String password = s[2].substring(0, i1);
-		props.setProperty("DB_PASSWORD", password);		
-		
-		int i2 = s[2].indexOf("/");
-		String localHost = s[2].substring(i1+1, i2);
-		props.setProperty("DB_LOCAL_HOST", localHost);		
-		
-		int i3 = s[2].indexOf("?");
-		String dbName = s[2].substring(i2, i3);
-		props.setProperty("DB_NAME", dbName);
+		props.setProperty("DB_USER", s[1].substring(2));		
+		props.setProperty("DB_PASSWORD", s[2].substring(0, s[2].indexOf("@")));		
+		props.setProperty("DB_LOCAL_HOST", s[2].substring((s[2].indexOf("@")+1), s[2].indexOf("/")));		
+		props.setProperty("DB_NAME", s[2].substring(s[2].indexOf("/"), s[2].indexOf("?")));
 	}
 }
