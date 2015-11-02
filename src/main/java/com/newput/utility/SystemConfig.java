@@ -30,9 +30,9 @@ public class SystemConfig {
 	public void setDataBaseInfo(String dbUrl){
 		String s[] = dbUrl.split(":");
 		
-		props.setProperty("DB_USER", s[1].substring(2));		
-		props.setProperty("DB_PASSWORD", s[2].substring(0, s[2].indexOf("@")));		
-		props.setProperty("DB_LOCAL_HOST", s[2].substring((s[2].indexOf("@")+1), s[2].indexOf("/")));		
+		props.setProperty("DB_USER", s[1].substring(2));
+		props.setProperty("DB_PASSWORD", s[2].substring(0, s[2].indexOf("@")));
+		props.setProperty("DB_LOCAL_HOST", s[2].substring((s[2].indexOf("@")+1), s[2].indexOf("/")));
 		props.setProperty("DB_NAME", s[2].substring(s[2].indexOf("/"), s[2].indexOf("?")));
 	}
 }
