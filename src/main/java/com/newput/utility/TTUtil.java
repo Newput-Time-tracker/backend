@@ -41,7 +41,6 @@ public class TTUtil {
 			// LOG.debug(e.getMessage());
 			// throw new AppException(CommonConstants.Error.FAILED);
 		}
-
 	}
 
 	/**
@@ -332,6 +331,5 @@ public class TTUtil {
 			e.printStackTrace();
 			return false;
 		}
-
-	}
+	}	
 }

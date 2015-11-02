@@ -66,12 +66,13 @@ public class JsonResService {
 	@SuppressWarnings("unchecked")
 	public JSONObject createEmployeeJson(Employee emp) {
 		JSONObject obj = new JSONObject();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		obj.put("id", emp.getId());
 		obj.put("firstName", emp.getFirstName());
 		obj.put("lastName", emp.getLastName());
-		obj.put("email", emp.getEmail());
-		obj.put("dob", emp.getDob());
-		obj.put("doj", emp.getDoj());
+		obj.put("email", emp.getEmail());		
+		obj.put("dob", sdf.format(emp.getDob()));
+		obj.put("doj", sdf.format(emp.getDoj()));
 		obj.put("address", emp.getAddress());
 		obj.put("contact", emp.getContact());
 		obj.put("gender", emp.getGender());
