@@ -14,6 +14,7 @@ import com.newput.mapper.EmployeeMapper;
 import com.newput.utility.EMailSender;
 import com.newput.utility.ExcelTimeSheet;
 import com.newput.utility.JsonResService;
+import com.newput.utility.SystemConfig;
 
 /**
  * Description : Use to schedule the Cron jobs.
@@ -45,7 +46,7 @@ public class CronService {
 	 */
 	public void dailyNotification() {
 
-		if(System.getenv("CRON_SERVICE").equalsIgnoreCase("start")){
+		if(SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")){
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
 			empExample.createCriteria().andStatusEqualTo(true);
@@ -65,7 +66,7 @@ public class CronService {
 	 */
 	public void emailSendJob() {
 
-		if(System.getenv("CRON_SERVICE").equalsIgnoreCase("start")){
+		if(SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")){
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
