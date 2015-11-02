@@ -14,15 +14,15 @@
 	<context:annotation-config />
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+		
 	<bean id="systemConfig" class="com.newput.utility.SystemConfig" />
+	
 	<bean id="dataConfigPropertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
 	<bean class="java.net.URI" id="dbUrl">
 		<constructor-arg value="${CLEARDB_DATABASE_URL}" />
 	</bean>
-	
-	
+		
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -62,12 +62,19 @@
 		<property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') }" />
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
-			<props>
+			<!-- <props>
 				<prop key="mail.transport.protocol">smtp</prop>
 				<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.smtp.host">smtp.gmail.com</prop>
 				<prop key="mail.smtp.port">587</prop>
+			</props> -->
+			<props>
+				<prop key="mail.transport.protocol">#{ systemConfig.get('MAIL_PROTOCOL') }</prop>
+				<prop key="mail.smtp.auth">#{ systemConfig.get('MAIL_AUTH') }</prop>
+				<prop key="mail.smtp.starttls.enable">#{ systemConfig.get('MAIL_ENABLE') }</prop>
+				<prop key="mail.smtp.host">#{ systemConfig.get('MAIL_HOST') }</prop>
+				<prop key="mail.smtp.port">#{ systemConfig.get('MAIL_PORT') }</prop>
 			</props>
 		</property>
 	</bean>

@@ -95,10 +95,7 @@ public class LoginService {
 				localSession.setExpiresWhen(getCurrentTime() + 1800);
 				localSession.setToken(util.createSessionKey(getCurrentTime(), emp.getEmail()));
 				i = sessionMapper.updateByPrimaryKey(localSession);
-				if (i > 0) {
-					// jsonResService.setDataValue("Welcome User updated : " +
-					// emp.getFirstName(),
-					// localSession.getToken());
+				if (i > 0) {					
 					obj.put("token", localSession.getToken());
 					objArray.add(jsonResService.createEmployeeJson(emp));
 					objArray.add(obj);
