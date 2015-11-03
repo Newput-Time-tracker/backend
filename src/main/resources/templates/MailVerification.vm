@@ -1,6 +1,5 @@
 <html>
 <body>
-<CENTER>
 Hello </b> <h2 style="color:blue"> ${FirstName} ${LastName},</h2> <p/>
   <CENTER>
 Welcome, To verify Please click here : ${url}${webUrl}${token}${param}${Id}<p/>
