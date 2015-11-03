@@ -284,7 +284,7 @@ public class EmpController {
 						timeSchedual.dateSheetValue();
 						timeSchedual.clearMap();
 					} else {
-						jsonResService.errorResponse("Record is not avail.");
+						jsonResService.errorResponse("Please enter correct date");
 					}
 				} else {
 					jsonResService.errorResponse("emp_id can not be null");
