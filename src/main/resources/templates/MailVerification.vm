@@ -1,0 +1,12 @@
+<html>
+<body>
+Hello ${FirstName} ${LastName},<p/>
+ 
+Welcome, You are successfully register Please click here :${url} /app/verifyuser?EM= ${mailId} &ET= ${token}.<p/>
+ 
+Thanks
+ 
+Newput Team.
+ 
+</body>
+</html>

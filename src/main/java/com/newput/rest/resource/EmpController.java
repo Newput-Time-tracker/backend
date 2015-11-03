@@ -2,6 +2,7 @@ package com.newput.rest.resource;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -19,7 +20,6 @@ import com.newput.domain.Employee;
 import com.newput.domain.TrackerException;
 import com.newput.service.EmpService;
 import com.newput.service.LoginService;
-import com.newput.service.SelectiveExcel;
 import com.newput.service.TSchedualService;
 import com.newput.utility.ExcelTimeSheet;
 import com.newput.utility.JsonResService;
@@ -37,9 +37,6 @@ import com.newput.utility.EMailSender;
 @Controller
 @Path("/employee")
 public class EmpController {
-
-	@Autowired
-	private SelectiveExcel excel;
 
 	@Autowired
 	private TSchedualService timeSchedual;
@@ -169,7 +166,7 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Internal Server Error").getMessage());
-				}
+		}
 		return jsonResService.responseSender();
 	}
 
@@ -290,7 +287,7 @@ public class EmpController {
 					jsonResService.errorResponse("emp_id can not be null");
 				}
 			} else {
-				jsonResService.errorResponse("Can add for current week data only");
+				jsonResService.errorResponse("Please enter correct date");
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
@@ -387,7 +384,8 @@ public class EmpController {
 					}
 					file.renameTo(newFile);
 					response = Response.ok((Object) newFile);
-					response.header("Content-Disposition", "attachment; filename="+excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year));
+					response.header("Content-Disposition", "attachment; filename="
+							+ excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year));
 					if (file.exists()) {
 						file.delete();
 					}
@@ -432,7 +430,7 @@ public class EmpController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public JSONObject passwordVerification(@FormParam("empId") String id, @FormParam("pToken") String pToken,
 			@FormParam("newPassword") String newPassword) {
-		try {			
+		try {
 			if (id != null && !id.equalsIgnoreCase("")) {
 				int empId = Integer.parseInt(id);
 				if (pToken != null && !pToken.equalsIgnoreCase("")) {
@@ -461,7 +459,7 @@ public class EmpController {
 	 *           employee/monthlyExcel
 	 * @POST
 	 * 		<p>
-	 *       Description : To provide Json object of time sheet to UI respose.
+	 *       Description : To provide Json object of time sheet in UI respose.
 	 * @param month
 	 *            - October or oct
 	 * @param empId
@@ -502,8 +500,10 @@ public class EmpController {
 			if (empId != null && !empId.equalsIgnoreCase("")) {
 				if (month != null && !month.equalsIgnoreCase("")) {
 					if (util.validCheck(month, year)) {
-						excel.monthSheet(month, Integer.parseInt(empId), year);
-				} else {
+						HashMap<String, Long> mapValue = util.getMonthlyDate(month, year);
+						excelTimeSheet.getTimeSheetData(null, Integer.parseInt(empId), mapValue.get("minDate"),
+								mapValue.get("maxDate"), "monthSheet", null);
+					} else {
 						jsonResService.errorResponse("Record is not avail.");
 					}
 				} else {
@@ -514,6 +514,49 @@ public class EmpController {
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user").getMessage());
+		}
+		return jsonResService.responseSender();
+	}
+
+	/**
+	 * @Required url to redirect :
+	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
+	 *           employee/workDayData
+	 * @POST
+	 * 		<p>
+	 *       Description : To provide Json object of time sheet for specified
+	 *       date in UI respose.
+	 * @param empId
+	 *            - 1
+	 * @param workDate
+	 *            - 03-11-2015
+	 * @return
+	 * 		<p>
+	 *         Success Response : { data: [1] 0: { workDate: "03-11-2015"
+	 *         lunchOut: "12:30" nightOut: "" in: "09:00" totalHour: "09:20"
+	 *         lunchIn: "11:55" nightIn: "" workDesc: "this is my 3 day" out:
+	 *         "18:55" }- - success: true rcode: null error: null }
+	 * 
+	 *         <p>
+	 *         Fail Response :{ data: [1] 0: { msg: null }- - success: false
+	 *         rcode: "505" error: "Please enter correct date" }
+	 */
+	@Path("/workDayData")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public JSONObject workDayData(@FormParam("empId") String empId, @FormParam("workDate") String workDate) {
+		try {
+			if (workDate != null && !workDate.equalsIgnoreCase("") && util.checkValidWeek(workDate)) {
+				if (empId != null && !empId.equalsIgnoreCase("")) {
+					excelTimeSheet.getDayData(Integer.parseInt(empId), util.timeMiliSec(workDate, "0:0"));
+				} else {
+					jsonResService.errorResponse("Please provide employee id to select data");
+				}
+			} else {
+				jsonResService.errorResponse("Please enter correct date");
+			}
+		} catch (Exception ex) {
+			jsonResService.errorResponse(new TrackerException("Invalid request date").getMessage());
 		}
 		return jsonResService.responseSender();
 	}
@@ -554,11 +597,12 @@ public class EmpController {
 					if (util.validCheck(month, year)) {
 						File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
 						if (jsonResService.isSuccess()) {
-							String sendMail = emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), 
-									file, excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year));
+							String sendMail = emailSend.sendExcelSheet(
+									excelTimeSheet.getEmpEmail(Integer.parseInt(empId)), file,
+									excelTimeSheet.getTimeSheetName(Integer.parseInt(empId), month, year));
 							if (sendMail != null && !sendMail.equalsIgnoreCase("")) {
 								jsonResService.errorResponse(new TrackerException(sendMail).getMessage());
-							}							
+							}
 							file.delete();
 						}
 					} else {

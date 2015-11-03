@@ -12,7 +12,6 @@ import com.newput.mapper.DateSheetMapper;
 import com.newput.mapper.EmployeeMapper;
 import com.newput.service.EmpService;
 import com.newput.service.LoginService;
-import com.newput.service.SelectiveExcel;
 import com.newput.service.TSchedualService;
 import com.newput.utility.EMailSender;
 import com.newput.utility.ExcelTimeSheet;
@@ -61,9 +60,6 @@ public class ControllerTestCase {
 	
 	@Autowired
 	private ExcelTimeSheet excelTimeSheet;
-	
-	@Autowired
-	private SelectiveExcel excel;
 	
 	@Autowired
 	EmployeeMapper empMapper;
@@ -185,7 +181,7 @@ public class ControllerTestCase {
 	//@Ignore
 	public void testMonthlyExcel(){
 		assertEquals(true, util.validCheck(month, year));
-		excel.monthSheet(month, Integer.parseInt(empId), year);
+		//excelTimeSheet.getTimeSheetData(month, Integer.parseInt(empId), year);
 		assertEquals(true, jsonResService.isSuccess());
 		assertNotNull(jsonResService.getData());		
 	}			
