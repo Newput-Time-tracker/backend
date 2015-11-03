@@ -14,15 +14,19 @@
 	<context:annotation-config />
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-		
+
 	<bean id="systemConfig" class="com.newput.utility.SystemConfig" />
-		
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />		
-		<property name="url" value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') + systemConfig.get('DB_NAME') }" />
-		<property name="username" value="#{ systemConfig.get('DB_USER') }" />
-		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') }" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') 
+			+ systemConfig.get('DB_NAME') }" />
+		<property name="username" value="#{ systemConfig.get('DB_USER') 
+			}" />
+		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
+			}" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -41,11 +45,11 @@
 	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<!-- SMTP settings -->		
+		<!-- SMTP settings -->
 		<property name="username" value="#{ systemConfig.get('MAIL_USERID') }" />
 		<property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') }" />
 		<property name="javaMailProperties">
-			<!-- additional properties specific to JavaMail -->			
+			<!-- additional properties specific to JavaMail -->
 			<props>
 				<prop key="mail.transport.protocol">#{ systemConfig.get('MAIL_PROTOCOL') }</prop>
 				<prop key="mail.smtp.auth">#{ systemConfig.get('MAIL_AUTH') }</prop>
@@ -57,13 +61,13 @@
 	</bean>
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-	<property name="triggers">
-		<list>
-			<ref bean="dailyNotifyTrigger" />
-			<ref bean="weeklyExcelTrigger" />
-			<ref bean="monthlyExcelTrigger" />
-		</list>
-	</property>
+		<property name="triggers">
+			<list>
+				<ref bean="dailyNotifyTrigger" />
+				<ref bean="weeklyExcelTrigger" />
+				<ref bean="monthlyExcelTrigger" />
+			</list>
+		</property>
 	</bean>
 	<bean id="scheduledCronService" class="com.newput.service.CronService" />
 	<bean id="dailyNotifyTrigger"
@@ -76,7 +80,7 @@
 		<property name="targetObject" ref="scheduledCronService" />
 		<property name="targetMethod" value="dailyNotification" />
 		<property name="concurrent" value="false" />
-	</bean>	
+	</bean>
 	<bean id="weeklyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processExcelNotify" />
@@ -87,7 +91,7 @@
 		<property name="targetObject" ref="scheduledCronService" />
 		<property name="targetMethod" value="emailSendJob" />
 		<property name="concurrent" value="false" />
-	</bean>	
+	</bean>
 	<bean id="monthlyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processMExcelNotify" />

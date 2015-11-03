@@ -317,10 +317,19 @@ public class ExcelTimeSheet {
 
 		for (int i = 6; i < 37; i++) {
 			HSSFRow row = sheet.createRow(i);
+			String formulaString = "C" + (i + 1) + "-B" + (i + 1) + "+E" + (i + 1) + "-D" + (i + 1) + "+G" + (i + 1)
+					+ "-F" + (i + 1);
 			row.createCell(0).setCellValue(i - 5);
 			row.getCell(0).setCellStyle(centerStyle);
+			row.createCell(1).setCellStyle(totalhourStyle);
+			row.createCell(2).setCellStyle(totalhourStyle);
+			row.createCell(3).setCellStyle(totalhourStyle);
+			row.createCell(4).setCellStyle(totalhourStyle);
+			row.createCell(5).setCellStyle(totalhourStyle);
+			row.createCell(6).setCellStyle(totalhourStyle);
 			row.createCell(7).setCellValue("0:00");
-			row.getCell(7).setCellStyle(hourStyle);
+			row.createCell(7).setCellFormula(formulaString);
+			row.getCell(7).setCellStyle(totalhourStyle);
 		}
 
 		HSSFRow aRow4 = sheet.createRow(38);
@@ -370,7 +379,7 @@ public class ExcelTimeSheet {
 		employee = employeeMapper.selectByPrimaryKey(empId);
 		return employee.getEmail();
 	}
-	
+
 	public String getTimeSheetName(int empId, String month, String year) {
 		employee = employeeMapper.selectByPrimaryKey(empId);
 		String fName = Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1);

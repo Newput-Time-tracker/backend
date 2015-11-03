@@ -88,7 +88,7 @@ public class ControllerTestCase {
 	
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testRegisterUser(){
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -121,7 +121,7 @@ public class ControllerTestCase {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testMailVerification(){
 		emp.setvToken("3686");
 		emp.setEmail(email);
@@ -139,7 +139,7 @@ public class ControllerTestCase {
 	}	
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void testTimeEntry() throws ParseException {
 		timeSchedual.timeSheetValue("12:00", "9:00", "19:30", "06-10-2015", "12:30", "21:00", "23:00", Integer.parseInt(empId));
 		reqParser.setDateSheetValue("this is my 6 date", "06-10-2015", Integer.parseInt(empId));
@@ -148,7 +148,7 @@ public class ControllerTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testForgotPwd(){
 		emp.setEmail(email);
 		String ptoken = util.generateRandomString();
@@ -161,7 +161,7 @@ public class ControllerTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testExcelExport(){
 		assertEquals(true, util.validCheck(month, year));
 		File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
@@ -170,7 +170,7 @@ public class ControllerTestCase {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testPasswordVerification(){
 		emp.setId(Integer.parseInt(empId));
 		emp.setpToken("4669");
@@ -182,7 +182,7 @@ public class ControllerTestCase {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void testMonthlyExcel(){
 		assertEquals(true, util.validCheck(month, year));
 		excel.monthSheet(month, Integer.parseInt(empId), year);
