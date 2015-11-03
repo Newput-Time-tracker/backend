@@ -275,7 +275,7 @@ public class EmpController {
 			@FormParam("empId") String emp_id) {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			if (workdate != null && !workdate.equalsIgnoreCase("")) {
+			if (workdate != null && !workdate.equalsIgnoreCase("") && util.checkValidWeek(workdate)) {
 				if (emp_id != null && !emp_id.equalsIgnoreCase("")) {
 					if (util.dateValidation(sdf.parse(workdate), "E")) {
 						int id = Integer.parseInt(emp_id);
@@ -290,7 +290,7 @@ public class EmpController {
 					jsonResService.errorResponse("emp_id can not be null");
 				}
 			} else {
-				jsonResService.errorResponse("Date can not be null");
+				jsonResService.errorResponse("Can add for current week data only");
 			}
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Invalid user entry").getMessage());
