@@ -27,6 +27,7 @@
 			}" />
 		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
 			}" />
+
 	</bean>
 
 	<bean id="transactionManager"
@@ -46,16 +47,19 @@
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<!-- SMTP settings -->
-		<property name="username" value="#{ systemConfig.get('MAIL_USERID') }" />
-		<property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') }" />
+		<!-- <property name="username" value="#{ systemConfig.get('MAIL_USERID') 
+			}" /> <property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') 
+			}" /> -->
+		<property name="username" value="deepti@newput.com" />
+		<property name="password" value="712august2015" />
 		<property name="javaMailProperties">
 			<!-- additional properties specific to JavaMail -->
 			<props>
-				<prop key="mail.transport.protocol">#{ systemConfig.get('MAIL_PROTOCOL') }</prop>
-				<prop key="mail.smtp.auth">#{ systemConfig.get('MAIL_AUTH') }</prop>
-				<prop key="mail.smtp.starttls.enable">#{ systemConfig.get('MAIL_ENABLE') }</prop>
-				<prop key="mail.smtp.host">#{ systemConfig.get('MAIL_HOST') }</prop>
-				<prop key="mail.smtp.port">#{ systemConfig.get('MAIL_PORT') }</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.host">smtp.gmail.com</prop>
+				<prop key="mail.smtp.port">587</prop>
 			</props>
 		</property>
 	</bean>

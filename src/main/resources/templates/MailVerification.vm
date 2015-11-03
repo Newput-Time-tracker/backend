@@ -1,5 +1,6 @@
 <html>
 <body>
+<<<<<<< HEAD
 Hello ${FirstName} ${LastName},<p/>
  
 Welcome, You are successfully register Please click here :${url} /app/verifyuser?EM= ${mailId} &ET= ${token}.<p/>
@@ -8,5 +9,15 @@ Thanks
  
 Newput Team.
  
+=======
+<CENTER>
+Hello </b> <h2 style="color:blue"> ${FirstName} ${LastName},</h2> <p/>
+ 
+Welcome, To verify Please <a href="${url} ${webUrl} ${token} ${param} ${Id}" > click here </a>.<p/>
+ 
+Thanks
+Newput Team.
+</CENTER>
+>>>>>>> Add-velocity-template
 </body>
 </html>

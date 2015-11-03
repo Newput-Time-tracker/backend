@@ -148,8 +148,8 @@ public class EmpService {
 				emply.setpExpireAt(reqres.getCurrentTime() + 900);
 				emply.setUpdated(reqres.getCurrentTime());
 				i = empMapper.updateByExampleSelective(emply, example);
-				emp.setId(emply.getId());
-				emp.setEmail(email);
+				// emp.setId(emply.getId());
+				// emp.setEmail(email);
 				emp.setpToken(Token);
 			} else if (flag.equalsIgnoreCase("registration")) {
 				if (!emply.getStatus()) {
@@ -157,11 +157,15 @@ public class EmpService {
 					emply.setStatus(false);
 					emply.setUpdated(reqres.getCurrentTime());
 					i = empMapper.updateByExampleSelective(emply, example);
-					emp.setId(emply.getId());
-					emp.setEmail(email);
+					// emp.setId(emply.getId());
+					// emp.setEmail(email);
 					emp.setvToken(Token);
 				}
 			}
+			emp.setId(emply.getId());
+			emp.setEmail(email);
+			emp.setFirstName(emply.getFirstName());
+			emp.setLastName(emply.getLastName());
 			if (i > 0) {
 				jsonResService.successResponse();
 				objArray.add(jsonResService.createEmployeeJson(emply));
