@@ -52,14 +52,22 @@ public class TSchedualService {
 	/**
 	 * Description : Set the value of time sheet in setter to update in db.
 	 * 
-	 * @param lunchIn - 12:00
-	 * @param in - 09:00
-	 * @param out - 19:00
-	 * @param workDate - 20-10-2015
-	 * @param lunchOut - 12:30
-	 * @param nightIn - 22:00
-	 * @param nightOut - 23:00
-	 * @param emp_id -1
+	 * @param lunchIn
+	 *            - 12:00
+	 * @param in
+	 *            - 09:00
+	 * @param out
+	 *            - 19:00
+	 * @param workDate
+	 *            - 20-10-2015
+	 * @param lunchOut
+	 *            - 12:30
+	 * @param nightIn
+	 *            - 22:00
+	 * @param nightOut
+	 *            - 23:00
+	 * @param emp_id
+	 *            -1
 	 */
 	public void timeSheetValue(String lunchIn, String in, String out, String workDate, String lunchOut, String nightIn,
 			String nightOut, int emp_id) {
@@ -89,7 +97,8 @@ public class TSchedualService {
 	/**
 	 * Description : Update and insert the time sheet value in database.
 	 * 
-	 * @param timeSheet - An object
+	 * @param timeSheet
+	 *            - An object
 	 */
 	public boolean saveTimeSheet(TimeSheet timeSheet) {
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
@@ -100,7 +109,6 @@ public class TSchedualService {
 		List<TimeSheet> timeList = timeSheetMapper.selectByExample(example);
 
 		if (timeList.size() > 0) {
-			// update
 			TimeSheet timeSheet1 = new TimeSheet();
 			timeSheet1 = timeList.get(0);
 			example.createCriteria().andWorkDateEqualTo(timeSheet1.getWorkDate()).andEmpIdEqualTo(timeSheet1.getEmpId())
@@ -113,20 +121,15 @@ public class TSchedualService {
 				status = true;
 			}
 		} else {
-			// insert
 			int j = timeSheetMapper.insertSelective(timeSheet);
 			if (j == 0) {
 				status = true;
 			}
 		}
 		if (status) {
-			// return json object;
-			// System.out.println("fail to insert or update");
 			jsonResService.errorResponse("fail to insert or update");
 			return false;
 		} else {
-			// System.out.println("successfully insert or update");
-			// jsonResService.setData(jsonResService.createTimeSheetJson(map));
 			objArray.add(jsonResService.createTimeSheetJson(map));
 			jsonResService.setData(objArray);
 			jsonResService.successResponse();
@@ -134,7 +137,6 @@ public class TSchedualService {
 		}
 	}
 
-	
 	/**
 	 * Description : Update and insert the work description of user day task.
 	 */

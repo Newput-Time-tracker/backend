@@ -38,8 +38,6 @@ public class TTUtil {
 					.digest((email + "-" + System.currentTimeMillis() + id).getBytes()));
 		} catch (NoSuchAlgorithmException e) {
 			return e.getMessage();
-			// LOG.debug(e.getMessage());
-			// throw new AppException(CommonConstants.Error.FAILED);
 		}
 	}
 
@@ -128,9 +126,9 @@ public class TTUtil {
 			if (minute.length() == 1) {
 				minute = minute + "0";
 			}
-			String timeSlot = hours + ":" + minute;			
+			String timeSlot = hours + ":" + minute;
 			if (!(timeValue.equals(nextDate)) && (timeSlot.equals("0:0") || timeSlot.equals("0:00")
-					|| timeSlot.equals("00:0") || timeSlot.equals("00:00"))) {				
+					|| timeSlot.equals("00:0") || timeSlot.equals("00:00"))) {
 				return "";
 			} else {
 				return timeSlot;
@@ -266,6 +264,7 @@ public class TTUtil {
 	 */
 	public boolean dateValidation(Date date, String flag) {
 		try {
+			int year;
 			Long minDate = 0L;
 			if (flag.equals("E")) {
 				minDate = 1443637800000L;
@@ -275,7 +274,13 @@ public class TTUtil {
 			Long userDate = date.getTime();
 
 			Calendar now = Calendar.getInstance();
-			int year = now.get(Calendar.YEAR);
+			if (flag.equals("dob")) {
+				now.set(Calendar.YEAR, now.get(Calendar.YEAR) - 17);
+				year = now.get(Calendar.YEAR);
+				System.out.println("year ::" + year);
+			} else {
+				year = now.get(Calendar.YEAR);
+			}
 			int mnth = now.get(Calendar.MONTH);
 			int currDate = now.get(Calendar.DATE);
 			now.set(year, mnth, currDate);
@@ -300,7 +305,6 @@ public class TTUtil {
 	 * @return
 	 */
 	public boolean validCheck(String month, String year) {
-		// Long startDate = 1446316199000L;
 		Long startDate = 1443637800000L; // 01-10-2015
 		int reqYear = 0;
 		try {
@@ -331,5 +335,23 @@ public class TTUtil {
 			e.printStackTrace();
 			return false;
 		}
-	}	
+	}
+
+	public boolean checkValidWeek(String workDate) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Long newDate = sdf.parse(workDate).getTime();
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(newDate);
+		int x = cal.get(Calendar.WEEK_OF_YEAR);
+		// System.out.println("week of specified date ::" + x);
+		Calendar cal1 = Calendar.getInstance();
+		int y = cal1.get(Calendar.WEEK_OF_YEAR);
+		// System.out.println("current week ::" + y);
+		if (x == y) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

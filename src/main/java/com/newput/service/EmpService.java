@@ -42,7 +42,9 @@ public class EmpService {
 
 	/**
 	 * Description : Use to add new user object into the database.
-	 * @param employee - An object of employee
+	 * 
+	 * @param employee
+	 *            - An object of employee
 	 */
 	@ExceptionHandler({ TrackerException.class })
 	public void addUser(Employee employee) {
@@ -54,8 +56,8 @@ public class EmpService {
 				if (employee.getContact() != null && !employee.getContact().equalsIgnoreCase("")) {
 					if (employee.getFirstName() != null && !employee.getFirstName().equalsIgnoreCase("")) {
 						if (employee.getLastName() != null && !employee.getLastName().equalsIgnoreCase("")) {
-							if (employee.getDob() != null && util.dateValidation(emp.getDob(),"")) {
-								if (employee.getDoj() != null && util.dateValidation(emp.getDoj(),"")) {
+							if (employee.getDob() != null && util.dateValidation(emp.getDob(), "dob")) {
+								if (employee.getDoj() != null && util.dateValidation(emp.getDoj(), "")) {
 									if (employee.getGender() != null && !employee.getGender().equalsIgnoreCase("")) {
 										i = empMapper.insertSelective(employee);
 										if (i > 0) {
@@ -93,6 +95,7 @@ public class EmpService {
 
 	/**
 	 * Description : Use to verify the mail id of new registered user.
+	 * 
 	 * @param employee
 	 */
 	public void mailVerify(Employee employee) {
@@ -102,24 +105,33 @@ public class EmpService {
 		List<Employee> employeeList = empMapper.selectByExample(example);
 		if (employeeList.size() > 0) {
 			employee = employeeList.get(0);
-			example.createCriteria().andEmailEqualTo(employee.getEmail());
-			employee.setStatus(true);
-			employee.setUpdated(new Date().getTime() / 1000);
-			employee.setRole("employee");
-			empMapper.updateByExampleSelective(employee, example);
-			objArray.add(jsonResService.createEmployeeJson(employee));
-			jsonResService.setData(objArray);
-			jsonResService.successResponse();
+			if (!employee.getStatus()) {
+				example.createCriteria().andEmailEqualTo(employee.getEmail());
+				employee.setStatus(true);
+				employee.setUpdated(new Date().getTime() / 1000);
+				employee.setRole("employee");
+				empMapper.updateByExampleSelective(employee, example);
+				objArray.add(jsonResService.createEmployeeJson(employee));
+				jsonResService.setData(objArray);
+				jsonResService.successResponse();
+			} else {
+				jsonResService.errorResponse("Mail Id is alredy verified");
+			}
 		} else {
 			jsonResService.errorResponse("your id or token is not correct");
 		}
 	}
 
 	/**
-	 * Description : Use to set the flag and expire time to reset the password of user.
-	 * @param email - abc.xyz@newput.com
-	 * @param Token - 5845
-	 * @param flag - password or registration
+	 * Description : Use to set the flag and expire time to reset the password
+	 * of user.
+	 * 
+	 * @param email
+	 *            - abc.xyz@newput.com
+	 * @param Token
+	 *            - 5845
+	 * @param flag
+	 *            - password or registration
 	 */
 	public void resetPassword(String email, String Token, String flag) {
 		objArray.clear();
@@ -140,20 +152,22 @@ public class EmpService {
 				emp.setEmail(email);
 				emp.setpToken(Token);
 			} else if (flag.equalsIgnoreCase("registration")) {
-				emply.setvToken(Token);
-				emply.setStatus(false);
-				emply.setUpdated(reqres.getCurrentTime());
-				i = empMapper.updateByExampleSelective(emply, example);
-				emp.setId(emply.getId());
-				emp.setEmail(email);
-				emp.setvToken(Token);
+				if (!emply.getStatus()) {
+					emply.setvToken(Token);
+					emply.setStatus(false);
+					emply.setUpdated(reqres.getCurrentTime());
+					i = empMapper.updateByExampleSelective(emply, example);
+					emp.setId(emply.getId());
+					emp.setEmail(email);
+					emp.setvToken(Token);
+				}
 			}
 			if (i > 0) {
 				jsonResService.successResponse();
 				objArray.add(jsonResService.createEmployeeJson(emply));
 				jsonResService.setData(objArray);
 			} else {
-				jsonResService.errorResponse("invalid response");
+				jsonResService.errorResponse("invalid response or already verified");
 			}
 		} else {
 			jsonResService.errorResponse("user not exist");
@@ -162,7 +176,9 @@ public class EmpService {
 
 	/**
 	 * Description : Use to reset the existing password of the registered user.
-	 * @param employee - an object
+	 * 
+	 * @param employee
+	 *            - an object
 	 */
 	public void pwdVerify(Employee employee) {
 		objArray.clear();

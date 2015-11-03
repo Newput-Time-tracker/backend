@@ -46,8 +46,9 @@ public class EMailSender {
 			email.setTo(emp.getEmail());
 			email.setSubject("Confirmation Mail");
 			if (module.equalsIgnoreCase("registration")) {
-				email.setText("Welcome, You are successfully register Please click here : " + SystemConfig.get("WEBAPP_URL")
-						+ "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" + emp.getvToken());
+				email.setText(
+						"Welcome, You are successfully register Please click here : " + SystemConfig.get("WEBAPP_URL")
+								+ "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" + emp.getvToken());
 			} else if (module.equalsIgnoreCase("password")) {
 				email.setText("Welcome, Please confirm your mail id. click here : " + SystemConfig.get("WEBAPP_URL")
 						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
@@ -67,7 +68,7 @@ public class EMailSender {
 	 * @param file
 	 *            - excelFile
 	 */
-	public String sendExcelSheet(String email, File file, String sheetName) {		
+	public String sendExcelSheet(String email, File file, String sheetName) {
 		if (email != null && !email.equalsIgnoreCase("")) {
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
@@ -82,7 +83,7 @@ public class EMailSender {
 				return null;
 			} catch (MessagingException e) {
 				return "Your mail is not send please retry";
-			}			
+			}
 		} else {
 			jsonResService.errorResponse("Your mail id is not valid.");
 			return "Your mail id is not valid.";
