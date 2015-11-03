@@ -166,6 +166,7 @@ public class EmpService {
 			emp.setEmail(email);
 			emp.setFirstName(emply.getFirstName());
 			emp.setLastName(emply.getLastName());
+			
 			if (i > 0) {
 				jsonResService.successResponse();
 				objArray.add(jsonResService.createEmployeeJson(emply));

@@ -1,6 +1,7 @@
 <html>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 Hello ${FirstName} ${LastName},<p/>
  
 Welcome, You are successfully register Please click here :${url} /app/verifyuser?EM= ${mailId} &ET= ${token}.<p/>
@@ -12,12 +13,21 @@ Newput Team.
 =======
 <CENTER>
 Hello </b> <h2 style="color:blue"> ${FirstName} ${LastName},</h2> <p/>
+=======
+  <CENTER>
+Hello </b> <h2 style="color:blue"> ${FirstName} ${LastName},</h2><p/>
+>>>>>>> modify velocity template
  
-Welcome, To verify Please <a href="${url} ${webUrl} ${token} ${param} ${Id}" > click here </a>.<p/>
+Welcome, To verify Please click here :${url} ${webUrl} ${token} ${param} ${Id}.<p/>
  
 Thanks
+ 
 Newput Team.
+<<<<<<< HEAD
 </CENTER>
 >>>>>>> Add-velocity-template
+=======
+  </CENTER>
+>>>>>>> modify velocity template
 </body>
 </html>
