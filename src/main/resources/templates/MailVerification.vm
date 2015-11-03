@@ -3,9 +3,8 @@
 <CENTER>
 Hello </b> <h2 style="color:blue"> ${FirstName} ${LastName},</h2> <p/>
   <CENTER>
-
 Welcome, To verify Please <a href = "${url}${webUrl}${token}${param}${Id}">click here</a>.<p/>
- 
+Welcome, To verify Please <a href = name>click here</a>.<p/>
 Thanks 
 Newput Team.</p>
   </CENTER>
