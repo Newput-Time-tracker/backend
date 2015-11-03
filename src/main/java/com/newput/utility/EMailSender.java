@@ -1,15 +1,21 @@
 package com.newput.utility;
 
 import java.io.File;
+import java.io.StringWriter;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import com.newput.domain.Employee;
@@ -33,6 +39,9 @@ public class EMailSender {
 	@Autowired
 	private JsonResService jsonResService;
 
+	@Autowired
+	private VelocityEngine velocityEngine;
+
 	/**
 	 * Description : Use to send the verification mail to the user for
 	 * registration and password reset.
@@ -46,16 +55,43 @@ public class EMailSender {
 			email.setTo(emp.getEmail());
 			email.setSubject("Confirmation Mail");
 			if (module.equalsIgnoreCase("registration")) {
-				email.setText(
-						"Welcome, You are successfully register Please click here : " + SystemConfig.get("WEBAPP_URL")
-								+ "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" + emp.getvToken());
+				// email.setText(
+				// "Welcome, You are successfully register Please click here : "
+				// + SystemConfig.get("WEBAPP_URL")
+				// + "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" +
+				// emp.getvToken());
+				VelocityContext context = new VelocityContext();
+				context.put("FirstName", emp.getFirstName());
+				context.put("LastName", emp.getLastName());
+				context.put("url", SystemConfig.get("WEBAPP_URL"));
+				context.put("mailId", emp.getEmail());
+				context.put("token", emp.getvToken());
+				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
+
+				final StringWriter writer = new StringWriter();
+				t.merge(context, writer);
+
+				MimeMessagePreparator preparator = new MimeMessagePreparator() {
+
+					public void prepare(MimeMessage mimeMessage) throws Exception {
+
+						MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
+						message.setTo(emp.getEmail());
+						message.setFrom(new InternetAddress(SystemConfig.get("MAIL_USERID")));
+						message.setSubject("Confirmation Mail");
+						message.setText(writer.toString(), true);
+					}
+				};
+				mailSender.send(preparator);
 			} else if (module.equalsIgnoreCase("password")) {
 				email.setText("Welcome, Please confirm your mail id. click here : " + SystemConfig.get("WEBAPP_URL")
 						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
+				mailSender.send(email);
 			}
-			mailSender.send(email);
+
 			return null;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "Email id is not valid to send email.";
 		}
 	}

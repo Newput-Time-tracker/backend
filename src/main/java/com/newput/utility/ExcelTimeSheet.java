@@ -387,4 +387,67 @@ public class ExcelTimeSheet {
 		String mName = Character.toUpperCase(month.charAt(0)) + month.substring(1);
 		return fName + "_" + lName + "_" + mName + "_" + year + ".xls";
 	}
+	
+	public void getDayData(int emp_id, Long workdate){
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		ArrayList<JSONObject> jsonArray = new ArrayList<>();
+		JSONObject obj = new JSONObject();
+		map.put("in", 0L);
+		map.put("out", 0L);
+		map.put("lunchIn", 0L);
+		map.put("lunchOut", 0L);
+		map.put("nightIn", 0L);
+		map.put("nightOut", 0L);
+		map.put("totalHours", 0L);
+		map.put("workDate", 0L);
+
+		DateSheetExample exampleDate = new DateSheetExample();
+		exampleDate.setOrderByClause("work_date");
+		exampleDate.createCriteria().andEmpIdEqualTo(emp_id).andWorkDateEqualTo(workdate);
+		List<DateSheet> dateList = dateSheetMapper.selectByExample(exampleDate);
+
+		if (dateList.size() > 0) {
+			DateSheet dateSheetLocal = new DateSheet();
+			//for (int i = 0; i < dateList.size(); i++) {
+				dateSheetLocal = dateList.get(0);
+				TimeSheetExample exampleTime = new TimeSheetExample();
+				exampleTime.createCriteria().andEmpIdEqualTo(emp_id).andWorkDateEqualTo(dateSheetLocal.getWorkDate());
+				List<TimeSheet> timeList = timeSheetMapper.selectByExample(exampleTime);
+				if (timeList.size() > 0) {
+					TimeSheet timeSheetLocal = new TimeSheet();
+					map.put("workDate", dateSheetLocal.getWorkDate());
+					for (int j = 0; j < timeList.size(); j++) {
+						timeSheetLocal = timeList.get(j);
+						if (timeSheetLocal.getChunkId() == 1) {
+							map.put("in", timeSheetLocal.getTimeIn());
+							map.put("out", timeSheetLocal.getTimeOut());
+						}
+						if (timeSheetLocal.getChunkId() == 2) {
+							map.put("lunchIn", timeSheetLocal.getTimeIn());
+							map.put("lunchOut", timeSheetLocal.getTimeOut());
+						}
+						if (timeSheetLocal.getChunkId() == 3) {
+							map.put("nightIn", timeSheetLocal.getTimeIn());
+							map.put("nightOut", timeSheetLocal.getTimeOut());
+						}
+					}
+				} else {
+					jsonResService.errorResponse("time not found in time sheet table for emp id");
+				}
+				obj = jsonResService.getTimeSheetJson(map, calculateTotalHours(map), dateSheetLocal.getWorkDesc(),
+						dateSheetLocal.getWorkDate());
+				jsonArray.add(obj);
+//				if (module.equalsIgnoreCase("excelExport")) {
+//					insertRow(dateSheetLocal, sheet, map, calculateTotalHours(map), workbook);
+//					map.clear();
+//				} else {
+//					
+//				}
+			//}
+			jsonResService.setData(jsonArray);
+			jsonResService.successResponse();
+		} else {
+			jsonResService.errorResponse("data not found in date sheet table for emp id");
+		}
+	}
 }
