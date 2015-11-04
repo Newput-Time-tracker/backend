@@ -26,7 +26,7 @@
 	<property name="username" value="#{ systemConfig.get('DB_USER') 
 			}" />
 	<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
-			}" />
+			}" />			
 		</bean>
 
 	<bean id="transactionManager"
@@ -49,7 +49,6 @@
 		<property name="username" value="#{ systemConfig.get('MAIL_USERID') }" />
 		<property name="password" value="#{ systemConfig.get('MAIL_PASSWORD') }" />
 		<property name="javaMailProperties">
-			<!-- additional properties specific to JavaMail -->
 			<props>
 				<prop key="mail.transport.protocol">#{ systemConfig.get('MAIL_PROTOCOL') }</prop>
 				<prop key="mail.smtp.auth">#{ systemConfig.get('MAIL_AUTH') }</prop>
@@ -57,7 +56,7 @@
 				<prop key="mail.smtp.host">#{ systemConfig.get('MAIL_HOST') }</prop>
 				<prop key="mail.smtp.port">#{ systemConfig.get('MAIL_PORT') }</prop>
 			</props>
-		</property>
+		</property>		
 	</bean>
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

@@ -60,7 +60,7 @@ public class EMailSender {
 			if (module.equalsIgnoreCase("registration")) {
 				context.put("Id", emp.getEmail());
 				context.put("token", emp.getvToken());
-				context.put("webUrl", "/app/verifyuser?ET=");
+				context.put("webUrl", "app/verifyuser?ET=");
 				context.put("param", "&EM=");
 				context.put("msg", "click here");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
@@ -69,7 +69,7 @@ public class EMailSender {
 			} else if (module.equalsIgnoreCase("password")) {
 				context.put("Id", emp.getId());
 				context.put("token", emp.getpToken());
-				context.put("webUrl", "/app/resetpassword?PT=");
+				context.put("webUrl", "app/resetpassword?PT=");
 				context.put("param", "&ID=");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 

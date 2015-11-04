@@ -343,10 +343,8 @@ public class TTUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(newDate);
 		int x = cal.get(Calendar.WEEK_OF_YEAR);
-		// System.out.println("week of specified date ::" + x);
 		Calendar cal1 = Calendar.getInstance();
 		int y = cal1.get(Calendar.WEEK_OF_YEAR);
-		// System.out.println("current week ::" + y);
 		if (x == y) {
 			return true;
 		} else {

@@ -96,7 +96,7 @@ public class ServiceTestCase {
 	String year = "2015";
 
 	@Test
-	// @Ignore
+	 @Ignore
 	public void testAddUser() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date userDob = (Date) sdf.parse("10-10-1990");
@@ -117,7 +117,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void testMailVerify() {
 		emp.setEmail("abc@newput.com");
 		EmployeeExample example = new EmployeeExample();
@@ -130,7 +130,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+ @Ignore
 	public void testCreateSession() {
 		emp.setId(34);
 		emp.setFirstName("abc");
@@ -146,7 +146,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void testSignOut() {
 		SessionExample sessionExample = new SessionExample();
 		sessionExample.createCriteria().andEmpIdEqualTo(34);
@@ -158,7 +158,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+ @Ignore
 	public void testTimeSheetValue() {
 		timeSheet = reqParser.setTimeSheetValue("25-10-2015", "9:00", "19:00", "1", 34);
 		boolean status = timeSchedual.saveTimeSheet(timeSheet);
@@ -166,7 +166,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+ @Ignore
 	public void testDateSheetValue() {
 		dateSheet.setCreated(getCurrentTime());
 		dateSheet.setEmpId(34);
@@ -178,7 +178,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void testResetPassword() {
 		emp.setEmail("abc@newput.com");
 		EmployeeExample example = new EmployeeExample();
@@ -193,7 +193,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void testPwdVerify() {
 		emp.setId(34);
 		emp.setpToken("5869");
@@ -221,7 +221,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+ @Ignore
 	public void testMailExcelSheet() {
 		assertEquals(true, util.validCheck(month, year));
 		File file = excelTimeSheet.createExcelSheet(Integer.parseInt(empId), month, year);
@@ -232,7 +232,7 @@ public class ServiceTestCase {
 	}
 
 	@Test
-	// @Ignore
+	 @Ignore
 	public void testResendMail() {
 		String registrationToken = util.generateRandomString();
 		empService.resetPassword(email, registrationToken, "registration");

@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -367,10 +367,10 @@ public class EmpController {
 	 *         Fail Response : No Response
 	 */
 	@Path("/excelExport")
-	@PUT
+	@GET
 	@Produces("application/vnd.ms-excel")
-	public Response excelExport(@PathParam("empId") String empId, @PathParam("month") String month,
-			@PathParam("year") String year) {
+	public Response excelExport(@QueryParam("empId") String empId, @QueryParam("month") String month,
+			@QueryParam("year") String year) {
 		ResponseBuilder response = null;
 		File file = null;
 		if (empId != null && !empId.equalsIgnoreCase("")) {
