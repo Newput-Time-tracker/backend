@@ -1,12 +1,15 @@
 <html>
 <body>
-Hello ${FirstName} ${LastName},<p/>
- 
-Welcome, You are successfully register Please click here :${url} /app/verifyuser?EM= ${mailId} &ET= ${token}.<p/>
- 
-Thanks
- 
+<LEFT>
+
+Hello </b> 
+ <h2 style="color:blue"> ${FirstName},</h2> <p/>
+    
+Welcome, To verify Please click here : ${url}${webUrl}${token}${param}${Id}<p/>
+
+
+Thanks </p>
 Newput Team.
- 
+  </LEFT>
 </body>
 </html>

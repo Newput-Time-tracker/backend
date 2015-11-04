@@ -51,43 +51,31 @@ public class EMailSender {
 	 */
 	public String sendMail(String module) {
 		try {
-			SimpleMailMessage email = new SimpleMailMessage();
-			email.setTo(emp.getEmail());
-			email.setSubject("Confirmation Mail");
+			VelocityContext context = new VelocityContext();
+			context.put("FirstName", emp.getFirstName());
+			context.put("url", SystemConfig.get("WEBAPP_URL"));
+
+			final StringWriter writer = new StringWriter();
+
 			if (module.equalsIgnoreCase("registration")) {
-				// email.setText(
-				// "Welcome, You are successfully register Please click here : "
-				// + SystemConfig.get("WEBAPP_URL")
-				// + "/app/verifyuser?EM=" + emp.getEmail() + "&ET=" +
-				// emp.getvToken());
-				VelocityContext context = new VelocityContext();
-				context.put("FirstName", emp.getFirstName());
-				context.put("LastName", emp.getLastName());
-				context.put("url", SystemConfig.get("WEBAPP_URL"));
-				context.put("mailId", emp.getEmail());
+				context.put("Id", emp.getEmail());
 				context.put("token", emp.getvToken());
+				context.put("webUrl", "app/verifyuser?ET=");
+				context.put("param", "&EM=");
+				context.put("msg", "click here");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 
-				final StringWriter writer = new StringWriter();
 				t.merge(context, writer);
-
-				MimeMessagePreparator preparator = new MimeMessagePreparator() {
-
-					public void prepare(MimeMessage mimeMessage) throws Exception {
-
-						MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
-						message.setTo(emp.getEmail());
-						message.setFrom(new InternetAddress(SystemConfig.get("MAIL_USERID")));
-						message.setSubject("Confirmation Mail");
-						message.setText(writer.toString(), true);
-					}
-				};
-				mailSender.send(preparator);
 			} else if (module.equalsIgnoreCase("password")) {
-				email.setText("Welcome, Please confirm your mail id. click here : " + SystemConfig.get("WEBAPP_URL")
-						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
-				mailSender.send(email);
+				context.put("Id", emp.getId());
+				context.put("token", emp.getpToken());
+				context.put("webUrl", "app/resetpassword?PT=");
+				context.put("param", "&ID=");
+				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
+
+				t.merge(context, writer);
 			}
+			mailSender.send(setMimeTypeContent(writer.toString()));
 
 			return null;
 		} catch (Exception ex) {
@@ -140,5 +128,20 @@ public class EMailSender {
 		email.setSubject("Notification Mail");
 		email.setText("Welcome, Please fill your daily status for today. Please ignore if already filled.");
 		mailSender.send(email);
+	}
+
+	public MimeMessagePreparator setMimeTypeContent(String body) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
+				message.setTo(emp.getEmail());
+				message.setFrom(new InternetAddress(SystemConfig.get("MAIL_USERID")));
+				message.setSubject("Confirmation Mail");
+				message.setText(body, true);
+			}
+		};
+		return preparator;
 	}
 }

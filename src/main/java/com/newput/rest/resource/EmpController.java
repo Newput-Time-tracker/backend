@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -349,7 +351,7 @@ public class EmpController {
 	 * @Required url to redirect :
 	 *           http://time-tracker-backend-app.herokuapp.com/Tracker/rest/
 	 *           employee/excelExport
-	 * @POST
+	 * @GET
 	 * 		<p>
 	 *       Description : To download the monthly excel sheet from UI.
 	 * @param empId
@@ -365,10 +367,10 @@ public class EmpController {
 	 *         Fail Response : No Response
 	 */
 	@Path("/excelExport")
-	@POST
+	@GET
 	@Produces("application/vnd.ms-excel")
-	public Response excelExport(@FormParam("empId") String empId, @FormParam("month") String month,
-			@FormParam("year") String year) {
+	public Response excelExport(@QueryParam("empId") String empId, @QueryParam("month") String month,
+			@QueryParam("year") String year) {
 		ResponseBuilder response = null;
 		File file = null;
 		if (empId != null && !empId.equalsIgnoreCase("")) {
@@ -548,7 +550,8 @@ public class EmpController {
 		try {
 			if (workDate != null && !workDate.equalsIgnoreCase("") && util.checkValidWeek(workDate)) {
 				if (empId != null && !empId.equalsIgnoreCase("")) {
-					excelTimeSheet.getDayData(Integer.parseInt(empId), util.timeMiliSec(workDate, "0:0"));
+					excelTimeSheet.getTimeSheetData(null, Integer.parseInt(empId), util.timeMiliSec(workDate, "0:0"),
+							util.timeMiliSec(workDate, "0:0"), "monthSheet", null);
 				} else {
 					jsonResService.errorResponse("Please provide employee id to select data");
 				}
