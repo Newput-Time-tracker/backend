@@ -51,12 +51,8 @@ public class EMailSender {
 	 */
 	public String sendMail(String module) {
 		try {
-			//SimpleMailMessage email = new SimpleMailMessage();
-			// email.setTo(emp.getEmail());
-			// email.setSubject("Confirmation Mail");
 			VelocityContext context = new VelocityContext();
 			context.put("FirstName", emp.getFirstName());
-			context.put("LastName", emp.getLastName());
 			context.put("url", SystemConfig.get("WEBAPP_URL"));
 
 			final StringWriter writer = new StringWriter();
@@ -66,11 +62,11 @@ public class EMailSender {
 				context.put("token", emp.getvToken());
 				context.put("webUrl", "/app/verifyuser?ET=");
 				context.put("param", "&EM=");
+				context.put("msg", "click here");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 
 				t.merge(context, writer);
 			} else if (module.equalsIgnoreCase("password")) {
-
 				context.put("Id", emp.getId());
 				context.put("token", emp.getpToken());
 				context.put("webUrl", "/app/resetpassword?PT=");
@@ -78,9 +74,6 @@ public class EMailSender {
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 
 				t.merge(context, writer);
-//				email.setText("Welcome, Please confirm your mail id. click here : " + SystemConfig.get("WEBAPP_URL")
-//						+ "/app/resetpassword?PT=" + emp.getpToken() + "&ID=" + emp.getId());
-//				mailSender.send(email);
 			}
 			mailSender.send(setMimeTypeContent(writer.toString()));
 

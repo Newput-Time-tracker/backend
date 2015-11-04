@@ -1,10 +1,13 @@
 <html>
+<html>
 <body>
-Hello </b> <h2 style="color:blue"> ${FirstName} ${LastName},</h2> <p/>
-  <CENTER>
-Welcome, To verify Please click here : ${url}${webUrl}${token}${param}${Id}<p/>
-Thanks 
-Newput Team.</p>
-  </CENTER>
+<LEFT>
+Hello </b> <h2 style="color:red"> ${FirstName},</h2> <p/>
+ 
+Welcome, To verify Please click on the url : ${url}${webUrl}${token}${param}${Id}.<p/>
+ 
+Thanks
+Newput Team.
+</LEFT>
 </body>
 </html>
