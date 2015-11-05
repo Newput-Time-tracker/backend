@@ -276,8 +276,7 @@ public class TTUtil {
 			Calendar now = Calendar.getInstance();
 			if (flag.equals("dob")) {
 				now.set(Calendar.YEAR, now.get(Calendar.YEAR) - 17);
-				year = now.get(Calendar.YEAR);
-				System.out.println("year ::" + year);
+				year = now.get(Calendar.YEAR);				
 			} else {
 				year = now.get(Calendar.YEAR);
 			}

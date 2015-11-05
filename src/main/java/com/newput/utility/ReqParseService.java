@@ -14,9 +14,8 @@ import com.newput.domain.TimeSheet;
 
 /**
  * 
- * @author Newput
- * Description:
- * Class is use to set values of object in setter beans with respective methods.
+ * @author Newput Description: Class is use to set values of object in setter
+ *         beans with respective methods.
  *
  */
 @Service
@@ -51,14 +50,15 @@ public class ReqParseService {
 			emp.setFirstName(firstName);
 			emp.setLastName(lastName);
 			emp.setEmail(email);
-
-			Date userDob = sdf.parse(dob);
-			Date userDoj = sdf.parse(doj);
-
-			emp.setDob(userDob);
-			emp.setDoj(userDoj);
+			if(dob != null && !dob.equalsIgnoreCase("")){
+				Date userDob = sdf.parse(dob);
+				emp.setDob(userDob);
+			}
+			if(doj != null && !doj.equalsIgnoreCase("")){
+				Date userDoj = sdf.parse(doj);
+				emp.setDoj(userDoj);
+			}
 			emp.setAddress(address);
-			contact = util.getIntNum(contact);
 			emp.setContact(contact);
 			emp.setGender(gender);
 

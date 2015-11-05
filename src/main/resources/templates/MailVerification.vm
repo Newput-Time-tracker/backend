@@ -5,7 +5,7 @@
 Hello </b> 
  <h2 style="color:blue"> ${FirstName},</h2> <p/>
     
-Welcome, To verify Please click here : ${url}${webUrl}${token}${param}${Id}<p/>
+Welcome, To verify Please <a href= "${url}${webUrl}${token}${param}${Id}"> Click here </a><p/>
 
 
 Thanks </p>

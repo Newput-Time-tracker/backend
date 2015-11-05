@@ -26,8 +26,8 @@
 	<property name="username" value="#{ systemConfig.get('DB_USER') 
 			}" />
 	<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
-			}" />			
-		</bean>
+			}" />	
+	</bean>
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
