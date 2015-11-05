@@ -187,7 +187,7 @@ public class ControllerTestCase {
 	}	
 	
 	@Test
-	public void testAdd(){
+	public void testName(){
 		assertEquals("John Smith", "John Smith");
 	}
 }
