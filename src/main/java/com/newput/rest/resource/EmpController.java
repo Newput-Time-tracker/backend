@@ -2,7 +2,6 @@ package com.newput.rest.resource;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.ws.rs.FormParam;
@@ -107,20 +106,11 @@ public class EmpController {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public JSONObject registerUser(@FormParam("firstName") String firstName, @FormParam("lastName") String lastName,
-			@FormParam("email") String email, @FormParam("dob") Date dob, @FormParam("doj") Date doj,
+			@FormParam("email") String email, @FormParam("dob") String dob, @FormParam("doj") String doj,
 			@FormParam("address") String address, @FormParam("contact") String contact,
 			@FormParam("gender") String gender, @FormParam("password") String password) {
 		try {
 			String token = util.generateRandomString();
-//			System.out.println("firstName : "+firstName);
-//			System.out.println("lastName : "+lastName);
-//			System.out.println("email : "+email);
-//			System.out.println("dob : "+dob);
-//			System.out.println("doj : "+doj);
-//			System.out.println("address : "+address);
-//			System.out.println("contact : "+contact);
-//			System.out.println("gender : "+gender);
-//			System.out.println("password : "+password);
 			reqParser.setEmployeeValue(firstName, lastName, email, dob, doj, address, contact, gender, password, token);
 			empService.addUser(emp);
 			if (jsonResService.isSuccess()) {
