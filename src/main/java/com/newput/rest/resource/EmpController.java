@@ -110,15 +110,23 @@ public class EmpController {
 			@FormParam("address") String address, @FormParam("contact") String contact,
 			@FormParam("gender") String gender, @FormParam("password") String password) {
 		try {
-			String token = util.generateRandomString();
-			reqParser.setEmployeeValue(firstName, lastName, email, dob, doj, address, contact, gender, password, token);
-			empService.addUser(emp);
-			if (jsonResService.isSuccess()) {
-				String sendMail = emailSend.sendMail("registration");
-				if (sendMail != null && !sendMail.equalsIgnoreCase("")) {
-					jsonResService.errorResponse(new TrackerException(sendMail).getMessage());
+			if (dob != null && !dob.equalsIgnoreCase("")) {
+				if (doj != null && !doj.equalsIgnoreCase("")) {
+					String token = util.generateRandomString();
+					reqParser.setEmployeeValue(firstName, lastName, email, dob, doj, address, contact, gender, password, token);
+					empService.addUser(emp);
+					if (jsonResService.isSuccess()) {
+						String sendMail = emailSend.sendMail("registration");
+						if (sendMail != null && !sendMail.equalsIgnoreCase("")) {
+							jsonResService.errorResponse(new TrackerException(sendMail).getMessage());
+						}
+					}					
+				}else{
+					jsonResService.errorResponse("please fill correct date of joining");
 				}
-			}
+			}else{
+				jsonResService.errorResponse("please fill correct dob");
+			}			
 		} catch (Exception ex) {
 			jsonResService.errorResponse(new TrackerException("Email id already registered").getMessage());
 		}
