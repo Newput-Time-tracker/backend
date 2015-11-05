@@ -27,7 +27,10 @@
 			}" />
 	<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
 			}" />			
-		</bean>
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" />
+<property name="username" value="root" />
+<property name="password" value="root" /> -->
+	</bean>
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

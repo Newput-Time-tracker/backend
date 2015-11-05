@@ -14,9 +14,8 @@ import com.newput.domain.TimeSheet;
 
 /**
  * 
- * @author Newput
- * Description:
- * Class is use to set values of object in setter beans with respective methods.
+ * @author Newput Description: Class is use to set values of object in setter
+ *         beans with respective methods.
  *
  */
 @Service
@@ -41,28 +40,36 @@ public class ReqParseService {
 		return System.currentTimeMillis() / 1000;
 	}
 
-	public void setEmployeeValue(String firstName, String lastName, String email, String dob, String doj,
+	public void setEmployeeValue(String firstName, String lastName, String email, Date dob, Date doj,
 			String address, String contact, String gender, String password, String token) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			firstName = util.getAlphaNum(firstName);
 			lastName = util.getAlphaNum(lastName);
 			contact = util.getIntNum(contact);
+			System.out.println("firstName validate :: " + firstName);
+			System.out.println("lastName validate :: " + lastName);
+			System.out.println("contact validate :: " + contact);
 			emp.setFirstName(firstName);
 			emp.setLastName(lastName);
 			emp.setEmail(email);
-
-			Date userDob = sdf.parse(dob);
-			Date userDoj = sdf.parse(doj);
-
-			emp.setDob(userDob);
-			emp.setDoj(userDoj);
+//			Date userDob = sdf.parse(dob);
+//			Date userDoj = sdf.parse(doj);
+			System.out.println("userDob validate :: " + dob);
+			System.out.println("userDoj validate :: " + doj);
+			emp.setDob(dob);
+			emp.setDoj(doj);
+//			try {
+//				
+//			} catch (Exception e) {
+//
+//			}
 			emp.setAddress(address);
-			contact = util.getIntNum(contact);
 			emp.setContact(contact);
 			emp.setGender(gender);
 
 			String getPassword = util.md5(password);
+			System.out.println("getPassword validate :: " + getPassword);
 			emp.setPassword(getPassword);// add encryption
 
 			emp.setStatus(false);
