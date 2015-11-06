@@ -411,7 +411,7 @@ public class ExcelTimeSheet {
 		aRow4.createCell(1).setCellValue("TOTAL HOURS");		
 		aRow4.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(38, 38, 6, 7));
-		aRow4.createCell(6).setCellFormula("SUM(H6:H36)*24");
+		aRow4.createCell(6).setCellFormula("SUM(H7:H37)*24");
 		aRow4.getCell(6).setCellStyle(calhourStyle);
 		aRow4.createCell(8).setCellStyle(centerStyle);
 	}
