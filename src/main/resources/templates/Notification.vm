@@ -1,0 +1,13 @@
+<html>
+<body>
+<LEFT>
+
+Hi,${msg} </p>
+<a href= "${url}${webUrl}"> Click here </a><p/><p/>
+
+
+Thanks, </p>
+Newput Infotech
+  </LEFT>
+</body>
+</html>

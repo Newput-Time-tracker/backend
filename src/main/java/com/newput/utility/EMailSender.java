@@ -12,7 +12,6 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -51,6 +50,7 @@ public class EMailSender {
 	 */
 	public String sendMail(String module) {
 		try {
+			String subject = "subject";
 			VelocityContext context = new VelocityContext();
 			String fName = Character.toUpperCase(emp.getFirstName().charAt(0)) + emp.getFirstName().substring(1);
 			context.put("FirstName", fName);
@@ -59,25 +59,33 @@ public class EMailSender {
 			final StringWriter writer = new StringWriter();
 
 			if (module.equalsIgnoreCase("registration")) {
+				subject = "Account activation";
 				context.put("Id", emp.getEmail());
 				context.put("token", emp.getvToken());
 				context.put("webUrl", "verifyuser?ET=");
 				context.put("param", "&EM=");
-				context.put("msg", "Welcome, To verify Please");				
+				context.put("msg",
+						"To be able to sign in to your account, please verify your email address first by clicking the following link:");
+				context.put("msg1", "");
+				context.put("msg2", "");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 
 				t.merge(context, writer);
 			} else if (module.equalsIgnoreCase("password")) {
+				subject = "Reset your time-tracker account password";
 				context.put("Id", emp.getId());
 				context.put("token", emp.getpToken());
 				context.put("webUrl", "resetpassword?PT=");
 				context.put("param", "&ID=");
-				context.put("msg", "To reset password, Please");
+				context.put("msg",
+						"We have received a request to reset the password of your account. If you made this request, please ");
+				context.put("msg1", "The password reset link is valid for 1 hour.");
+				context.put("msg2", "If you didn't raise this request, please ignore this email.");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 
 				t.merge(context, writer);
 			}
-			mailSender.send(setMimeTypeContent(writer.toString()));
+			mailSender.send(setMimeTypeContent(writer.toString(), subject));
 
 			return null;
 		} catch (Exception ex) {
@@ -125,14 +133,21 @@ public class EMailSender {
 	 */
 	public void notificationMail(Employee emp) {
 
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setTo(emp.getEmail());
-		email.setSubject("Notification Mail");
-		email.setText("Welcome, Please fill your daily status for today. Please ignore if already filled.");
-		mailSender.send(email);
+		final StringWriter writer = new StringWriter();
+		String subject = "Reminder to fill time-sheet";
+		VelocityContext context = new VelocityContext();
+
+		context.put("url", SystemConfig.get("WEBAPP_URL"));
+		context.put("msg",
+				"Hi, Please fill your time-sheet. You may login to time-tracker by clicking the following link:");
+		context.put("webUrl", "login");
+		Template t = velocityEngine.getTemplate("templates/Notification.vm");
+		t.merge(context, writer);
+
+		mailSender.send(setMimeTypeContent(writer.toString(), subject));
 	}
 
-	public MimeMessagePreparator setMimeTypeContent(String body) {
+	public MimeMessagePreparator setMimeTypeContent(String body, String subject) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -140,7 +155,7 @@ public class EMailSender {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
 				message.setTo(emp.getEmail());
 				message.setFrom(new InternetAddress(SystemConfig.get("MAIL_USERID")));
-				message.setSubject("Confirmation Mail");
+				message.setSubject(subject);
 				message.setText(body, true);
 			}
 		};
