@@ -108,8 +108,8 @@ public class EMailSender {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper helper = new MimeMessageHelper(message, true);
 				helper.setTo(email);
-				helper.setSubject("Your Time Sheet");
-				helper.setText("This is your time sheet please check it.");
+				helper.setSubject("Time Sheet");
+				helper.setText("Please find attached time-sheet.");
 				FileSystemResource fileNew = new FileSystemResource(file.getPath());
 				helper.addAttachment(sheetName, fileNew);
 				mailSender.send(message);
