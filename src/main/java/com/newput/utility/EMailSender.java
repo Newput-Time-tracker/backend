@@ -139,7 +139,7 @@ public class EMailSender {
 
 		context.put("url", SystemConfig.get("WEBAPP_URL"));
 		context.put("msg",
-				"Hi, Please fill your time-sheet. You may login to time-tracker by clicking the following link:");
+				"Hi, Please fill your time-sheet. You can login to time-tracker by clicking the following link:");
 		context.put("webUrl", "login");
 		Template t = velocityEngine.getTemplate("templates/Notification.vm");
 		t.merge(context, writer);
