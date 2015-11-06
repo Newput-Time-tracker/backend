@@ -27,7 +27,6 @@
 		}" />
 		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
 		}" />
-
 	</bean>
 
 	<bean id="transactionManager"
