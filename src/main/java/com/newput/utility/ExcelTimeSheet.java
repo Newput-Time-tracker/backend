@@ -329,7 +329,7 @@ public class ExcelTimeSheet {
 		calhourStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		calhourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		calhourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		//calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
+		calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
 
 		HSSFRow aRow1 = sheet.createRow(0);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
