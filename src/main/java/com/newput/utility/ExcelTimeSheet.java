@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -17,6 +18,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.json.simple.JSONObject;
@@ -80,7 +82,7 @@ public class ExcelTimeSheet {
 		}
 
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet("Time_Sheet");
+		HSSFSheet sheet = workbook.createSheet(month);
 
 		HashMap<String, String> empMap = new HashMap<>();
 		empMap.put("month", month);
@@ -122,12 +124,28 @@ public class ExcelTimeSheet {
 		// create style for row date
 		CellStyle dateStyle = workbook.createCellStyle();
 		dateStyle.setAlignment(CellStyle.ALIGN_CENTER);
+		dateStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		dateStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		dateStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		dateStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 
 		// create style for row cells
 		CellStyle style = workbook.createCellStyle();
 		CreationHelper createHelper = workbook.getCreationHelper();
 		style.setDataFormat(createHelper.createDataFormat().getFormat("hh:mm"));
-		style.setAlignment(CellStyle.ALIGN_RIGHT);
+		style.setAlignment(CellStyle.ALIGN_CENTER);
+		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+
+		// create style for left align
+		CellStyle leftAlignStyle = workbook.createCellStyle();
+		leftAlignStyle.setAlignment(CellStyle.ALIGN_LEFT);
+		leftAlignStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		leftAlignStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		leftAlignStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		leftAlignStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 
 		aRow.createCell(0).setCellValue(util.getExcelSheetDate(dateSheet.getWorkDate()));
 		aRow.getCell(0).setCellStyle(dateStyle);
@@ -152,6 +170,7 @@ public class ExcelTimeSheet {
 		aRow.createCell(7).setCellFormula(formulaString);
 		aRow.getCell(7).setCellStyle(style);
 		aRow.createCell(8).setCellValue(dateSheet.getWorkDesc());
+		aRow.getCell(8).setCellStyle(leftAlignStyle);
 	}
 
 	/**
@@ -243,61 +262,111 @@ public class ExcelTimeSheet {
 	public void createSheetStructure(HSSFSheet sheet, HSSFWorkbook workbook, HashMap<String, String> empMap) {
 
 		sheet.setColumnWidth(0, 1400);
-		sheet.setColumnWidth(1, 1500);
-		sheet.setColumnWidth(2, 1500);
-		sheet.setColumnWidth(3, 1500);
-		sheet.setColumnWidth(4, 1500);
-		sheet.setColumnWidth(5, 1500);
-		sheet.setColumnWidth(6, 1500);
-		sheet.setColumnWidth(7, 1500);
-		sheet.setColumnWidth(8, 20000);
+		sheet.setColumnWidth(1, 2000);
+		sheet.setColumnWidth(2, 2000);
+		sheet.setColumnWidth(3, 2000);
+		sheet.setColumnWidth(4, 2000);
+		sheet.setColumnWidth(5, 2000);
+		sheet.setColumnWidth(6, 2000);
+		sheet.setColumnWidth(7, 2000);
+		sheet.setColumnWidth(8, 15000);
+		sheet.addMergedRegion(CellRangeAddress.valueOf("A5:A6"));
+		sheet.addMergedRegion(CellRangeAddress.valueOf("I5:I6"));
 
 		// create style for header cells
 		CellStyle style = workbook.createCellStyle();
 		Font font = workbook.createFont();
 		style.setAlignment(CellStyle.ALIGN_CENTER);
+		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-		style.setFont(font);
+		style.setFont(font);		
 
 		// create style for row date
 		CellStyle centerStyle = workbook.createCellStyle();
 		centerStyle.setAlignment(CellStyle.ALIGN_CENTER);
+		centerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		centerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		centerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		centerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 
 		// create style for row hours
 		CellStyle hourStyle = workbook.createCellStyle();
 		hourStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		hourStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		hourStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		hourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		hourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+
+		// create style for cell work desc
+		CellStyle workdescStyle = workbook.createCellStyle();
+		workdescStyle.setAlignment(CellStyle.ALIGN_LEFT);
+		workdescStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		workdescStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		workdescStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		workdescStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 
 		// create style for cell total hours
 		CellStyle totalhourStyle = workbook.createCellStyle();
-		totalhourStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		totalhourStyle.setAlignment(CellStyle.ALIGN_CENTER);
+		totalhourStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		totalhourStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		totalhourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		totalhourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		CreationHelper createHelper = workbook.getCreationHelper();
 		totalhourStyle.setDataFormat(createHelper.createDataFormat().getFormat("[h]:mm"));
+
+		// create style for formating
+		CellStyle formatStyle = workbook.createCellStyle();
+		formatStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+
+		CellStyle calhourStyle = workbook.createCellStyle();
+		calhourStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+		calhourStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		calhourStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		calhourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		calhourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
 
 		HSSFRow aRow1 = sheet.createRow(0);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
 		aRow1.createCell(1).setCellValue("Name");
+		aRow1.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 3, 7));
 		aRow1.createCell(3).setCellValue(empMap.get("name"));
+		aRow1.getCell(3).setCellStyle(workdescStyle);
+		aRow1.createCell(8).setCellStyle(formatStyle);
 		HSSFRow aRow2 = sheet.createRow(1);
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 1, 2));
 		aRow2.createCell(1).setCellValue("Month");
+		aRow2.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 3, 7));
 		aRow2.createCell(3).setCellValue(empMap.get("month"));
+		aRow2.getCell(3).setCellStyle(workdescStyle);
+		aRow2.createCell(8).setCellStyle(formatStyle);
 		HSSFRow aRow3 = sheet.createRow(2);
 		sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 2));
 		aRow3.createCell(1).setCellValue("Year");
+		aRow3.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(2, 2, 3, 7));
 		aRow3.createCell(3).setCellValue(empMap.get("year"));
+		aRow3.getCell(3).setCellStyle(workdescStyle);
+		aRow3.createCell(8).setCellStyle(formatStyle);
 
-		HSSFRow timeHeader = sheet.createRow(4);
+		Row timeHeader = sheet.createRow((short)4);
 		sheet.addMergedRegion(new CellRangeAddress(4, 4, 1, 7));
+		timeHeader.createCell((short)0).setCellValue("Date");
+		timeHeader.getCell(0).setCellStyle(style);
 		timeHeader.createCell(1).setCellValue("TIME");
 		timeHeader.getCell(1).setCellStyle(style);
+		timeHeader.createCell((short)8).setCellValue("PROJECT");
+		timeHeader.getCell(8).setCellStyle(style);		
 
 		// create header row
-		HSSFRow header = sheet.createRow(5);
-		header.createCell(0).setCellValue("Date");
-		header.getCell(0).setCellStyle(style);
+		HSSFRow header = sheet.createRow(5);		
 		header.createCell(1).setCellValue("IN");
 		header.getCell(1).setCellStyle(centerStyle);
 		header.createCell(2).setCellValue("OUT");
@@ -311,33 +380,40 @@ public class ExcelTimeSheet {
 		header.createCell(6).setCellValue("OUT");
 		header.getCell(6).setCellStyle(centerStyle);
 		header.createCell(7).setCellValue("HRS.");
-		header.getCell(7).setCellStyle(centerStyle);
-		header.createCell(8).setCellValue("PROJECT");
-		header.getCell(8).setCellStyle(style);
+		header.getCell(7).setCellStyle(centerStyle);				
 
-		for (int i = 6; i < 37; i++) {
+		for (int i = 6; i < 38; i++) {
 			HSSFRow row = sheet.createRow(i);
 			String formulaString = "C" + (i + 1) + "-B" + (i + 1) + "+E" + (i + 1) + "-D" + (i + 1) + "+G" + (i + 1)
 					+ "-F" + (i + 1);
-			row.createCell(0).setCellValue(i - 5);
-			row.getCell(0).setCellStyle(centerStyle);
 			row.createCell(1).setCellStyle(totalhourStyle);
 			row.createCell(2).setCellStyle(totalhourStyle);
 			row.createCell(3).setCellStyle(totalhourStyle);
 			row.createCell(4).setCellStyle(totalhourStyle);
 			row.createCell(5).setCellStyle(totalhourStyle);
 			row.createCell(6).setCellStyle(totalhourStyle);
-			row.createCell(7).setCellValue("0:00");
-			row.createCell(7).setCellFormula(formulaString);
+			if (i == 37) {
+				row.createCell(0).setCellStyle(centerStyle);
+				row.createCell(7).setCellStyle(totalhourStyle);
+			} else {
+				row.createCell(0).setCellValue(i - 5);
+				row.getCell(0).setCellStyle(centerStyle);
+				row.createCell(7).setCellValue("0:00");
+				row.createCell(7).setCellFormula(formulaString);
+			}
 			row.getCell(7).setCellStyle(totalhourStyle);
+			row.createCell(8).setCellStyle(workdescStyle);
 		}
 
 		HSSFRow aRow4 = sheet.createRow(38);
-		sheet.addMergedRegion(new CellRangeAddress(38, 38, 1, 5));
-		aRow4.createCell(1).setCellValue("TOTAL HOURS");
+		aRow4.createCell(0).setCellStyle(centerStyle);
+		sheet.addMergedRegion(new CellRangeAddress(38, 38, 1, 5));		
+		aRow4.createCell(1).setCellValue("TOTAL HOURS");		
+		aRow4.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(38, 38, 6, 7));
-		aRow4.createCell(6).setCellFormula("SUM(H6:H36)");
-		aRow4.getCell(6).setCellStyle(totalhourStyle);
+		aRow4.createCell(6).setCellFormula("SUM(H6:H36)*24");
+		aRow4.getCell(6).setCellStyle(calhourStyle);
+		aRow4.createCell(8).setCellStyle(centerStyle);
 	}
 
 	/**
@@ -386,5 +462,5 @@ public class ExcelTimeSheet {
 		String lName = Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1);
 		String mName = Character.toUpperCase(month.charAt(0)) + month.substring(1);
 		return fName + "_" + lName + "_" + mName + "_" + year + ".xls";
-	}	
+	}
 }
