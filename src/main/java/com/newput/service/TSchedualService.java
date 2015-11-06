@@ -73,23 +73,23 @@ public class TSchedualService {
 			String nightOut, int emp_id) {
 		map.put("workDate", workDate);
 		if ((in != null && !in.equalsIgnoreCase("")) || (out != null && !out.equalsIgnoreCase(""))) {
-			map.put("in", in);
-			map.put("out", out);
-			timeSheet = reqParser.setTimeSheetValue(workDate, in, out, "1", emp_id);
+			map.put("in", in.trim());
+			map.put("out", out.trim());
+			timeSheet = reqParser.setTimeSheetValue(workDate, in.trim(), out.trim(), "1", emp_id);
 			saveTimeSheet(timeSheet);
 		}
 		if ((lunchIn != null && !lunchIn.equalsIgnoreCase(""))
 				|| (lunchOut != null && !lunchOut.equalsIgnoreCase(""))) {
-			map.put("lunchIn", lunchIn);
-			map.put("lunchOut", lunchOut);
-			timeSheet = reqParser.setTimeSheetValue(workDate, lunchIn, lunchOut, "2", emp_id);
+			map.put("lunchIn", lunchIn.trim());
+			map.put("lunchOut", lunchOut.trim());
+			timeSheet = reqParser.setTimeSheetValue(workDate, lunchIn.trim(), lunchOut.trim(), "2", emp_id);
 			saveTimeSheet(timeSheet);
 		}
 		if ((nightIn != null && !nightIn.equalsIgnoreCase(""))
 				|| (nightOut != null && !nightOut.equalsIgnoreCase(""))) {
-			map.put("nightIn", nightIn);
-			map.put("nightOut", nightOut);
-			timeSheet = reqParser.setTimeSheetValue(workDate, nightIn, nightOut, "3", emp_id);
+			map.put("nightIn", nightIn.trim());
+			map.put("nightOut", nightOut.trim());
+			timeSheet = reqParser.setTimeSheetValue(workDate, nightIn.trim(), nightOut.trim(), "3", emp_id);
 			saveTimeSheet(timeSheet);
 		}
 	}
