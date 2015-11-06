@@ -3,7 +3,7 @@
 <LEFT>
 
 Hi,${msg} </br>
-<a href= "${url}${webUrl}"> Click here </a><p/>
+<a href= "${url}${webUrl}"> Click here </a><p/></br>
 
 
 Thanks, </br>
