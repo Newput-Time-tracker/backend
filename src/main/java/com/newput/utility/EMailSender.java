@@ -85,7 +85,7 @@ public class EMailSender {
 
 				t.merge(context, writer);
 			}
-			mailSender.send(setMimeTypeContent(writer.toString(), subject));
+			mailSender.send(setMimeTypeContent(writer.toString(), subject, emp.getEmail()));
 
 			return null;
 		} catch (Exception ex) {
@@ -139,21 +139,21 @@ public class EMailSender {
 
 		context.put("url", SystemConfig.get("WEBAPP_URL"));
 		context.put("msg",
-				"Hi, Please fill your time-sheet. You can login to time-tracker by clicking the following link:");
+				"Please fill your time-sheet. You can login to time-tracker by clicking the following link:");
 		context.put("webUrl", "login");
 		Template t = velocityEngine.getTemplate("templates/Notification.vm");
 		t.merge(context, writer);
 
-		mailSender.send(setMimeTypeContent(writer.toString(), subject));
+		mailSender.send(setMimeTypeContent(writer.toString(), subject ,emp.getEmail()));
 	}
 
-	public MimeMessagePreparator setMimeTypeContent(String body, String subject) {
+	public MimeMessagePreparator setMimeTypeContent(String body, String subject, String email) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
-				message.setTo(emp.getEmail());
+				message.setTo(email);
 				message.setFrom(new InternetAddress(SystemConfig.get("MAIL_USERID")));
 				message.setSubject(subject);
 				message.setText(body, true);

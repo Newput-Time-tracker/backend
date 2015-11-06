@@ -8,9 +8,9 @@ ${msg}</br></p>
 <a href= "${url}${webUrl}${token}${param}${Id}"> Click here </a><p/>
 
 ${msg1}</p>
-${msg2}</br></p>
+${msg2}</p>
 
-Thanks, </br></p>
+Thanks, </p>
 Newput Infotech
   </LEFT>
 </body>
