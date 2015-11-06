@@ -2,6 +2,9 @@ package com.newput.utility;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -133,6 +136,8 @@ public class EMailSender {
 	 */
 	public void notificationMail(Employee emp) {
 
+		Date currDate=Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		final StringWriter writer = new StringWriter();
 		String subject = "Reminder to fill time-sheet";
 		VelocityContext context = new VelocityContext();
@@ -140,7 +145,7 @@ public class EMailSender {
 		context.put("url", SystemConfig.get("WEBAPP_URL"));
 		context.put("msg",
 				"Please fill your time-sheet. You can login to time-tracker by clicking the following link:");
-		context.put("webUrl", "login");
+		context.put("webUrl", "detailview/"+ sdf.format(currDate));
 		Template t = velocityEngine.getTemplate("templates/Notification.vm");
 		t.merge(context, writer);
 
