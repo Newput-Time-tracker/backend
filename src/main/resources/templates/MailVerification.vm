@@ -2,14 +2,16 @@
 <body>
 <LEFT>
 
-Hello </b> 
- <h2 style="color:blue"> ${FirstName},</h2> <p/>
+Hello<h2> ${FirstName},</h2> <p/>
     
-${msg} <a href= "${url}${webUrl}${token}${param}${Id}"> Click here </a><p/>
+${msg}</br></p>
+<a href= "${url}${webUrl}${token}${param}${Id}"> Click here </a><p/>
 
+${msg1}</p>
+${msg2}</br></p>
 
-Thanks </p>
-Newput Team.
+Thanks, </br></p>
+Newput Infotech
   </LEFT>
 </body>
 </html>
