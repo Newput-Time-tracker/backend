@@ -149,23 +149,23 @@ public class ExcelTimeSheet {
 
 		aRow.createCell(0).setCellValue(util.getExcelSheetDate(dateSheet.getWorkDate()));
 		aRow.getCell(0).setCellStyle(dateStyle);
-		aRow.createCell(1).setCellValue(util.timeHrs(map.get("in"), map.get("workDate")));
+		aRow.createCell(1).setCellValue(util.timeHrs(map.get("in"), map.get("workDate")).trim());
 		aRow.getCell(1).setCellStyle(style);
 		if (util.timeHrs(map.get("lunchIn"), map.get("workDate")).equals("")
 				&& util.timeHrs(map.get("lunchOut"), map.get("workDate")).equals("")) {
-			aRow.createCell(2).setCellValue(util.timeHrs(map.get("out"), map.get("workDate")));
+			aRow.createCell(2).setCellValue(util.timeHrs(map.get("out"), map.get("workDate")).trim());
 			aRow.getCell(2).setCellStyle(style);
 		} else {
-			aRow.createCell(2).setCellValue(util.timeHrs(map.get("lunchIn"), map.get("workDate")));
+			aRow.createCell(2).setCellValue(util.timeHrs(map.get("lunchIn"), map.get("workDate")).trim());
 			aRow.getCell(2).setCellStyle(style);
-			aRow.createCell(3).setCellValue(util.timeHrs(map.get("lunchOut"), map.get("workDate")));
+			aRow.createCell(3).setCellValue(util.timeHrs(map.get("lunchOut"), map.get("workDate")).trim());
 			aRow.getCell(3).setCellStyle(style);
-			aRow.createCell(4).setCellValue(util.timeHrs(map.get("out"), map.get("workDate")));
+			aRow.createCell(4).setCellValue(util.timeHrs(map.get("out"), map.get("workDate")).trim());
 			aRow.getCell(4).setCellStyle(style);
 		}
-		aRow.createCell(5).setCellValue(util.timeHrs(map.get("nightIn"), map.get("workDate")));
+		aRow.createCell(5).setCellValue(util.timeHrs(map.get("nightIn"), map.get("workDate")).trim());
 		aRow.getCell(5).setCellStyle(style);
-		aRow.createCell(6).setCellValue(util.timeHrs(map.get("nightOut"), map.get("workDate")));
+		aRow.createCell(6).setCellValue(util.timeHrs(map.get("nightOut"), map.get("workDate")).trim());
 		aRow.getCell(6).setCellStyle(style);
 		aRow.createCell(7).setCellFormula(formulaString);
 		aRow.getCell(7).setCellStyle(style);
