@@ -329,7 +329,7 @@ public class ExcelTimeSheet {
 		calhourStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		calhourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		calhourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
+		//calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
 
 		HSSFRow aRow1 = sheet.createRow(0);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
@@ -411,7 +411,7 @@ public class ExcelTimeSheet {
 		aRow4.createCell(1).setCellValue("TOTAL HOURS");		
 		aRow4.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(38, 38, 6, 7));
-		aRow4.createCell(6).setCellFormula("SUM(H7:H37)*24");
+		aRow4.createCell(6).setCellFormula("SUM(H7:H37)");
 		aRow4.getCell(6).setCellStyle(calhourStyle);
 		aRow4.createCell(8).setCellStyle(centerStyle);
 	}
