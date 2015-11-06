@@ -79,7 +79,7 @@ public class EMailSender {
 				context.put("param", "&ID=");
 				context.put("msg",
 						"We have received a request to reset the password of your account. If you made this request, please ");
-				context.put("msg1", "The password reset link is valid for 1 hour.");
+				context.put("msg1", "The password reset link is valid for 48 hour.");
 				context.put("msg2", "If you didn't raise this request, please ignore this email.");
 				Template t = velocityEngine.getTemplate("templates/MailVerification.vm");
 

@@ -2,11 +2,11 @@
 <body>
 <LEFT>
 
-Hi,${msg} </p>
-<a href= "${url}${webUrl}"> Click here </a><p/><p/>
+Hi,${msg} </br>
+<a href= "${url}${webUrl}"> Click here </a><p/>
 
 
-Thanks, </p>
+Thanks, </br>
 Newput Infotech
   </LEFT>
 </body>

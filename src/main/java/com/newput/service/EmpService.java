@@ -145,7 +145,7 @@ public class EmpService {
 			emply = empl.get(0);
 			if (flag.equalsIgnoreCase("password")) {
 				emply.setpToken(Token);
-				emply.setpExpireAt(reqres.getCurrentTime() + 900);
+				emply.setpExpireAt(reqres.getCurrentTime() + 172800);
 				emply.setUpdated(reqres.getCurrentTime());
 				i = empMapper.updateByExampleSelective(emply, example);
 				emp.setpToken(Token);
