@@ -118,7 +118,11 @@ public class ExcelTimeSheet {
 		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 5;
 		HSSFRow aRow = sheet.getRow(rowCount);
 		rowCount = rowCount + 1;
-		String formulaString = "C" + rowCount + "-B" + rowCount + "+E" + rowCount + "-D" + rowCount + "+G" + rowCount
+		// String formulaString = "C" + rowCount + "-B" + rowCount + "+E" +
+		// rowCount + "-D" + rowCount + "+G" + rowCount
+		// + "-F" + rowCount;
+
+		String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+G" + rowCount
 				+ "-F" + rowCount;
 
 		// create style for row date
@@ -283,7 +287,7 @@ public class ExcelTimeSheet {
 		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-		style.setFont(font);		
+		style.setFont(font);
 
 		// create style for row date
 		CellStyle centerStyle = workbook.createCellStyle();
@@ -356,17 +360,17 @@ public class ExcelTimeSheet {
 		aRow3.getCell(3).setCellStyle(workdescStyle);
 		aRow3.createCell(8).setCellStyle(formatStyle);
 
-		Row timeHeader = sheet.createRow((short)4);
+		Row timeHeader = sheet.createRow((short) 4);
 		sheet.addMergedRegion(new CellRangeAddress(4, 4, 1, 7));
-		timeHeader.createCell((short)0).setCellValue("Date");
+		timeHeader.createCell((short) 0).setCellValue("Date");
 		timeHeader.getCell(0).setCellStyle(style);
 		timeHeader.createCell(1).setCellValue("TIME");
 		timeHeader.getCell(1).setCellStyle(style);
-		timeHeader.createCell((short)8).setCellValue("PROJECT");
-		timeHeader.getCell(8).setCellStyle(style);		
+		timeHeader.createCell((short) 8).setCellValue("PROJECT");
+		timeHeader.getCell(8).setCellStyle(style);
 
 		// create header row
-		HSSFRow header = sheet.createRow(5);		
+		HSSFRow header = sheet.createRow(5);
 		header.createCell(1).setCellValue("IN");
 		header.getCell(1).setCellStyle(centerStyle);
 		header.createCell(2).setCellValue("OUT");
@@ -380,7 +384,7 @@ public class ExcelTimeSheet {
 		header.createCell(6).setCellValue("OUT");
 		header.getCell(6).setCellStyle(centerStyle);
 		header.createCell(7).setCellValue("HRS.");
-		header.getCell(7).setCellStyle(centerStyle);				
+		header.getCell(7).setCellStyle(centerStyle);
 
 		for (int i = 6; i < 38; i++) {
 			HSSFRow row = sheet.createRow(i);
@@ -407,8 +411,8 @@ public class ExcelTimeSheet {
 
 		HSSFRow aRow4 = sheet.createRow(38);
 		aRow4.createCell(0).setCellStyle(centerStyle);
-		sheet.addMergedRegion(new CellRangeAddress(38, 38, 1, 5));		
-		aRow4.createCell(1).setCellValue("TOTAL HOURS");		
+		sheet.addMergedRegion(new CellRangeAddress(38, 38, 1, 5));
+		aRow4.createCell(1).setCellValue("TOTAL HOURS");
 		aRow4.getCell(1).setCellStyle(workdescStyle);
 		sheet.addMergedRegion(new CellRangeAddress(38, 38, 6, 7));
 		aRow4.createCell(6).setCellFormula("SUM(H7:H37)*24");
