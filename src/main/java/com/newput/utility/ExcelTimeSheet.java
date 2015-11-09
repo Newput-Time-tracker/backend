@@ -117,11 +117,7 @@ public class ExcelTimeSheet {
 			Workbook workbook) {
 		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 5;
 		HSSFRow aRow = sheet.getRow(rowCount);
-		rowCount = rowCount + 1;
-		// String formulaString = "C" + rowCount + "-B" + rowCount + "+E" +
-		// rowCount + "-D" + rowCount + "+G" + rowCount
-		// + "-F" + rowCount;
-
+		rowCount = rowCount + 1;		
 		String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+G" + rowCount
 				+ "-F" + rowCount;
 
@@ -335,7 +331,7 @@ public class ExcelTimeSheet {
 		calhourStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		calhourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		calhourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
+		calhourStyle.setDataFormat(workbook.createDataFormat().getFormat("##0.00"));
 
 		HSSFRow aRow1 = sheet.createRow(0);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
@@ -390,8 +386,10 @@ public class ExcelTimeSheet {
 
 		for (int i = 6; i < 38; i++) {
 			HSSFRow row = sheet.createRow(i);
-			String formulaString = "C" + (i + 1) + "-B" + (i + 1) + "+E" + (i + 1) + "-D" + (i + 1) + "+G" + (i + 1)
+			String formulaString = "E" + (i + 1) + "-B" + (i + 1) + "-(D" + (i + 1) + "-C" + (i + 1) + ")+G" + (i + 1)
 					+ "-F" + (i + 1);
+//			String formulaString = "C" + (i + 1) + "-B" + (i + 1) + "+E" + (i + 1) + "-D" + (i + 1) + "+G" + (i + 1)
+//					+ "-F" + (i + 1);
 			row.createCell(1).setCellStyle(totalhourStyle);
 			row.createCell(2).setCellStyle(totalhourStyle);
 			row.createCell(3).setCellStyle(totalhourStyle);
