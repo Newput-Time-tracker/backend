@@ -21,12 +21,12 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') 
-		+ systemConfig.get('DB_NAME') }" />
-		<property name="username" value="#{ systemConfig.get('DB_USER') 
-		}" />
-		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
-		}" />		
+	value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') 
+			+ systemConfig.get('DB_NAME') }" />
+	<property name="username" value="#{ systemConfig.get('DB_USER') 
+			}" />
+	<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
+			}" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -72,7 +72,7 @@
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processDailyNotify" />
-		<property name="cronExpression" value="0 53 13 ? * MON-FRI" />
+		<property name="cronExpression" value="0 30 13 ? * MON-FRI" />
 	</bean>
 	<bean id="processDailyNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

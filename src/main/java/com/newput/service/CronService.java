@@ -18,6 +18,7 @@ import com.newput.utility.SystemConfig;
 
 /**
  * Description : Use to schedule the Cron jobs.
+ * 
  * @author Newput
  *
  */
@@ -46,7 +47,7 @@ public class CronService {
 	 */
 	public void dailyNotification() {
 
-		if(SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")){
+		if (SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")) {
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
 			empExample.createCriteria().andStatusEqualTo(true);
@@ -57,7 +58,7 @@ public class CronService {
 					emp = list.get(i);
 					sendEmail.notificationMail(emp);
 				}
-			}	
+			}
 		}
 	}
 
@@ -66,7 +67,13 @@ public class CronService {
 	 */
 	public void emailSendJob() {
 
-		if(SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")){
+		if (SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")) {
+
+			Calendar caln = Calendar.getInstance();
+			caln.set(Calendar.HOUR, 18);
+			caln.set(Calendar.MINUTE, 00);
+			Long todayTimeStamp = caln.getTimeInMillis();
+
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
@@ -74,7 +81,7 @@ public class CronService {
 			String month = new SimpleDateFormat("MMMM").format(currntStamp);
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
-			empExample.createCriteria().andStatusEqualTo(true);
+			empExample.createCriteria().andStatusEqualTo(true).andUpdatedLessThanOrEqualTo(todayTimeStamp);
 			list = empMapper.selectByExample(empExample);
 
 			if (list.size() > 0) {
@@ -82,12 +89,12 @@ public class CronService {
 					emp = list.get(i);
 					File file = excelTimeSheet.createExcelSheet(emp.getId(), month, year);
 					if (jsonResService.isSuccess()) {
-						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file, 
+						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file,
 								excelTimeSheet.getTimeSheetName(emp.getId(), month, year));
 						file.delete();
 					}
 				}
-			}	
+			}
 		}
 	}
 }

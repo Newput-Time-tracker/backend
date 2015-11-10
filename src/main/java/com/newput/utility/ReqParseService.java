@@ -50,11 +50,11 @@ public class ReqParseService {
 			emp.setFirstName(firstName);
 			emp.setLastName(lastName);
 			emp.setEmail(email);
-			if(dob != null && !dob.equalsIgnoreCase("")){
+			if (dob != null && !dob.equalsIgnoreCase("")) {
 				Date userDob = sdf.parse(dob);
 				emp.setDob(userDob);
 			}
-			if(doj != null && !doj.equalsIgnoreCase("")){
+			if (doj != null && !doj.equalsIgnoreCase("")) {
 				Date userDoj = sdf.parse(doj);
 				emp.setDoj(userDoj);
 			}
