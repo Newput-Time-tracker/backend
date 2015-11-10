@@ -161,7 +161,7 @@ public class ServiceTestCase {
  @Ignore
 	public void testTimeSheetValue() {
 		timeSheet = reqParser.setTimeSheetValue("25-10-2015", "9:00", "19:00", "1", 34);
-		boolean status = timeSchedual.saveTimeSheet(timeSheet);
+		boolean status = timeSchedual.saveTimeSheet(timeSheet,"25-10-2015");
 		assertEquals(true, status);
 	}
 
