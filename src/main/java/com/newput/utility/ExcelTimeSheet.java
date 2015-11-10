@@ -215,6 +215,7 @@ public class ExcelTimeSheet {
 		if (dateList.size() > 0) {
 			DateSheet dateSheetLocal = new DateSheet();
 			for (int i = 0; i < dateList.size(); i++) {
+				map.clear();
 				dateSheetLocal = dateList.get(i);
 				TimeSheetExample exampleTime = new TimeSheetExample();
 				exampleTime.createCriteria().andEmpIdEqualTo(emp_id).andWorkDateEqualTo(dateSheetLocal.getWorkDate());
@@ -237,6 +238,7 @@ public class ExcelTimeSheet {
 							map.put("nightOut", timeSheetLocal.getTimeOut());
 						}
 					}
+
 				} else {
 					jsonResService.errorResponse("time not found in time sheet table for emp id");
 				}

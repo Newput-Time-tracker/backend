@@ -48,7 +48,7 @@ public class TSchedualService {
 
 	@Autowired
 	private JsonResService jsonResService;
-	
+
 	@Autowired
 	private TTUtil util;
 
@@ -81,38 +81,45 @@ public class TSchedualService {
 		if ((in != null && !in.equalsIgnoreCase("")) && (out != null && !out.equalsIgnoreCase(""))) {
 			map.put("in", in.trim());
 			map.put("out", out.trim());
+			System.out.println(in + " and " + out);
 			timeSheet = reqParser.setTimeSheetValue(workDate, in.trim(), out.trim(), "1", emp_id);
-			saveTimeSheet(timeSheet,workDate);
+			saveTimeSheet(timeSheet, workDate);
 		} else {
 			map.put("in", "00:00");
 			map.put("out", "00:00");
+			System.out.println(in + " or " + out);
 			timeSheet = reqParser.setTimeSheetValue(workDate, "00:00", "00:00", "1", emp_id);
-			saveTimeSheet(timeSheet,workDate);
+			saveTimeSheet(timeSheet, workDate);
 		}
 		if ((lunchIn != null && !lunchIn.equalsIgnoreCase(""))
 				&& (lunchOut != null && !lunchOut.equalsIgnoreCase(""))) {
 			map.put("lunchIn", lunchIn.trim());
 			map.put("lunchOut", lunchOut.trim());
+			System.out.println(lunchIn + " and " + lunchOut);
 			timeSheet = reqParser.setTimeSheetValue(workDate, lunchIn.trim(), lunchOut.trim(), "2", emp_id);
-			saveTimeSheet(timeSheet,workDate);
+			saveTimeSheet(timeSheet, workDate);
 		} else {
 			map.put("lunchIn", "00:00");
 			map.put("lunchOut", "00:00");
+			System.out.println(lunchIn + " or " + lunchOut);
 			timeSheet = reqParser.setTimeSheetValue(workDate, "00:00", "00:00", "2", emp_id);
-			saveTimeSheet(timeSheet,workDate);
+			saveTimeSheet(timeSheet, workDate);
 		}
-	
-		if ((nightIn != null && !nightIn.equalsIgnoreCase("")) && (nightOut != null && !nightOut.equalsIgnoreCase(""))) {
+
+		if ((nightIn != null && !nightIn.equalsIgnoreCase(""))
+				&& (nightOut != null && !nightOut.equalsIgnoreCase(""))) {
 			map.put("nightIn", nightIn.trim());
 			map.put("nightOut", nightOut.trim());
+			System.out.println(nightIn + " and " + nightOut);
 			timeSheet = reqParser.setTimeSheetValue(workDate, nightIn.trim(), nightOut.trim(), "3", emp_id);
-			saveTimeSheet(timeSheet,workDate);
+			saveTimeSheet(timeSheet, workDate);
 
 		} else {
 			map.put("nightIn", "00:00");
 			map.put("nightOut", "00:00");
+			System.out.println(nightIn + " or " + nightOut);
 			timeSheet = reqParser.setTimeSheetValue(workDate, "00:00", "00:00", "3", emp_id);
-			saveTimeSheet(timeSheet,workDate);
+			saveTimeSheet(timeSheet, workDate);
 		}
 
 	}
@@ -123,8 +130,8 @@ public class TSchedualService {
 	 * @param timeSheet
 	 *            - An object
 	 */
-	public boolean saveTimeSheet(TimeSheet timeSheet,String workDate) {
-		
+	public boolean saveTimeSheet(TimeSheet timeSheet, String workDate) {
+
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 		boolean status = false;
 		TimeSheetExample example = new TimeSheetExample();
@@ -145,17 +152,18 @@ public class TSchedualService {
 				status = true;
 			}
 		} else {
-			try{
-			System.out.println(timeSheet.getTimeIn());
-			if (!timeSheet.getTimeIn().equals(util.timeMiliSec(workDate, "00:00")) && !timeSheet.getTimeOut().equals(util.timeMiliSec(workDate, "00:00"))) {
-				int j = timeSheetMapper.insertSelective(timeSheet);
-				if (j == 0) {
-					status = true;
+			try {
+				System.out.println(timeSheet.getTimeIn());
+				if (!timeSheet.getTimeIn().equals(util.timeMiliSec(workDate, "00:00"))
+						&& !timeSheet.getTimeOut().equals(util.timeMiliSec(workDate, "00:00"))) {
+					int j = timeSheetMapper.insertSelective(timeSheet);
+					if (j == 0) {
+						status = true;
+					}
+				} else {
+					status = false;
 				}
-			} else {
-				status = false;
-			}
-			}catch(Exception ex){
+			} catch (Exception ex) {
 				jsonResService.errorResponse(new TrackerException("Srever Error").getMessage());
 			}
 		}
