@@ -20,7 +20,6 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-					<!-- <compilerArgument>-proc:none</compilerArgument> -->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -231,8 +230,6 @@
 	<properties>
 		<jersey.version>2.22</jersey.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target> -->
 	</properties>
 
 </project>
