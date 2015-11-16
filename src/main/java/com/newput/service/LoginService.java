@@ -97,7 +97,7 @@ public class LoginService {
 			} else {
 				Session localSession = sessionList.get(0);
 				localSession.setUpdated(getCurrentTime());
-				localSession.setExpiresWhen(getCurrentTime() + 1800);
+				localSession.setExpiresWhen(getCurrentTime() + 7200);
 				localSession.setToken(util.createSessionKey(getCurrentTime(), emp.getEmail()));
 				i = sessionMapper.updateByPrimaryKey(localSession);
 				if (i > 0) {
