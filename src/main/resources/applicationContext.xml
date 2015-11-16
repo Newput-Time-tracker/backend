@@ -21,11 +21,11 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-	value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') 
+			value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') 
 			+ systemConfig.get('DB_NAME') }" />
-	<property name="username" value="#{ systemConfig.get('DB_USER') 
+		<property name="username" value="#{ systemConfig.get('DB_USER') 
 			}" />
-	<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
+		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
 			}" />
 	</bean>
 
