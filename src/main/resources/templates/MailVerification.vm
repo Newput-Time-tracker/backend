@@ -2,15 +2,15 @@
 <body>
 <LEFT>
 
-Hello<h2> ${FirstName},</h2> <p/>
+Hello<h2> ${FirstName},</h2> </p></br>
     
 ${msg}</br></p>
-<a href= "${url}${webUrl}${token}${param}${Id}"> Click here </a><p/>
+<a href= "${url}${webUrl}${token}${param}${Id}"> Click here </a></p></br>
 
-${msg1}</p>
-${msg2}</p>
+${msg1}</p></br>
+${msg2}</p></br>
 
-Thanks, </p>
+Thanks, </p></br>
 Newput Infotech
   </LEFT>
 </body>
