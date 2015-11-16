@@ -47,6 +47,12 @@ public class CronService {
 	 */
 	public void dailyNotification() {
 
+
+//		Calendar caln = Calendar.getInstance();
+//		caln.set(Calendar.HOUR, 18);
+//		caln.set(Calendar.MINUTE, 00);
+//		Long todayTimeStamp = caln.getTimeInMillis();
+//		empExample.createCriteria().andStatusEqualTo(true).andUpdatedLessThanOrEqualTo(todayTimeStamp);
 		if (SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")) {
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
@@ -69,11 +75,6 @@ public class CronService {
 
 		if (SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")) {
 
-//			Calendar caln = Calendar.getInstance();
-//			caln.set(Calendar.HOUR, 18);
-//			caln.set(Calendar.MINUTE, 00);
-//			Long todayTimeStamp = caln.getTimeInMillis();
-
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
@@ -81,7 +82,6 @@ public class CronService {
 			String month = new SimpleDateFormat("MMMM").format(currntStamp);
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
-//			empExample.createCriteria().andStatusEqualTo(true).andUpdatedLessThanOrEqualTo(todayTimeStamp);
 			empExample.createCriteria().andStatusEqualTo(true);
 			list = empMapper.selectByExample(empExample);
 
