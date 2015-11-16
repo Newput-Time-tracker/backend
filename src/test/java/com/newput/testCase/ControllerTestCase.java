@@ -1,7 +1,7 @@
-//package com.newput.testCase;
+package com.newput.testCase;
 //
 //import org.junit.Ignore;
-//import org.junit.Test;
+import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@
 //import com.newput.utility.ReqParseService;
 //import com.newput.utility.TTUtil;
 //
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 //import java.io.File;
 //import java.math.BigDecimal;
 //import java.text.ParseException;
@@ -30,7 +30,7 @@
 //@Service
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "/applicationContext.xml")
-//public class ControllerTestCase {
+public class ControllerTestCase {
 //
 //	@Autowired
 //	DateSheetMapper dateSheetMapper;
@@ -187,8 +187,8 @@
 //		assertNotNull(jsonResService.getData());		
 //	}	
 //	
-//	@Test
-//	public void testName(){
-//		assertEquals("John Smith", "John Smith");
-//	}
-//}
+	@Test
+	public void testName(){
+		assertEquals("John Smith", "John Smith");
+	}
+}
