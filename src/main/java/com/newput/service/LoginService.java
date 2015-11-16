@@ -77,8 +77,10 @@ public class LoginService {
 					session.setCreated(getCurrentTime());
 					session.setExpiresWhen(getCurrentTime() + 3600);
 					i = sessionMapper.insertSelective(session);
-					if (i > 0) {						
+					if (i > 0) {
 						obj.put("token", session.getToken());
+//						double expire = ((double)(session.getExpiresWhen()-getCurrentTime())/3600);
+						obj.put("expire", session.getExpiresWhen()*1000);
 						objArray.add(jsonResService.createEmployeeJson(emp));
 						objArray.add(obj);
 						jsonResService.setData(objArray);
@@ -95,8 +97,10 @@ public class LoginService {
 				localSession.setExpiresWhen(getCurrentTime() + 1800);
 				localSession.setToken(util.createSessionKey(getCurrentTime(), emp.getEmail()));
 				i = sessionMapper.updateByPrimaryKey(localSession);
-				if (i > 0) {					
+				if (i > 0) {
 					obj.put("token", localSession.getToken());
+//					double expire = ((double)(localSession.getExpiresWhen()-getCurrentTime())/3600);
+					obj.put("expire", localSession.getExpiresWhen()*1000);
 					objArray.add(jsonResService.createEmployeeJson(emp));
 					objArray.add(obj);
 					jsonResService.setData(objArray);
@@ -112,8 +116,10 @@ public class LoginService {
 	/**
 	 * Description : Use to verify the login or session token of the user.
 	 * 
-	 * @param token - DBCE502E6669710A1E73CE7352DCC599
-	 * @param emp_id - 1
+	 * @param token
+	 *            - DBCE502E6669710A1E73CE7352DCC599
+	 * @param emp_id
+	 *            - 1
 	 * @return
 	 */
 	public boolean loginSessionFilter(String token, int emp_id) {
@@ -151,7 +157,8 @@ public class LoginService {
 	/**
 	 * Description : To expire the session token of user on sign out.
 	 * 
-	 * @param emp_id - 1
+	 * @param emp_id
+	 *            - 1
 	 */
 	public void signOut(int emp_id) {
 		int i = 0;
