@@ -14,10 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
-//import org.apache.poi.xssf.usermodel.XSSFRow;
-//import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
@@ -120,11 +117,8 @@ public class ExcelTimeSheet {
 			Workbook workbook) {
 		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 5;
 		HSSFRow aRow = sheet.getRow(rowCount);
-		rowCount = rowCount + 1;		
-		String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+G" + rowCount
-				+ "-F" + rowCount;
-//		String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+IF((G+"+15+"-F"+15+")"+"+>0+"+, (G15-F15),  TIME(24,0,0)-(G15-F15))G" + rowCount
-//				+ "-F" + rowCount;
+		rowCount = rowCount + 1;
+		String formulaString = getFormulaString(map, rowCount);
 
 		// create style for row date
 		CellStyle dateStyle = workbook.createCellStyle();
@@ -137,7 +131,7 @@ public class ExcelTimeSheet {
 		// create style for row cells
 		CellStyle style = workbook.createCellStyle();
 		CreationHelper createHelper = workbook.getCreationHelper();
-		style.setDataFormat(createHelper.createDataFormat().getFormat("hh:mm"));
+		style.setDataFormat(createHelper.createDataFormat().getFormat("H:MM"));
 		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
@@ -171,8 +165,8 @@ public class ExcelTimeSheet {
 		aRow.createCell(5).setCellValue(util.timeHrs(map.get("nightIn"), map.get("workDate")).trim());
 		aRow.getCell(5).setCellStyle(style);
 		aRow.createCell(6).setCellValue(util.timeHrs(map.get("nightOut"), map.get("workDate")).trim());
-		aRow.getCell(6).setCellStyle(style);
-		aRow.createCell(7).setCellFormula(formulaString);
+		aRow.getCell(6).setCellStyle(style);	
+		aRow.createCell(7).setCellFormula(formulaString.trim());
 		aRow.getCell(7).setCellStyle(style);
 		aRow.createCell(8).setCellValue(dateSheet.getWorkDesc());
 		aRow.getCell(8).setCellStyle(leftAlignStyle);
@@ -450,6 +444,29 @@ public class ExcelTimeSheet {
 		String value = formatter.format(date);
 		return value;
 	}
+	
+	public String getFormulaString(HashMap<String, Long> map, int rowCount){	
+		String newFormula = "SUM(";	
+		if(!util.timeHrs(map.get("in"), map.get("workDate")).equals("") || 
+				!util.timeHrs(map.get("out"), map.get("workDate")).equals("")){		
+			newFormula = newFormula + "E" + rowCount + "-B" + rowCount;
+		}
+		if(!util.timeHrs(map.get("lunchIn"), map.get("workDate")).equals("") || 
+				!util.timeHrs(map.get("lunchOut"), map.get("workDate")).equals("")){			
+			newFormula = newFormula + "-(D" + rowCount + "-C" + rowCount + ")";
+		}
+		if(!util.timeHrs(map.get("nightIn"), map.get("workDate")).equals("") || 
+				!util.timeHrs(map.get("nightOut"), map.get("workDate")).equals("")){			
+			newFormula = newFormula + "+G" + rowCount + "-F" + rowCount;
+		}
+				
+//		String formulaString = "SUM(E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+G" + rowCount
+//		+ "-F" + rowCount+")";
+//String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+IF((G+"+15+"-F"+15+")"+"+>0+"+, (G15-F15),  TIME(24,0,0)-(G15-F15))G" + rowCount
+//		+ "-F" + rowCount;
+		
+		return newFormula+")";
+	}
 
 	public String getEmpName(int empId) {
 		employee = employeeMapper.selectByPrimaryKey(empId);
@@ -468,6 +485,6 @@ public class ExcelTimeSheet {
 		String fName = Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1);
 		String lName = Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1);
 		String mName = Character.toUpperCase(month.charAt(0)) + month.substring(1);
-		return fName + "_" + lName + "_" + mName + "_" + year + ".xlsx";
+		return fName + "_" + lName + "_" + mName + "_" + year + ".xls";
 	}
 }
