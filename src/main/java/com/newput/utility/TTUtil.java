@@ -130,7 +130,11 @@ public class TTUtil {
 			if (!(timeValue.equals(nextDate)) && (timeSlot.equals("0:0") || timeSlot.equals("0:00")
 					|| timeSlot.equals("00:0") || timeSlot.equals("00:00"))) {
 				return "";
-			} else {
+			} 
+			else if(timeValue>nextDate){
+				return timeSlot = (Integer.parseInt(hours) +24)+ ":" + minute;
+			}
+			else{
 				return timeSlot;
 			}
 		} catch (Exception e) {

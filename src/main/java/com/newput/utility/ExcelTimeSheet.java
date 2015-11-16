@@ -14,7 +14,10 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
+//import org.apache.poi.xssf.usermodel.XSSFRow;
+//import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
@@ -76,13 +79,13 @@ public class ExcelTimeSheet {
 
 		File temp = null;
 		try {
-			temp = File.createTempFile("tempfile", ".xls");
+			temp = File.createTempFile("tempfile", ".xlsx");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet(month);
+		HSSFSheet sheet = workbook.createSheet(month);		
 
 		HashMap<String, String> empMap = new HashMap<>();
 		empMap.put("month", month);
@@ -117,13 +120,11 @@ public class ExcelTimeSheet {
 			Workbook workbook) {
 		int rowCount = util.getExcelSheetDate(dateSheet.getWorkDate()) + 5;
 		HSSFRow aRow = sheet.getRow(rowCount);
-		rowCount = rowCount + 1;
-		// String formulaString = "C" + rowCount + "-B" + rowCount + "+E" +
-		// rowCount + "-D" + rowCount + "+G" + rowCount
-		// + "-F" + rowCount;
-
+		rowCount = rowCount + 1;		
 		String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+G" + rowCount
 				+ "-F" + rowCount;
+//		String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+IF((G+"+15+"-F"+15+")"+"+>0+"+, (G15-F15),  TIME(24,0,0)-(G15-F15))G" + rowCount
+//				+ "-F" + rowCount;
 
 		// create style for row date
 		CellStyle dateStyle = workbook.createCellStyle();
@@ -194,7 +195,7 @@ public class ExcelTimeSheet {
 	 *            - Object
 	 */
 	public void getTimeSheetData(HSSFSheet sheet, int emp_id, Long minDate, Long maxDate, String module,
-			Workbook workbook) {
+			Workbook workbook) {	
 		HashMap<String, Long> map = new HashMap<String, Long>();
 		ArrayList<JSONObject> jsonArray = new ArrayList<>();
 		JSONObject obj = new JSONObject();
@@ -266,7 +267,7 @@ public class ExcelTimeSheet {
 	 * @param empMap
 	 */
 	public void createSheetStructure(HSSFSheet sheet, HSSFWorkbook workbook, HashMap<String, String> empMap) {
-
+	
 		sheet.setColumnWidth(0, 1400);
 		sheet.setColumnWidth(1, 2000);
 		sheet.setColumnWidth(2, 2000);
@@ -323,7 +324,7 @@ public class ExcelTimeSheet {
 		totalhourStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		totalhourStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		CreationHelper createHelper = workbook.getCreationHelper();
-		totalhourStyle.setDataFormat(createHelper.createDataFormat().getFormat("[h]:mm"));
+		totalhourStyle.setDataFormat(createHelper.createDataFormat().getFormat("H:MM"));
 
 		// create style for formating
 		CellStyle formatStyle = workbook.createCellStyle();
@@ -390,8 +391,8 @@ public class ExcelTimeSheet {
 
 		for (int i = 6; i < 38; i++) {
 			HSSFRow row = sheet.createRow(i);
-			String formulaString = "C" + (i + 1) + "-B" + (i + 1) + "+E" + (i + 1) + "-D" + (i + 1) + "+G" + (i + 1)
-					+ "-F" + (i + 1);
+			String formulaString = "E" + (i + 1) + "-B" + (i + 1) + "-(D" + (i + 1) + "-C" + (i + 1) + ")+G" + (i + 1)
+					+ "-F" + (i + 1);		
 			row.createCell(1).setCellStyle(totalhourStyle);
 			row.createCell(2).setCellStyle(totalhourStyle);
 			row.createCell(3).setCellStyle(totalhourStyle);
@@ -467,6 +468,6 @@ public class ExcelTimeSheet {
 		String fName = Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1);
 		String lName = Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1);
 		String mName = Character.toUpperCase(month.charAt(0)) + month.substring(1);
-		return fName + "_" + lName + "_" + mName + "_" + year + ".xls";
+		return fName + "_" + lName + "_" + mName + "_" + year + ".xlsx";
 	}
 }
