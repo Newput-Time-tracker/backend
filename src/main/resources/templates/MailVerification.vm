@@ -1,7 +1,6 @@
 <html>
 <body>
-<LEFT>
-
+<div align = "left">
 <p>Hello<h2> ${FirstName},</h2> </p>
     
 <p>${msg}</br>
@@ -13,6 +12,6 @@
 <p>Thanks, </p>
 
 Newput Infotech
-  </LEFT>
+  </div>
 </body>
 </html>
