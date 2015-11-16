@@ -20,16 +20,13 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<!-- <property name="url"
+		<property name="url"
 			value="#{ 'jdbc:mysql://' + systemConfig.get('DB_LOCAL_HOST') 
 			+ systemConfig.get('DB_NAME') }" />
 		<property name="username" value="#{ systemConfig.get('DB_USER') 
 			}" />
 		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
-			}" /> -->
-			<property name="url" value="jdbc:mysql://localhost:3306/time_tracker" />
-<property name="username" value="root" />
-<property name="password" value="root" />
+			}" />		
 	</bean>
 
 	<bean id="transactionManager"
