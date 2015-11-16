@@ -82,7 +82,7 @@ public class ExcelTimeSheet {
 		}
 
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet(month);		
+		HSSFSheet sheet = workbook.createSheet(month);
 
 		HashMap<String, String> empMap = new HashMap<>();
 		empMap.put("month", month);
@@ -165,7 +165,7 @@ public class ExcelTimeSheet {
 		aRow.createCell(5).setCellValue(util.timeHrs(map.get("nightIn"), map.get("workDate")).trim());
 		aRow.getCell(5).setCellStyle(style);
 		aRow.createCell(6).setCellValue(util.timeHrs(map.get("nightOut"), map.get("workDate")).trim());
-		aRow.getCell(6).setCellStyle(style);	
+		aRow.getCell(6).setCellStyle(style);
 		aRow.createCell(7).setCellFormula(formulaString.trim());
 		aRow.getCell(7).setCellStyle(style);
 		aRow.createCell(8).setCellValue(dateSheet.getWorkDesc());
@@ -189,7 +189,7 @@ public class ExcelTimeSheet {
 	 *            - Object
 	 */
 	public void getTimeSheetData(HSSFSheet sheet, int emp_id, Long minDate, Long maxDate, String module,
-			Workbook workbook) {	
+			Workbook workbook) {
 		HashMap<String, Long> map = new HashMap<String, Long>();
 		ArrayList<JSONObject> jsonArray = new ArrayList<>();
 		JSONObject obj = new JSONObject();
@@ -261,7 +261,7 @@ public class ExcelTimeSheet {
 	 * @param empMap
 	 */
 	public void createSheetStructure(HSSFSheet sheet, HSSFWorkbook workbook, HashMap<String, String> empMap) {
-	
+
 		sheet.setColumnWidth(0, 1400);
 		sheet.setColumnWidth(1, 2000);
 		sheet.setColumnWidth(2, 2000);
@@ -386,7 +386,7 @@ public class ExcelTimeSheet {
 		for (int i = 6; i < 38; i++) {
 			HSSFRow row = sheet.createRow(i);
 			String formulaString = "E" + (i + 1) + "-B" + (i + 1) + "-(D" + (i + 1) + "-C" + (i + 1) + ")+G" + (i + 1)
-					+ "-F" + (i + 1);		
+					+ "-F" + (i + 1);
 			row.createCell(1).setCellStyle(totalhourStyle);
 			row.createCell(2).setCellStyle(totalhourStyle);
 			row.createCell(3).setCellStyle(totalhourStyle);
@@ -444,28 +444,40 @@ public class ExcelTimeSheet {
 		String value = formatter.format(date);
 		return value;
 	}
-	
-	public String getFormulaString(HashMap<String, Long> map, int rowCount){	
-		String newFormula = "SUM(";	
-		if(!util.timeHrs(map.get("in"), map.get("workDate")).equals("") || 
-				!util.timeHrs(map.get("out"), map.get("workDate")).equals("")){		
+
+	public String getFormulaString(HashMap<String, Long> map, int rowCount) {
+		String newFormula = "SUM(";
+		if (!util.timeHrs(map.get("in"), map.get("workDate")).equals("")
+				|| !util.timeHrs(map.get("out"), map.get("workDate")).equals("")) {
 			newFormula = newFormula + "E" + rowCount + "-B" + rowCount;
 		}
-		if(!util.timeHrs(map.get("lunchIn"), map.get("workDate")).equals("") || 
-				!util.timeHrs(map.get("lunchOut"), map.get("workDate")).equals("")){			
+		if (!util.timeHrs(map.get("lunchIn"), map.get("workDate")).equals("")
+				|| !util.timeHrs(map.get("lunchOut"), map.get("workDate")).equals("")) {
 			newFormula = newFormula + "-(D" + rowCount + "-C" + rowCount + ")";
+		} else {
+			if (!util.timeHrs(map.get("in"), map.get("workDate")).equals("")
+					|| !util.timeHrs(map.get("out"), map.get("workDate")).equals("")) {
+				newFormula = "SUM(" + "C" + rowCount + "-B" + rowCount;
+			}
 		}
-		if(!util.timeHrs(map.get("nightIn"), map.get("workDate")).equals("") || 
-				!util.timeHrs(map.get("nightOut"), map.get("workDate")).equals("")){			
-			newFormula = newFormula + "+G" + rowCount + "-F" + rowCount;
+		if (!util.timeHrs(map.get("nightIn"), map.get("workDate")).equals("")
+				|| !util.timeHrs(map.get("nightOut"), map.get("workDate")).equals("")) {
+			if(newFormula.equals("SUM(")){
+				newFormula = newFormula + "G" + rowCount + "-F" + rowCount;
+			}else{
+				newFormula = newFormula + "+G" + rowCount + "-F" + rowCount;
+			}			
 		}
-				
-//		String formulaString = "SUM(E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+G" + rowCount
-//		+ "-F" + rowCount+")";
-//String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" + rowCount + "-C" + rowCount + ")+IF((G+"+15+"-F"+15+")"+"+>0+"+, (G15-F15),  TIME(24,0,0)-(G15-F15))G" + rowCount
-//		+ "-F" + rowCount;
-		
-		return newFormula+")";
+
+		// String formulaString = "SUM(E" + rowCount + "-B" + rowCount + "-(D" +
+		// rowCount + "-C" + rowCount + ")+G" + rowCount
+		// + "-F" + rowCount+")";
+		// String formulaString = "E" + rowCount + "-B" + rowCount + "-(D" +
+		// rowCount + "-C" + rowCount + ")+IF((G+"+15+"-F"+15+")"+"+>0+"+,
+		// (G15-F15), TIME(24,0,0)-(G15-F15))G" + rowCount
+		// + "-F" + rowCount;
+
+		return newFormula + ")";
 	}
 
 	public String getEmpName(int empId) {
