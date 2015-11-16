@@ -25,7 +25,7 @@
 			+ systemConfig.get('DB_NAME') }" />
 		<property name="username" value="#{ systemConfig.get('DB_USER') 
 			}" />
-		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
+	<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
 			}" />
 	</bean>
 
