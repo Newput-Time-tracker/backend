@@ -56,7 +56,7 @@ public class LoginService {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean createSession(Employee employee) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy [h]:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 		JSONObject obj = new JSONObject();
 		int i = 0;
