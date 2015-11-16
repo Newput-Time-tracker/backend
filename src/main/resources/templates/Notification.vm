@@ -1,14 +1,15 @@
 <html>
 <body>
-<LEFT>
 
-Hi,${msg} </br></p>
+<div align = "left">
+<p>Hi,${msg} </br></p>
 
 
 <p><a href= "${url}${webUrl}"> Click here </a></br></p>
 
 <p>Thanks, </p>
 Newput Infotech
-  </LEFT>
+  
+  </div>
 </body>
 </html>

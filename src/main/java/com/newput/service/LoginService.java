@@ -1,5 +1,6 @@
 package com.newput.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class LoginService {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean createSession(Employee employee) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		ArrayList<JSONObject> objArray = new ArrayList<JSONObject>();
 		JSONObject obj = new JSONObject();
 		int i = 0;
@@ -80,7 +82,8 @@ public class LoginService {
 					if (i > 0) {
 						obj.put("token", session.getToken());
 //						double expire = ((double)(session.getExpiresWhen()-getCurrentTime())/3600);
-						obj.put("expire", session.getExpiresWhen()*1000);
+//						obj.put("expire", session.getExpiresWhen()*1000);
+						obj.put("expire", sdf.format(session.getExpiresWhen()*1000));
 						objArray.add(jsonResService.createEmployeeJson(emp));
 						objArray.add(obj);
 						jsonResService.setData(objArray);
@@ -100,7 +103,7 @@ public class LoginService {
 				if (i > 0) {
 					obj.put("token", localSession.getToken());
 //					double expire = ((double)(localSession.getExpiresWhen()-getCurrentTime())/3600);
-					obj.put("expire", localSession.getExpiresWhen()*1000);
+					obj.put("expire", sdf.format(localSession.getExpiresWhen()*1000));
 					objArray.add(jsonResService.createEmployeeJson(emp));
 					objArray.add(obj);
 					jsonResService.setData(objArray);
