@@ -3,8 +3,9 @@
 <LEFT>
 
 Hi,${msg} </br></p>
-<a href= "${url}${webUrl}"> Click here </a></br><p/>
 
+
+<a href= "${url}${webUrl}"> Click here </a></br><p/>
 
 Thanks, <p/>
 Newput Infotech
