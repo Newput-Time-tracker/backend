@@ -37,6 +37,7 @@ public class SessionFilter implements Filter {
 
 		if (path.equals("register") || path.equals("login") || path.equals("verify") || path.equals("forgotPwd") 
 				|| path.equals("pwdVerify") || path.equals("resend")|| path.equals("excelExport")) {
+					
 			chain.doFilter(req, res);
 		} else {
 //			String token = request.getHeader("token");
@@ -48,6 +49,11 @@ public class SessionFilter implements Filter {
 //				response.setHeader("response error", "" + HttpServletResponse.SC_BAD_REQUEST);
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			} else {
+			  
+				response.setHeader("Access-Control-Allow-Origin", "*");
+				response.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST");
+	        		response.setHeader("Access-Control-Allow-Headers", "token"); 
+				
 				if (loginService.loginSessionFilter(token, Integer.parseInt(emp_id))) {
 					response.setHeader("response status",
 							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
