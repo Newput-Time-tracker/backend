@@ -270,7 +270,7 @@ public class ExcelTimeSheet {
 		sheet.setColumnWidth(5, 2000);
 		sheet.setColumnWidth(6, 2000);
 		sheet.setColumnWidth(7, 2000);
-		sheet.setColumnWidth(8, 15000);
+		sheet.setColumnWidth(8, 11500);
 		sheet.addMergedRegion(CellRangeAddress.valueOf("A5:A6"));
 		sheet.addMergedRegion(CellRangeAddress.valueOf("I5:I6"));
 
