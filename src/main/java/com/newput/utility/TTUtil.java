@@ -131,7 +131,7 @@ public class TTUtil {
 					|| timeSlot.equals("00:0") || timeSlot.equals("00:00"))) {
 				return "";
 			} 
-			else if(timeValue>nextDate){
+			else if(timeValue>=nextDate){
 				return timeSlot = (Integer.parseInt(hours) +24)+ ":" + minute;
 			}
 			else{
