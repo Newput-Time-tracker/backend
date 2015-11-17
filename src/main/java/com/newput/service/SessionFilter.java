@@ -44,17 +44,19 @@ public class SessionFilter implements Filter {
 			String token = request.getParameter("token");
 			String emp_id = request.getParameter("empId");
 			if (token == null || token.equals("") || emp_id == null || emp_id.equals("")) {
-				response.setHeader("response status", "" + false);
-				response.setHeader("response error", "" + HttpServletResponse.SC_BAD_REQUEST);
+//				response.setHeader("response status", "" + false);
+//				response.setHeader("response error", "" + HttpServletResponse.SC_BAD_REQUEST);
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			} else {
 				if (loginService.loginSessionFilter(token, Integer.parseInt(emp_id))) {
 					response.setHeader("response status",
 							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
 					chain.doFilter(req, res);
 				} else {
-					response.setHeader("response status",
-							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
-					response.setHeader("response error", "" + HttpServletResponse.SC_UNAUTHORIZED);
+//					response.setHeader("response status",
+//							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
+//					response.setHeader("response error", "" + HttpServletResponse.SC_UNAUTHORIZED);
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				}
 			}
 		}
