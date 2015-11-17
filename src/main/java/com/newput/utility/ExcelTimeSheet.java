@@ -449,17 +449,25 @@ public class ExcelTimeSheet {
 		String newFormula = "SUM(";
 		if (!util.timeHrs(map.get("in"), map.get("workDate")).equals("")
 				|| !util.timeHrs(map.get("out"), map.get("workDate")).equals("")) {
-			newFormula = newFormula + "E" + rowCount + "-B" + rowCount;
+			newFormula = newFormula + "C" + rowCount + "-B" + rowCount;
+			//newFormula = newFormula + "E" + rowCount + "-B" + rowCount;
 		}
 		if (!util.timeHrs(map.get("lunchIn"), map.get("workDate")).equals("")
 				|| !util.timeHrs(map.get("lunchOut"), map.get("workDate")).equals("")) {
-			newFormula = newFormula + "-(D" + rowCount + "-C" + rowCount + ")";
-		} else {
-			if (!util.timeHrs(map.get("in"), map.get("workDate")).equals("")
-					|| !util.timeHrs(map.get("out"), map.get("workDate")).equals("")) {
-				newFormula = "SUM(" + "C" + rowCount + "-B" + rowCount;
+			//newFormula = newFormula + "-(D" + rowCount + "-C" + rowCount + ")";
+			if(newFormula.equals("SUM(")){
+				newFormula = newFormula + "E" + rowCount + "-D" + rowCount;
+			}else{
+				newFormula = newFormula + "+E" + rowCount + "-D" + rowCount;
 			}
 		}
+//		else {
+//			if (!util.timeHrs(map.get("in"), map.get("workDate")).equals("")
+//					|| !util.timeHrs(map.get("out"), map.get("workDate")).equals("")) {
+//				newFormula = "SUM(";
+//				newFormula = newFormula + "C" + rowCount + "-B" + rowCount;
+//			}
+//		}
 		if (!util.timeHrs(map.get("nightIn"), map.get("workDate")).equals("")
 				|| !util.timeHrs(map.get("nightOut"), map.get("workDate")).equals("")) {
 			if(newFormula.equals("SUM(")){
