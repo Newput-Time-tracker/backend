@@ -77,7 +77,7 @@ public class LoginService {
 					session.setEmpName(emp.getFirstName());
 					session.setToken(util.createSessionKey(getCurrentTime(), emp.getEmail()));
 					session.setCreated(getCurrentTime());
-					session.setExpiresWhen(getCurrentTime() + 3600);
+					session.setExpiresWhen(getCurrentTime() + 600);
 					i = sessionMapper.insertSelective(session);
 					if (i > 0) {
 						obj.put("token", session.getToken());
@@ -97,7 +97,7 @@ public class LoginService {
 			} else {
 				Session localSession = sessionList.get(0);
 				localSession.setUpdated(getCurrentTime());
-				localSession.setExpiresWhen(getCurrentTime() + 7200);
+				localSession.setExpiresWhen(getCurrentTime() + 600);
 				localSession.setToken(util.createSessionKey(getCurrentTime(), emp.getEmail()));
 				i = sessionMapper.updateByPrimaryKey(localSession);
 				if (i > 0) {
