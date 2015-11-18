@@ -142,6 +142,7 @@ public class JsonResService {
 	@SuppressWarnings("unchecked")
 	public JSONObject responseSender() {
 		JSONObject obj = new JSONObject();
+		obj.put("expire", 3600);
 		obj.put("success", isSuccess());
 		obj.put("data", getData());
 		obj.put("rcode", getRcode());
