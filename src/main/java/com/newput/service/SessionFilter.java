@@ -40,28 +40,23 @@ public class SessionFilter implements Filter {
 					
 			chain.doFilter(req, res);
 		} else {
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			response.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST");
+        	response.setHeader("Access-Control-Allow-Headers", "token, empId");
+        	
 //			String token = request.getHeader("token");
 //			String emp_id = request.getHeader("empId");
 			String token = request.getParameter("token");
-			String emp_id = request.getParameter("empId");
+			String emp_id = request.getParameter("empId");			
 			if (token == null || token.equals("") || emp_id == null || emp_id.equals("")) {
-//				response.setHeader("response status", "" + false);
-//				response.setHeader("response error", "" + HttpServletResponse.SC_BAD_REQUEST);
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			} else {
-			  
-				response.setHeader("Access-Control-Allow-Origin", "*");
-				response.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST");
-	        	response.setHeader("Access-Control-Allow-Headers", "token"); 
-				
+			} else {				
 				if (loginService.loginSessionFilter(token, Integer.parseInt(emp_id))) {
 					response.setHeader("response status",
 							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
+					response.setHeader("expire", loginService.getUpdateTime());
 					chain.doFilter(req, res);
 				} else {
-//					response.setHeader("response status",
-//							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
-//					response.setHeader("response error", "" + HttpServletResponse.SC_UNAUTHORIZED);
 					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				}
 			}

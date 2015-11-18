@@ -81,8 +81,6 @@ public class LoginService {
 					i = sessionMapper.insertSelective(session);
 					if (i > 0) {
 						obj.put("token", session.getToken());
-//						double expire = ((double)(session.getExpiresWhen()-getCurrentTime())/3600);
-//						obj.put("expire", session.getExpiresWhen()*1000);
 						obj.put("expire", sdf.format(session.getExpiresWhen()*1000));
 						objArray.add(jsonResService.createEmployeeJson(emp));
 						objArray.add(obj);
@@ -97,12 +95,11 @@ public class LoginService {
 			} else {
 				Session localSession = sessionList.get(0);
 				localSession.setUpdated(getCurrentTime());
-				localSession.setExpiresWhen(getCurrentTime() + 7200);
+				localSession.setExpiresWhen(getCurrentTime() + 3600);
 				localSession.setToken(util.createSessionKey(getCurrentTime(), emp.getEmail()));
 				i = sessionMapper.updateByPrimaryKey(localSession);
 				if (i > 0) {
 					obj.put("token", localSession.getToken());
-//					double expire = ((double)(localSession.getExpiresWhen()-getCurrentTime())/3600);
 					obj.put("expire", sdf.format(localSession.getExpiresWhen()*1000));
 					objArray.add(jsonResService.createEmployeeJson(emp));
 					objArray.add(obj);
@@ -139,7 +136,8 @@ public class LoginService {
 			Long currentTime = getCurrentTime();
 			if (expireTime > currentTime) {
 				localSession.setUpdated(getCurrentTime());
-				localSession.setExpiresWhen(getCurrentTime() + 1800);
+				localSession.setExpiresWhen(getCurrentTime() + 3600);
+				setUpdateTime(localSession.getExpiresWhen());
 				i = sessionMapper.updateByPrimaryKey(localSession);
 				if (i > 0) {
 					jsonResService.successResponse();
@@ -181,5 +179,14 @@ public class LoginService {
 				jsonResService.errorResponse("user can not sign out");
 			}
 		}
+	}
+	
+	String updateTime = "";
+	public void setUpdateTime(Long time){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		updateTime = sdf.format(time*1000);
+	}
+	public String getUpdateTime(){		
+		return updateTime;
 	}
 }
