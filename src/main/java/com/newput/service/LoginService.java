@@ -79,7 +79,7 @@ public class LoginService {
 					i = sessionMapper.insertSelective(session);
 					if (i > 0) {
 						obj.put("token", session.getToken());
-						obj.put("expire", 3600);
+//						obj.put("expire", 3600);
 						objArray.add(jsonResService.createEmployeeJson(emp));
 						objArray.add(obj);
 						jsonResService.setData(objArray);
@@ -98,7 +98,7 @@ public class LoginService {
 				i = sessionMapper.updateByPrimaryKey(localSession);
 				if (i > 0) {
 					obj.put("token", localSession.getToken());
-					obj.put("expire", 3600);
+//					obj.put("expire", 3600);
 					objArray.add(jsonResService.createEmployeeJson(emp));
 					objArray.add(obj);
 					jsonResService.setData(objArray);
