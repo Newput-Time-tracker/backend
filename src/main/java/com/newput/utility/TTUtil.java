@@ -124,7 +124,7 @@ public class TTUtil {
 			}
 			String minute = "" + calendar.get(Calendar.MINUTE);
 			if (minute.length() == 1) {
-				minute = minute + "0";
+				minute = "0" + minute;
 			}
 			String timeSlot = hours + ":" + minute;
 			if (!(timeValue.equals(nextDate)) && (timeSlot.equals("0:0") || timeSlot.equals("0:00")

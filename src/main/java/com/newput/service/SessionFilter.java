@@ -52,7 +52,7 @@ public class SessionFilter implements Filter {
 			  
 				response.setHeader("Access-Control-Allow-Origin", "*");
 				response.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST");
-	        		response.setHeader("Access-Control-Allow-Headers", "token"); 
+	        	response.setHeader("Access-Control-Allow-Headers", "token"); 
 				
 				if (loginService.loginSessionFilter(token, Integer.parseInt(emp_id))) {
 					response.setHeader("response status",
