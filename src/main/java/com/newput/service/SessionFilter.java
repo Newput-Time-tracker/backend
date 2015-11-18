@@ -53,8 +53,7 @@ public class SessionFilter implements Filter {
 			} else {				
 				if (loginService.loginSessionFilter(token, Integer.parseInt(emp_id))) {
 					response.setHeader("response status",
-							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));
-					response.setHeader("expire", loginService.getUpdateTime());
+							"" + loginService.loginSessionFilter(token, Integer.parseInt(emp_id)));					
 					chain.doFilter(req, res);
 				} else {
 					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
