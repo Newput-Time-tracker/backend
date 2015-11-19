@@ -249,7 +249,7 @@ public class ExcelTimeSheet {
 			jsonResService.setData(jsonArray);
 			jsonResService.successResponse();
 		} else {
-			jsonResService.errorResponse("data not found in date sheet table for emp id");
+			jsonResService.errorResponse("DATA_NOT_FOUND");
 		}
 	}
 
