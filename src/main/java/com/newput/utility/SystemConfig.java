@@ -8,7 +8,12 @@ public class SystemConfig {
 
 	public SystemConfig() {
 		props = new Properties();
-		props.setProperty("CRON_SERVICE", System.getenv("CRON_SERVICE"));
+		props.setProperty("DAILY_CRON_SERVICE", System.getenv("DAILY_CRON_SERVICE"));
+		props.setProperty("DAILY_CRON_SERVICE_TIME", System.getenv("DAILY_CRON_SERVICE_TIME"));
+		props.setProperty("WEEKLY_CRON_SERVICE", System.getenv("WEEKLY_CRON_SERVICE"));
+		props.setProperty("WEEKLY_CRON_SERVICE_TIME", System.getenv("WEEKLY_CRON_SERVICE_TIME"));
+		props.setProperty("MONTHLY_CRON_SERVICE", System.getenv("MONTHLY_CRON_SERVICE"));
+		props.setProperty("MONTHLY_CRON_SERVICE_TIME", System.getenv("MONTHLY_CRON_SERVICE_TIME"));
 		props.setProperty("CLEARDB_DATABASE_URL", System.getenv("CLEARDB_DATABASE_URL"));
 		props.setProperty("WEBAPP_URL", System.getenv("WEBAPP_URL"));
 		props.setProperty("MAIL_USERID", System.getenv("MAIL_USERID"));

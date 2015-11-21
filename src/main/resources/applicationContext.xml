@@ -27,6 +27,9 @@
 			}" />
 		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
 			}" />
+			<!-- <property name="url" value="jdbc:mysql://localhost:3306/time_tracker" />
+<property name="username" value="root" /> 
+<property name="password" value="root" /> -->
 	</bean>
 
 	<bean id="transactionManager"
@@ -72,7 +75,7 @@
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processDailyNotify" />
-		<property name="cronExpression" value="0 30 11 ? * MON-FRI" />
+		<property name="cronExpression" value="0 #{ systemConfig.get('DAILY_CRON_SERVICE_TIME') } ? * MON-SAT" />
 	</bean>
 	<bean id="processDailyNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -83,7 +86,7 @@
 	<bean id="weeklyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processExcelNotify" />
-		<property name="cronExpression" value="0 0 14 ? * FRI" />
+		<property name="cronExpression" value="0 #{ systemConfig.get('WEEKLY_CRON_SERVICE_TIME') } ? * SAT" />
 	</bean>
 	<bean id="processExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -94,7 +97,7 @@
 	<bean id="monthlyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processMExcelNotify" />
-		<property name="cronExpression" value="0 0 18 L * ?" />
+		<property name="cronExpression" value="0 #{ systemConfig.get('MONTHLY_CRON_SERVICE_TIME') } L * ?" />
 	</bean>
 	<bean id="processMExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
