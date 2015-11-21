@@ -91,7 +91,7 @@
 	<bean id="processExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="scheduledCronService" />
-		<property name="targetMethod" value="emailSendJob" />
+		<property name="targetMethod" value="weeklyEmailSendJob" />
 		<property name="concurrent" value="false" />
 	</bean>
 	<bean id="monthlyExcelTrigger"
@@ -102,7 +102,7 @@
 	<bean id="processMExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="scheduledCronService" />
-		<property name="targetMethod" value="emailSendJob" />
+		<property name="targetMethod" value="monthlyEmailSendJob" />
 		<property name="concurrent" value="false" />
 	</bean>
 

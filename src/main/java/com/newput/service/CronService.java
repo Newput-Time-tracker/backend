@@ -65,9 +65,40 @@ public class CronService {
 	/**
 	 * Description : Schedule the Cron jobs for mail sending.
 	 */
-	public void emailSendJob() {
+	public void weeklyEmailSendJob() {
 
-		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE")) || Boolean.parseBoolean(SystemConfig.get("MONTHLY_CRON_SERVICE"))) {
+		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE"))) {
+
+			Calendar cal = Calendar.getInstance();
+			Long currntStamp = cal.getTimeInMillis();
+
+			String year = new SimpleDateFormat("YYYY").format(currntStamp);
+			String month = new SimpleDateFormat("MMMM").format(currntStamp);
+			List<Employee> list = new ArrayList<Employee>();
+			EmployeeExample empExample = new EmployeeExample();
+			empExample.createCriteria().andStatusEqualTo(true);
+			list = empMapper.selectByExample(empExample);
+
+			if (list.size() > 0) {
+				for (int i = 0; i < list.size(); i++) {
+					emp = list.get(i);
+					File file = excelTimeSheet.createExcelSheet(emp.getId(), month, year);
+					if (jsonResService.isSuccess()) {
+						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file,
+								excelTimeSheet.getTimeSheetName(emp.getId(), month, year));						
+					}
+					file.delete();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Description : Schedule the Cron jobs for mail sending.
+	 */
+	public void monthlyEmailSendJob() {
+
+		if (Boolean.parseBoolean(SystemConfig.get("MONTHLY_CRON_SERVICE"))) {
 
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
