@@ -47,13 +47,7 @@ public class CronService {
 	 */
 	public void dailyNotification() {
 
-
-//		Calendar caln = Calendar.getInstance();
-//		caln.set(Calendar.HOUR, 18);
-//		caln.set(Calendar.MINUTE, 00);
-//		Long todayTimeStamp = caln.getTimeInMillis();
-//		empExample.createCriteria().andStatusEqualTo(true).andUpdatedLessThanOrEqualTo(todayTimeStamp);
-		if (SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")) {
+		if (Boolean.parseBoolean(SystemConfig.get("DAILY_CRON_SERVICE"))) {
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
 			empExample.createCriteria().andStatusEqualTo(true);
@@ -69,11 +63,11 @@ public class CronService {
 	}
 
 	/**
-	 * Description : Schedule the Cron jobs for mail sending.
+	 * Description : Schedule the Cron jobs for weekly mail sending.
 	 */
-	public void emailSendJob() {
+	public void weeklyEmailSendJob() {
 
-		if (SystemConfig.get("CRON_SERVICE").equalsIgnoreCase("start")) {
+		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE"))) {
 
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
@@ -91,9 +85,40 @@ public class CronService {
 					File file = excelTimeSheet.createExcelSheet(emp.getId(), month, year);
 					if (jsonResService.isSuccess()) {
 						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file,
-								excelTimeSheet.getTimeSheetName(emp.getId(), month, year));
-						file.delete();
+								excelTimeSheet.getTimeSheetName(emp.getId(), month, year));						
 					}
+					file.delete();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Description : Schedule the Cron jobs for monthly mail sending.
+	 */
+	public void monthlyEmailSendJob() {
+		System.out.println("inside mail method");
+		if (Boolean.parseBoolean(SystemConfig.get("MONTHLY_CRON_SERVICE"))) {
+			System.out.println("inside if block");
+			Calendar cal = Calendar.getInstance();
+			Long currntStamp = cal.getTimeInMillis();
+
+			String year = new SimpleDateFormat("YYYY").format(currntStamp);
+			String month = new SimpleDateFormat("MMMM").format(currntStamp);
+			List<Employee> list = new ArrayList<Employee>();
+			EmployeeExample empExample = new EmployeeExample();
+			empExample.createCriteria().andStatusEqualTo(true);
+			list = empMapper.selectByExample(empExample);
+
+			if (list.size() > 0) {
+				for (int i = 0; i < list.size(); i++) {
+					emp = list.get(i);
+					File file = excelTimeSheet.createExcelSheet(emp.getId(), month, year);
+					if (jsonResService.isSuccess()) {
+						emailSend.sendExcelSheet(excelTimeSheet.getEmpEmail(emp.getId()), file,
+								excelTimeSheet.getTimeSheetName(emp.getId(), month, year));						
+					}
+					file.delete();
 				}
 			}
 		}

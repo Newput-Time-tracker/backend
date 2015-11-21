@@ -26,7 +26,7 @@
 		<property name="username" value="#{ systemConfig.get('DB_USER') 
 			}" />
 		<property name="password" value="#{ systemConfig.get('DB_PASSWORD') 
-			}" />
+			}" />			
 	</bean>
 
 	<bean id="transactionManager"
@@ -62,8 +62,8 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="dailyNotifyTrigger" />
-				<ref bean="weeklyExcelTrigger" />
+				<!-- <ref bean="dailyNotifyTrigger" />
+				<ref bean="weeklyExcelTrigger" /> -->
 				<ref bean="monthlyExcelTrigger" />
 			</list>
 		</property>
@@ -72,7 +72,7 @@
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processDailyNotify" />
-		<property name="cronExpression" value="0 30 11 ? * MON-FRI" />
+		<property name="cronExpression" value="0 #{ systemConfig.get('DAILY_CRON_SERVICE_TIME') } ? * MON-FRI" />
 	</bean>
 	<bean id="processDailyNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -83,23 +83,23 @@
 	<bean id="weeklyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processExcelNotify" />
-		<property name="cronExpression" value="0 0 14 ? * FRI" />
+		<property name="cronExpression" value="0 #{ systemConfig.get('WEEKLY_CRON_SERVICE_TIME') } ? * FRI" />
 	</bean>
 	<bean id="processExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="scheduledCronService" />
-		<property name="targetMethod" value="emailSendJob" />
+		<property name="targetMethod" value="weeklyEmailSendJob" />
 		<property name="concurrent" value="false" />
 	</bean>
 	<bean id="monthlyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processMExcelNotify" />
-		<property name="cronExpression" value="0 0 18 L * ?" />
+		<property name="cronExpression" value="0 #{ systemConfig.get('MONTHLY_CRON_SERVICE_TIME') } L * ?" />
 	</bean>
 	<bean id="processMExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="scheduledCronService" />
-		<property name="targetMethod" value="emailSendJob" />
+		<property name="targetMethod" value="monthlyEmailSendJob" />
 		<property name="concurrent" value="false" />
 	</bean>
 
