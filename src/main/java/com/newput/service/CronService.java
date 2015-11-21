@@ -63,7 +63,7 @@ public class CronService {
 	}
 
 	/**
-	 * Description : Schedule the Cron jobs for mail sending.
+	 * Description : Schedule the Cron jobs for weekly mail sending.
 	 */
 	public void weeklyEmailSendJob() {
 
@@ -94,12 +94,12 @@ public class CronService {
 	}
 	
 	/**
-	 * Description : Schedule the Cron jobs for mail sending.
+	 * Description : Schedule the Cron jobs for monthly mail sending.
 	 */
 	public void monthlyEmailSendJob() {
-
+		System.out.println("inside mail method");
 		if (Boolean.parseBoolean(SystemConfig.get("MONTHLY_CRON_SERVICE"))) {
-
+			System.out.println("inside if block");
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
