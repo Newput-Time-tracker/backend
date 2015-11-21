@@ -130,11 +130,9 @@ public class TTUtil {
 			if (!(timeValue.equals(nextDate)) && (timeSlot.equals("0:0") || timeSlot.equals("0:00")
 					|| timeSlot.equals("00:0") || timeSlot.equals("00:00"))) {
 				return "";
-			} 
-			else if(timeValue>=nextDate){
-				return timeSlot = (Integer.parseInt(hours) +24)+ ":" + minute;
-			}
-			else{
+			} else if (timeValue >= nextDate) {
+				return timeSlot = (Integer.parseInt(hours) + 24) + ":" + minute;
+			} else {
 				return timeSlot;
 			}
 		} catch (Exception e) {
@@ -280,7 +278,7 @@ public class TTUtil {
 			Calendar now = Calendar.getInstance();
 			if (flag.equals("dob")) {
 				now.set(Calendar.YEAR, now.get(Calendar.YEAR) - 17);
-				year = now.get(Calendar.YEAR);				
+				year = now.get(Calendar.YEAR);
 			} else {
 				year = now.get(Calendar.YEAR);
 			}
@@ -342,15 +340,28 @@ public class TTUtil {
 
 	public boolean checkValidWeek(String workDate) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		Long newDate = sdf.parse(workDate).getTime();
-		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(newDate);
-		int x = cal.get(Calendar.WEEK_OF_YEAR);
-		Calendar cal1 = Calendar.getInstance();
-		int y = cal1.get(Calendar.WEEK_OF_YEAR);
-		if (x == y) {
+		// Long newDate = sdf.parse(workDate).getTime();
+		// Calendar cal = Calendar.getInstance();
+		// cal.setTimeInMillis(newDate);
+		// int x = cal.get(Calendar.WEEK_OF_YEAR);
+		// Calendar cal1 = Calendar.getInstance();
+		// int y = cal1.get(Calendar.WEEK_OF_YEAR);
+		// if (x == y) {
+		// return true;
+		// } else {
+		// return false;
+		// }
+		//
+        int days = Integer.parseInt(SystemConfig.get("EDITING_DAYS"));
+		Date newDate = (Date) sdf.parse(workDate);
+		Date dates = new Date();
+		long DAY_IN_MS = 1000 * 60 * 60 * 24;
+		Date beforedate = new Date(dates.getTime() - (days * DAY_IN_MS));
+		if (newDate.after(beforedate) && (newDate.before(dates) || newDate.equals(dates))) {
+//			System.out.println("y you are in");
 			return true;
 		} else {
+//			System.out.println("n you are out");
 			return false;
 		}
 	}
