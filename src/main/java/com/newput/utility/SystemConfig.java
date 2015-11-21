@@ -25,6 +25,8 @@ public class SystemConfig {
 		props.setProperty("MAIL_HOST", System.getenv("MAIL_HOST"));
 		props.setProperty("MAIL_PORT", System.getenv("MAIL_PORT"));
 		
+		props.setProperty("EDITING_DAYS", System.getenv("EDITING_DAYS"));
+		
 		setDataBaseInfo(get("CLEARDB_DATABASE_URL"));
 	}
 
