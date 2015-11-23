@@ -358,10 +358,8 @@ public class TTUtil {
 		long DAY_IN_MS = 1000 * 60 * 60 * 24;
 		Date beforedate = new Date(dates.getTime() - (days * DAY_IN_MS));
 		if (newDate.after(beforedate) && (newDate.before(dates) || newDate.equals(dates))) {
-//			System.out.println("y you are in");
 			return true;
 		} else {
-//			System.out.println("n you are out");
 			return false;
 		}
 	}
