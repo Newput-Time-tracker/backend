@@ -39,6 +39,7 @@
 		<!-- <property name="configLocation" value="classpath:config/mybatisV3.xml"/> -->
 		<property name="mapperLocations" value="classpath:*Mapper.xml" />
 	</bean>
+	
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.newput.mapper" />
