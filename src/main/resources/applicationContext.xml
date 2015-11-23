@@ -73,7 +73,7 @@
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processDailyNotify" />
-		<property name="cronExpression" value="0 #{ systemConfig.get('DAILY_CRON_SERVICE_TIME') } ? * MON-FRI" />
+		<property name="cronExpression" value="0 #{systemConfig.get('DAILY_CRON_SERVICE_TIME')} ? * MON-FRI" />
 	</bean>
 	<bean id="processDailyNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -84,7 +84,7 @@
 	<bean id="weeklyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processExcelNotify" />
-		<property name="cronExpression" value="0 #{ systemConfig.get('WEEKLY_CRON_SERVICE_TIME') } ? * FRI" />
+		<property name="cronExpression" value="0 #{systemConfig.get('WEEKLY_CRON_SERVICE_TIME')} ? * FRI" />
 	</bean>
 	<bean id="processExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -95,7 +95,7 @@
 	<bean id="monthlyExcelTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processMExcelNotify" />
-		<property name="cronExpression" value="0 #{ systemConfig.get('MONTHLY_CRON_SERVICE_TIME') } L * ?" />
+		<property name="cronExpression" value="0 #{systemConfig.get('MONTHLY_CRON_SERVICE_TIME')} L * ?" />
 	</bean>
 	<bean id="processMExcelNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
