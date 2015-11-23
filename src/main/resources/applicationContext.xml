@@ -73,7 +73,7 @@
 	<bean id="dailyNotifyTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="processDailyNotify" />
-		<property name="cronExpression" value="0 #{systemConfig.get('DAILY_CRON_SERVICE_TIME')} ? * MON-FRI" />
+		<property name="cronExpression" value="0 30 11 ? * MON-FRI" />
 	</bean>
 	<bean id="processDailyNotify"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

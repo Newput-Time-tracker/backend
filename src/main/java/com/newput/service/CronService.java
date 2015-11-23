@@ -67,8 +67,8 @@ public class CronService {
 	 */
 	public void weeklyEmailSendJob() {
 
-		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE"))) {
-
+//		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE"))) {
+		if (true) {
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
