@@ -8,24 +8,23 @@ public class SystemConfig {
 
 	public SystemConfig() {
 		props = new Properties();
-		props.setProperty("DAILY_CRON_SERVICE", System.getenv("DAILY_CRON_SERVICE"));
-		props.setProperty("DAILY_CRON_SERVICE_TIME", System.getenv("DAILY_CRON_SERVICE_TIME"));
-		props.setProperty("WEEKLY_CRON_SERVICE", System.getenv("WEEKLY_CRON_SERVICE"));
-		props.setProperty("WEEKLY_CRON_SERVICE_TIME", System.getenv("WEEKLY_CRON_SERVICE_TIME"));
-		props.setProperty("MONTHLY_CRON_SERVICE", System.getenv("MONTHLY_CRON_SERVICE"));
-		props.setProperty("MONTHLY_CRON_SERVICE_TIME", System.getenv("MONTHLY_CRON_SERVICE_TIME"));
-		props.setProperty("CLEARDB_DATABASE_URL", System.getenv("CLEARDB_DATABASE_URL"));
-		props.setProperty("WEBAPP_URL", System.getenv("WEBAPP_URL"));
-		props.setProperty("MAIL_USERID", System.getenv("MAIL_USERID"));
-		props.setProperty("MAIL_PASSWORD", System.getenv("MAIL_PASSWORD"));
+		props.setProperty("DAILY_CRON_SERVICE", System.getenv("DAILY_CRON_SERVICE").trim());
+		props.setProperty("DAILY_CRON_SERVICE_TIME", System.getenv("DAILY_CRON_SERVICE_TIME").trim());
+		props.setProperty("WEEKLY_CRON_SERVICE", System.getenv("WEEKLY_CRON_SERVICE").trim());
+		props.setProperty("WEEKLY_CRON_SERVICE_TIME", System.getenv("WEEKLY_CRON_SERVICE_TIME").trim());
+		props.setProperty("MONTHLY_CRON_SERVICE", System.getenv("MONTHLY_CRON_SERVICE").trim());
+		props.setProperty("MONTHLY_CRON_SERVICE_TIME", System.getenv("MONTHLY_CRON_SERVICE_TIME").trim());
+		props.setProperty("EDITING_DAYS", System.getenv("EDITING_DAYS").trim());
+		props.setProperty("CLEARDB_DATABASE_URL", System.getenv("CLEARDB_DATABASE_URL").trim());
+		props.setProperty("WEBAPP_URL", System.getenv("WEBAPP_URL").trim());
+		props.setProperty("MAIL_USERID", System.getenv("MAIL_USERID").trim());
+		props.setProperty("MAIL_PASSWORD", System.getenv("MAIL_PASSWORD").trim());
 		
-		props.setProperty("MAIL_PROTOCOL", System.getenv("MAIL_PROTOCOL"));
-		props.setProperty("MAIL_AUTH", System.getenv("MAIL_AUTH"));
-		props.setProperty("MAIL_ENABLE", System.getenv("MAIL_ENABLE"));
-		props.setProperty("MAIL_HOST", System.getenv("MAIL_HOST"));
-		props.setProperty("MAIL_PORT", System.getenv("MAIL_PORT"));
-		
-		props.setProperty("EDITING_DAYS", System.getenv("EDITING_DAYS"));
+		props.setProperty("MAIL_PROTOCOL", System.getenv("MAIL_PROTOCOL").trim());
+		props.setProperty("MAIL_AUTH", System.getenv("MAIL_AUTH").trim());
+		props.setProperty("MAIL_ENABLE", System.getenv("MAIL_ENABLE").trim());
+		props.setProperty("MAIL_HOST", System.getenv("MAIL_HOST").trim());
+		props.setProperty("MAIL_PORT", System.getenv("MAIL_PORT").trim());		
 		
 		setDataBaseInfo(get("CLEARDB_DATABASE_URL"));
 	}

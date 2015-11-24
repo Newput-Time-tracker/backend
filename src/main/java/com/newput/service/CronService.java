@@ -46,7 +46,6 @@ public class CronService {
 	 * Description : Schedule the Cron jobs for daily notification.
 	 */
 	public void dailyNotification() {
-
 		if (Boolean.parseBoolean(SystemConfig.get("DAILY_CRON_SERVICE"))) {
 			List<Employee> list = new ArrayList<Employee>();
 			EmployeeExample empExample = new EmployeeExample();
@@ -66,9 +65,7 @@ public class CronService {
 	 * Description : Schedule the Cron jobs for weekly mail sending.
 	 */
 	public void weeklyEmailSendJob() {
-
-//		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE"))) {
-		if (true) {
+		if (Boolean.parseBoolean(SystemConfig.get("WEEKLY_CRON_SERVICE"))) {
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
@@ -97,9 +94,7 @@ public class CronService {
 	 * Description : Schedule the Cron jobs for monthly mail sending.
 	 */
 	public void monthlyEmailSendJob() {
-		System.out.println("inside mail method");
 		if (Boolean.parseBoolean(SystemConfig.get("MONTHLY_CRON_SERVICE"))) {
-			System.out.println("inside if block");
 			Calendar cal = Calendar.getInstance();
 			Long currntStamp = cal.getTimeInMillis();
 
